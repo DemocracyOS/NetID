@@ -1,4 +1,9 @@
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
+fos_oauth_server_authorize:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
+
 pd_r_net_id:
     resource: "@PdRNetIdBundle/Resources/config/routing.yml"
     prefix:   /
-

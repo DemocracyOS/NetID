@@ -64,3 +64,10 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
+fos_oauth_server:
+    db_driver: orm
+    client_class:        PdR\NetIdBundle\Entity\Client
+    access_token_class:  PdR\NetIdBundle\Entity\AccessToken
+    refresh_token_class: PdR\NetIdBundle\Entity\RefreshToken
+    auth_code_class:     PdR\NetIdBundle\Entity\AuthCode

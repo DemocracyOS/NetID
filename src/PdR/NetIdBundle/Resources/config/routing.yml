@@ -1,3 +1,7 @@
 homepage:
     pattern:  /
     defaults: { _controller: PdRNetIdBundle:Default:index }
+
+homepage:
+    pattern:  /api
+    defaults: { _controller: PdRNetIdBundle:Default:index }

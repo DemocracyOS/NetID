@@ -1,5 +1,5 @@
 parameters:
-    database_driver:   pdo_mysql
+    database_driver:   %database.driver%
     database_host:     %database.host%
     database_port:     %database.port%
     database_name:     %database.name%
