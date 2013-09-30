@@ -50,7 +50,6 @@
             "dev-master": "2.3-dev"
         },
         "heroku": {
-            "framework": "symfony2",
             "document-root": "web",
             "index-document": "app.php"
         }
