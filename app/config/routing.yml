@@ -1,0 +1,4 @@
+pd_r_net_id:
+    resource: "@PdRNetIdBundle/Resources/config/routing.yml"
+    prefix:   /
+
