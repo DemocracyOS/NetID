@@ -25,7 +25,6 @@ class Client extends BaseClient
     public function __construct()
     {
         parent::__construct();
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getApplication()
@@ -40,10 +39,4 @@ class Client extends BaseClient
 
         return $this;
     }
-
-    /**
-     * @ManyToMany(targetEntity="User", mappedBy="applications")
-     * @ORM\JoinTable(name="users_applications")
-     */
-    private $users;
 }
