@@ -24,43 +24,36 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, nullable=false, unique=true)
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lastname;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="birth_date", type="date")
+     * @ORM\Column(name="birth_date", type="date", nullable=true)
      */
     private $birthDate;
 
     /**
      * @ORM\ManyToOne(targetEntity="LegalId", inversedBy="users")
-     * @ORM\JoinColumn(name="legal_id_type")
+     * @ORM\JoinColumn(name="legal_id_type", nullable=true)
      */
     private $legalIdType;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="legal_id", type="integer")
-     */
-    private $legalId;
 
     /**
      * @var datetime

@@ -1,0 +1,11 @@
+services:
+    sonata.admin.post:
+        class: PdR\NetIdBundle\Admin\UserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "User" }
+        arguments:
+            - ~
+            - PdR\NetIdBundle\Entity\User
+            - ~
+        calls:
+            - [ setTranslationDomain, [PdRNetIdBundle]]

@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: @PdRNetIdBundle/Resources/config/admin.yml }
 
 framework:
     #esi:             ~
@@ -71,6 +72,10 @@ fos_oauth_server:
     access_token_class:  PdR\NetIdBundle\Entity\AccessToken
     refresh_token_class: PdR\NetIdBundle\Entity\RefreshToken
     auth_code_class:     PdR\NetIdBundle\Entity\AuthCode
+
+sonata_admin:
+    title:      %admin.title%
+    title_logo: /bundles/pdrnetid/images/logo.png
 
 sonata_block:
     default_contexts: [cms]
