@@ -15,18 +15,10 @@ security:
             pattern:    ^/oauth/v2/token
             security:   false
 
-        oauth_authorize:
-            pattern:    ^/oauth/v2/auth
-            form_login:
-                provider: client_applications
-                check_path: _security_check
-                login_path: _demo_login
-            anonymous: true
-
         api:
-            pattern:    ^/api
+            pattern:    ^/users
             fos_oauth:  true
             stateless:  true
 
     access_control:
-        - { path: ^/api, roles: [ IS_AUTHENTICATED_FULLY ] }
+        - { path: ^/users, roles: [ IS_AUTHENTICATED_FULLY ] }
