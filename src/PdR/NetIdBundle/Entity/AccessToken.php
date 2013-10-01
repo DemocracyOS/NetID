@@ -24,7 +24,7 @@ class AccessToken extends BaseAccessToken
     protected $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PdR\NetIdBundle\Entity\ClientApplication")
+     * @ORM\ManyToOne(targetEntity="PdR\NetIdBundle\Entity\Client")
      */
     protected $user;
 }

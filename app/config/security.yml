@@ -8,7 +8,7 @@ security:
 
     providers:
         client_applications:
-            entity: { class: PdR\NetIdBundle\Entity\ClientApplication, property: description }
+            entity: { class: PdR\NetIdBundle\Entity\Client, property: application }
 
     firewalls:
         oauth_token:
