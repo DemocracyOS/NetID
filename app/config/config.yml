@@ -71,3 +71,9 @@ fos_oauth_server:
     access_token_class:  PdR\NetIdBundle\Entity\AccessToken
     refresh_token_class: PdR\NetIdBundle\Entity\RefreshToken
     auth_code_class:     PdR\NetIdBundle\Entity\AuthCode
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
