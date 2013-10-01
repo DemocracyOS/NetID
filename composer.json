@@ -19,7 +19,8 @@
         "sensio/framework-extra-bundle": "2.3.*",
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
-        "friendsofsymfony/oauth-server-bundle": "dev-master"
+        "friendsofsymfony/oauth-server-bundle": "dev-master",
+        "doctrine/doctrine-fixtures-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -53,7 +54,10 @@
         "heroku": {
             "document-root": "web",
             "index-document": "app.php",
-            "php-config": ["date.timezone=America/Argentina/Buenos_Aires"]
+            "php-config": ["date.timezone=America/Argentina/Buenos_Aires"],
+            "compile": [
+                "php app/console doctrine:fixtures:load"
+            ]
         }
     }
 }
