@@ -258,7 +258,6 @@ class User extends BaseUser
         if ($this->staff)
         {
             $roles[] = 'ROLE_ADMIN';
-            $roles[] = 'IS_AUTHENTICATED_REMEMBERED';
         }
         return $roles;
     }
