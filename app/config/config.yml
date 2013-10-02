@@ -75,11 +75,18 @@ fos_oauth_server:
     auth_code_class:     PdR\NetIdBundle\Entity\AuthCode
 
 sonata_admin:
-    title:      %admin.title%
+    title:      Partido de la Red - Admin
     title_logo: /bundles/pdrnetid/images/logo.png
+    templates:
+        layout:  PdRNetIdBundle:SonataAdminBundle:standard_layout.html.twig
 
 sonata_block:
     default_contexts: [cms]
     blocks:
         sonata.admin.block.admin_list:
             contexts:   [admin]
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: PdR\NetIdBundle\Entity\User

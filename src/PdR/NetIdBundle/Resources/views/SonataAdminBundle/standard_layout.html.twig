@@ -1,0 +1,9 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% block sonata_nav_menu %}
+	{{ parent() }}
+	<div class="pull-right navbar-text">
+		<b>{{ app.user.username }}</b>
+		(<a href="{{ path('fos_user_security_logout') }}">Logout</a>)
+	</div>
+{% endblock %}

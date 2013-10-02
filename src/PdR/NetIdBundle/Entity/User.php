@@ -4,6 +4,7 @@ namespace PdR\NetIdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
@@ -11,8 +12,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
-class User
+class User extends BaseUser
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * @var integer
      *
@@ -20,16 +26,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
-     * @Assert\NotBlank(message = "user.email.not_blank")
-     * @Assert\Email(message = "user.email.invalid")
-     */
-    private $email;
+    protected $id;
 
     /**
      * @var string
@@ -37,7 +34,7 @@ class User
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank(message = "user.name.not_blank")
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string
@@ -45,7 +42,7 @@ class User
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank(message = "user.lastname.not_blank")
      */
-    private $lastname;
+    protected $lastname;
 
     /**
      * @var \DateTime
@@ -53,21 +50,28 @@ class User
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Date(message="user.birthdate.invalid")
      */
-    private $birthdate;
+    protected $birthdate;
 
     /**
      * @ORM\ManyToOne(targetEntity="LegalId", inversedBy="users")
      * @ORM\JoinColumn(name="legal_id_type", nullable=true)
      * @Assert\NotNull
      */
-    private $legalIdType;
+    protected $legalIdType;
 
     /**
      * @var datetime
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $staff = false;
 
     /**
      * Get id
@@ -195,29 +199,6 @@ class User
     }
 
     /**
-     * Set email
-     *
-     * @param string $email
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
      * @ORM\PrePersist
      */
     public function setCreatedAtValue()
@@ -233,5 +214,52 @@ class User
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return User
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    
+        return $this;
+    }
+
+    /**
+     * Set staff
+     *
+     * @param boolean $staff
+     * @return User
+     */
+    public function setStaff($staff)
+    {
+        $this->staff = $staff;
+    
+        return $this;
+    }
+
+    /**
+     * Get staff
+     *
+     * @return boolean 
+     */
+    public function getStaff()
+    {
+        return $this->staff;
+    }
+
+    public function getRoles()
+    {
+        $roles = parent::getRoles();
+        if ($this->staff)
+        {
+            $roles[] = 'ROLE_ADMIN';
+            $roles[] = 'IS_AUTHENTICATED_REMEMBERED';
+        }
+        return $roles;
     }
 }

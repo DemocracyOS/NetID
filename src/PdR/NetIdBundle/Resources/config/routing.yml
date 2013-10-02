@@ -1,7 +1,3 @@
-homepage:
-    pattern:  /
-    defaults: { _controller: PdRNetIdBundle:Default:index }
-
-homepage:
+users:
     pattern:  /users
     defaults: { _controller: PdRNetIdBundle:Default:users }
