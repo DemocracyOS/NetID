@@ -59,7 +59,10 @@
             "index-document": "app.php",
             "php-config": ["date.timezone=America/Argentina/Buenos_Aires"],
             "compile": [
-                "php app/console doctrine:fixtures:load"
+                "php app/console doctrine:schema:update --force",
+                "php app/console doctrine:fixtures:load",
+                "php app/console assets:install web --symlink",
+                "php app/console cache:clear"
             ]
         }
     }
