@@ -1,0 +1,2 @@
+user.email.invalid: El email '{{ value }}' no es un email válido
+user.name.not_blank: El nombre no debe estar vacío

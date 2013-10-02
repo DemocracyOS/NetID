@@ -3,6 +3,7 @@
 namespace PdR\NetIdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -25,6 +26,8 @@ class User
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true, unique=true)
+     * @Assert\NotBlank(message = "user.email.not_blank")
+     * @Assert\Email(message = "user.email.invalid")
      */
     private $email;
 
@@ -32,6 +35,7 @@ class User
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message = "user.name.not_blank")
      */
     private $name;
 
@@ -39,19 +43,22 @@ class User
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message = "user.lastname.not_blank")
      */
     private $lastname;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="birth_date", type="date", nullable=true)
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\Date(message="user.birthdate.invalid")
      */
-    private $birthDate;
+    private $birthdate;
 
     /**
      * @ORM\ManyToOne(targetEntity="LegalId", inversedBy="users")
      * @ORM\JoinColumn(name="legal_id_type", nullable=true)
+     * @Assert\NotNull
      */
     private $legalIdType;
 
@@ -119,26 +126,26 @@ class User
     }
 
     /**
-     * Set birthDate
+     * Set birthdate
      *
-     * @param \DateTime $birthDate
+     * @param \DateTime $birthdate
      * @return User
      */
-    public function setBirthDate($birthDate)
+    public function setBirthdate($birthdate)
     {
-        $this->birthDate = $birthDate;
+        $this->birthdate = $birthdate;
     
         return $this;
     }
 
     /**
-     * Get birthDate
+     * Get birthdate
      *
      * @return \DateTime 
      */
-    public function getBirthDate()
+    public function getBirthdate()
     {
-        return $this->birthDate;
+        return $this->birthdate;
     }
 
     /**

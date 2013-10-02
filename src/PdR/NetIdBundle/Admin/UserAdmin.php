@@ -13,7 +13,10 @@ class UserAdmin extends Admin
     {
         $formMapper
             ->add('name')
-            ->add('lastname') 
+            ->add('lastname')
+            ->add('email')
+            ->add('birthdate', 'birthday', array('format' => 'ddMMyyyy'))
+            ->add('legalIdType')
         ;
     }
 
