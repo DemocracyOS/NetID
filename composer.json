@@ -58,7 +58,7 @@
             "document-root": "web",
             "index-document": "app.php",
             "php-config": ["date.timezone=America/Argentina/Buenos_Aires"],
-            "compile": ["php app/console assetic:dump --env=prod --no-debug"]
+            "compile": ["/app/vendor/php/bin/php app/console assetic:dump --env=prod --no-debug"]
         }
     }
 }
