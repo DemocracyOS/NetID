@@ -57,7 +57,7 @@
         "heroku": {
             "document-root": "web",
             "index-document": "app.php",
-            "php-config": ["date.timezone=America/Argentina/Buenos_Aires"],
+            "php-config": ["date.timezone=America/Argentina/Buenos_Aires"]
         }
     }
 }
