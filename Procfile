@@ -1,0 +1,1 @@
+web: whereis php
