@@ -6,4 +6,3 @@ php app/console assetic:dump --env=prod
 
 
 php app/console doctrine:schema:update --force
-php app/console doctrine:fixtures:load
