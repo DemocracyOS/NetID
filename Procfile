@@ -1,1 +1,1 @@
-web: ./install
+web: sh ./install.sh
