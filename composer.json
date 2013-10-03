@@ -7,7 +7,7 @@
         "psr-0": { "": "src/" }
     },
     "require": {
-        "php": ">=5.4.0",
+        "php": "5.5.3",
         "symfony/symfony": "2.3.5",
         "doctrine/orm": ">=2.2.3,<2.4-dev",
         "doctrine/doctrine-bundle": "1.2.0",
@@ -55,6 +55,7 @@
             "dev-master": "2.3-dev"
         },
         "heroku": {
+            "framework": "symfony2",
             "document-root": "web",
             "index-document": "app.php",
             "php-config": ["date.timezone=America/Argentina/Buenos_Aires"]
