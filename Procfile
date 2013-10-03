@@ -1,1 +1,1 @@
-web: php app/console assets:install --env=prod && sh bin/run
+web: php app/console assets:install --symlink --env=prod && sh bin/run
