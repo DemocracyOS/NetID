@@ -1,1 +1,1 @@
-web: php app:console assets:install --env=prod
+web: php /app/app:console assets:install --env=prod
