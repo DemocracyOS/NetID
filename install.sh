@@ -6,3 +6,4 @@ php app/console assetic:dump --env=prod
 
 
 php app/console doctrine:schema:update --force
+exec /app/apache/bin/httpd -DNO_DETACH
