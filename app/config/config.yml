@@ -75,7 +75,7 @@ fos_oauth_server:
 
 sonata_admin:
     title:      Partido de la Red - Admin
-    title_logo: "/bundles/pdrnetid/images/pdr logo.png"
+    title_logo: /bundles/pdrnetid/images/logo.png
     templates:
         layout:  PdRNetIdBundle:SonataAdminBundle:standard_layout.html.twig
 
