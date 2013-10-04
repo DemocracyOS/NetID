@@ -39,13 +39,6 @@ class UserAdmin extends Admin
             ->addIdentifier('email')
             ->add('name')
             ->add('lastname')
-            ->add('_action', 'actions', array(
-                    'actions' => array(
-                        'view' => array(),
-                        'edit' => array(),
-                    )
-                )
-            )
         ;
     }
 }
