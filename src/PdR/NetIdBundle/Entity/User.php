@@ -83,6 +83,12 @@ class User extends BaseUser
     protected $staff = false;
 
     /**
+     * @ORM\ManyToOne(targetEntity="District", inversedBy="users")
+     * @ORM\JoinColumn(name="district_id")
+     */
+    protected $district;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -271,9 +277,26 @@ class User extends BaseUser
         return $roles;
     }
 
-    public function setEmail($email)
+    /**
+     * Set district
+     *
+     * @param \PdR\NetIdBundle\Entity\District $district
+     * @return User
+     */
+    public function setDistrict(\PdR\NetIdBundle\Entity\District $district = null)
     {
-        parent::setEmail($email);
-        parent::setUsername($email);
+        $this->district = $district;
+    
+        return $this;
+    }
+
+    /**
+     * Get district
+     *
+     * @return \PdR\NetIdBundle\Entity\District 
+     */
+    public function getDistrict()
+    {
+        return $this->district;
     }
 }

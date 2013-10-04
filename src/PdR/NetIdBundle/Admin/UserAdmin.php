@@ -18,7 +18,10 @@ class UserAdmin extends Admin
             ->add('birthdate', 'birthday', array('format' => 'ddMMyyyy'))
             ->add('legalIdType')
             ->add('legalId')
-            ->add('password', 'password')
+            ->add('district')
+            ->setHelps(array(
+               'legalId' => 'Example: 33333333'
+            ));
         ;
     }
 
