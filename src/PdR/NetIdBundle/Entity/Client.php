@@ -4,6 +4,7 @@ namespace PdR\NetIdBundle\Entity;
 
 use FOS\OAuthServerBundle\Entity\Client as BaseClient;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -22,9 +23,15 @@ class Client extends BaseClient
      */
     protected $application;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Verb", mappedBy="application")
+     */
+    protected $verbs;
+
     public function __construct()
     {
         parent::__construct();
+        $this->verbs = new ArrayCollection();
     }
 
     public function getApplication()

@@ -1,2 +1,6 @@
+user.email.not_blank: The email no debe estar vacío
 user.email.invalid: El email '{{ value }}' no es un email válido
 user.name.not_blank: El nombre no debe estar vacío
+user.lastname.not_blank: El apellido no debe estar vacío
+user.birthdate.invalid: La fecha de nacimiento no es válida
+user.legal_id.invalid: El identificador legal debe contener sólo números

@@ -60,6 +60,15 @@ class User extends BaseUser
     protected $legalIdType;
 
     /**
+     * @ORM\Column(name="legal_id", nullable=true)
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     message="user.legal_id.invalid"
+     * )
+     */
+    protected $legalId;
+
+    /**
      * @var datetime
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -260,5 +269,11 @@ class User extends BaseUser
             $roles[] = 'ROLE_ADMIN';
         }
         return $roles;
+    }
+
+    public function setEmail($email)
+    {
+        parent::setEmail($email);
+        parent::setUsername($email);
     }
 }

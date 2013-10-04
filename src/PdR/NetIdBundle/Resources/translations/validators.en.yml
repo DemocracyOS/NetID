@@ -3,4 +3,4 @@ user.email.invalid: The email '{{ value }}' is not a valid email
 user.name.not_blank: The name should not be blank
 user.lastname.not_blank: The lastname should not be blank
 user.birthdate.invalid: The birthdate is not valid
-name: Nom
+user.legal_id.invalid: The legal id should contain only numbers

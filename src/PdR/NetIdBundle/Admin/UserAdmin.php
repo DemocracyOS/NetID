@@ -17,6 +17,8 @@ class UserAdmin extends Admin
             ->add('email')
             ->add('birthdate', 'birthday', array('format' => 'ddMMyyyy'))
             ->add('legalIdType')
+            ->add('legalId')
+            ->add('password', 'password')
         ;
     }
 
@@ -24,6 +26,7 @@ class UserAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('email')
             ->add('name')
             ->add('lastname')
         ;
@@ -33,8 +36,16 @@ class UserAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('name')
+            ->addIdentifier('email')
+            ->add('name')
             ->add('lastname')
+            ->add('_action', 'actions', array(
+                    'actions' => array(
+                        'view' => array(),
+                        'edit' => array(),
+                    )
+                )
+            )
         ;
     }
 }
