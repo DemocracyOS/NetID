@@ -4,6 +4,8 @@ namespace PdR\NetIdBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -12,9 +14,14 @@ class DefaultController extends Controller
         return $this->render('PdRNetIdBundle:Default:index.html.twig');
     }
 
-    public function usersAction()
+    public function usersAction(Request $request)
     {
-        $users = array('sacha', 'oscar', 'cristian', 'guido');
-        return new JsonResponse($users);
+    	$userRepository = $this->getDoctrine()->getManager()->getRepository('PdRNetIdBundle:User');
+        $users = $userRepository->findAll();
+        $userSerializer = $this->get('user_serializer');
+
+        $json = $userSerializer->serialize($users);
+
+        return new Response($json);
     }
 }

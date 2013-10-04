@@ -4,12 +4,15 @@ namespace PdR\NetIdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use \Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * LegalId
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ExclusionPolicy("all")
  */
 class LegalId
 {
@@ -31,11 +34,12 @@ class LegalId
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true, nullable=false)
+     * @Expose
      */
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="legalId")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="legalIdType")
      */
     private $users;
 

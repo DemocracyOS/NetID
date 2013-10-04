@@ -12,3 +12,7 @@ _sonata_admin:
     resource: .
     type: sonata_admin
     prefix: /admin
+
+users:
+    path:     /users
+    defaults: { _controller: PdRNetIdBundle:Default:users }

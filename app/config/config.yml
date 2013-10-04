@@ -89,3 +89,15 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: PdR\NetIdBundle\Entity\User
+
+services:
+    user_serializer:
+        class: PdR\NetIdBundle\Serializer\UserSerializer
+        arguments: ["@jms_serializer"]
+
+jms_serializer:
+    metadata:
+        directories:
+            fosub:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "%kernel.root_dir%/serializer/FOSUB"

@@ -5,12 +5,17 @@ namespace PdR\NetIdBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use FOS\UserBundle\Model\User as BaseUser;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\MaxDepth;
 
 /**
  * User
  *
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
+ * @ExclusionPolicy("all")
  */
 class User extends BaseUser
 {
@@ -33,6 +38,7 @@ class User extends BaseUser
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank(message = "user.name.not_blank")
+     * @Expose
      */
     protected $name;
 
@@ -41,6 +47,7 @@ class User extends BaseUser
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank(message = "user.lastname.not_blank")
+     * @Expose
      */
     protected $lastname;
 
@@ -49,6 +56,8 @@ class User extends BaseUser
      *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Date(message="user.birthdate.invalid")
+     * @Expose
+     * @Type("DateTime<'Y-m-d'>")
      */
     protected $birthdate;
 
@@ -56,6 +65,8 @@ class User extends BaseUser
      * @ORM\ManyToOne(targetEntity="LegalId", inversedBy="users")
      * @ORM\JoinColumn(name="legal_id_type", nullable=true)
      * @Assert\NotNull
+     * @Expose
+     * @MaxDepth(1)
      */
     protected $legalIdType;
 
@@ -85,6 +96,8 @@ class User extends BaseUser
     /**
      * @ORM\ManyToOne(targetEntity="District", inversedBy="users")
      * @ORM\JoinColumn(name="district_id")
+     * @Expose
+     * @Type("string")
      */
     protected $district;
 
