@@ -23,3 +23,10 @@ users_insert:
     methods: [GET]
     requirements:
         email: "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+
+root:
+    path:     /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /admin
+        permanent: true
