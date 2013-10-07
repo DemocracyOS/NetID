@@ -3,6 +3,7 @@ namespace PdR\NetIdBundle\Serializer;
 
 use JMS\Serializer\SerializerBuilder;
 use PdR\NetIdBundle\Entity\User;
+use JMS\Serializer\SerializationContext;
 
 class UserSerializer
 {
@@ -15,7 +16,10 @@ class UserSerializer
 
 	public function serialize($users)
 	{
-		$jsonContent = $this->serializer->serialize($users, 'json');
+		$context = new SerializationContext();
+    	$context->setSerializeNull(true);
+    	
+		$jsonContent = $this->serializer->serialize($users, 'json', $context);
 
 		return $jsonContent;
 	}

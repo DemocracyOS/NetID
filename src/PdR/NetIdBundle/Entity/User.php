@@ -16,6 +16,12 @@ use JMS\Serializer\Annotation\MaxDepth;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  * @ExclusionPolicy("all")
+ * @ORM\AttributeOverrides({
+ *      @ORM\AttributeOverride(name="password", column=@ORM\Column(type="string", name="password", length=255, unique=false, nullable=true)),
+ *      @ORM\AttributeOverride(name="salt", column=@ORM\Column(type="string", name="salt", length=255, unique=false, nullable=true)),
+ *      @ORM\AttributeOverride(name="username", column=@ORM\Column(type="string", name="username", length=255, unique=false, nullable=true)),
+ *      @ORM\AttributeOverride(name="usernameCanonical", column=@ORM\Column(type="string", name="username_canonical", length=255, unique=false, nullable=true))
+ * })
  */
 class User extends BaseUser
 {
@@ -67,6 +73,7 @@ class User extends BaseUser
      * @Assert\NotNull
      * @Expose
      * @MaxDepth(1)
+     * @Type("string")
      */
     protected $legalIdType;
 

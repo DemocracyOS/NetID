@@ -3,18 +3,13 @@
 namespace PdR\NetIdBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use PdR\NetIdBundle\Entity\User;
 
-class DefaultController extends Controller
+class UserController extends Controller
 {
-    public function indexAction()
-    {
-        return $this->render('PdRNetIdBundle:Default:index.html.twig');
-    }
-
-    public function usersAction(Request $request)
+    public function indexAction(Request $request)
     {
     	$userRepository = $this->getDoctrine()->getManager()->getRepository('PdRNetIdBundle:User');
         $users = $userRepository->findAll();
@@ -23,5 +18,16 @@ class DefaultController extends Controller
         $json = $userSerializer->serialize($users);
 
         return new Response($json);
+    }
+
+    public function insertAction($email)
+    {
+        $user = new User();
+        $user->setEmail($email);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($user);
+        $manager->flush();
+
+        return new Response($email);
     }
 }
