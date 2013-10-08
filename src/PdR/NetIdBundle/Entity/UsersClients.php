@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\SerializedName;
 
 /**
  * UsersClient
@@ -31,6 +32,8 @@ class UsersClients
      * @ORM\Id
      * @ORM\JoinColumn(name="client_id")
      * @Expose
+     * @Type("string")
+     * @SerializedName("appId")
      */
     private $client;
 
@@ -39,6 +42,7 @@ class UsersClients
      *
      * @ORM\Column
      * @Type("string")
+     * @Expose
      */
     private $foreignId;
 

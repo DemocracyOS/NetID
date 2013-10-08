@@ -1,0 +1,2 @@
+FOS\OAuthServerBundle\Model\Client:
+    exclusion_policy: all

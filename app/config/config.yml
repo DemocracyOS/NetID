@@ -97,7 +97,11 @@ services:
 
 jms_serializer:
     metadata:
+        auto_detection: true
         directories:
             fosub:
                 namespace_prefix: "FOS\\UserBundle"
-                path: "%kernel.root_dir%/serializer/FOSUB"
+                path: "@PdRNetIdBundle/Resources/serializer/FOSUB"
+            fos_ouath_client:
+                namespace_prefix: "FOS\\OAuthServerBundle"
+                path: "@PdRNetIdBundle/Resources/serializer/FOSOAuthClient"

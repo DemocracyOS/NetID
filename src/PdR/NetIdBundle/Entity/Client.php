@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Exclude;
 
 /**
  * @ORM\Entity

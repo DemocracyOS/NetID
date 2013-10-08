@@ -16,7 +16,7 @@ security:
             security:   false
 
         api:
-            pattern:    ^/apis
+            pattern:    ^/api
             fos_oauth:  true
             stateless:  true
 
