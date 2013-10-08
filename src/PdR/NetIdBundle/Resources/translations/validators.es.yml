@@ -4,3 +4,4 @@ user.name.not_blank: El nombre no debe estar vacío
 user.lastname.not_blank: El apellido no debe estar vacío
 user.birthdate.invalid: La fecha de nacimiento no es válida
 user.legal_id.invalid: El identificador legal debe contener sólo números
+user.client.duplicated: El cliente está duplicado

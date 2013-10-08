@@ -1,5 +1,5 @@
 services:
-    sonata.admin.post:
+    sonata.admin.user:
         class: PdR\NetIdBundle\Admin\UserAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Content", label: "User" }
@@ -9,3 +9,21 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PdRNetIdBundle]]
+
+    sonata.admin.usersclients:
+        class: PdR\NetIdBundle\Admin\UsersClientsAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "User clients" }
+        arguments:
+            - ~
+            - PdR\NetIdBundle\Entity\UsersClients
+            - ~
+
+    sonata.admin.client:
+        class: PdR\NetIdBundle\Admin\ClientAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Clients" }
+        arguments:
+            - ~
+            - PdR\NetIdBundle\Entity\Client
+            - ~

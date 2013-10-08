@@ -5,6 +5,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Validator\ErrorElement;
 
 class UserAdmin extends Admin
 {
@@ -18,11 +19,30 @@ class UserAdmin extends Admin
             ->add('birthdate', 'birthday', array('format' => 'ddMMyyyy'))
             ->add('legalIdType')
             ->add('legalId')
-            ->add('district')
             ->setHelps(array(
                'legalId' => 'Example: 33333333'
-            ));
-        ;
+            ))
+            ->add('district')
+            ->add('clients', 'sonata_type_collection', array('by_reference' => false), 
+                array('edit' => 'inline', 'inline' => 'table'));
+        
+    }
+
+    public function prePersist($user)
+    {
+        $this->persistClients($user);
+    }
+
+    public function preUpdate($user)
+    {
+        $this->persistClients($user);
+    }
+
+    protected function persistClients($user)
+    {
+        foreach ($user->getClients() as $client) {
+            $client->setUser($user);
+        }
     }
 
     // Fields to be shown on filter forms

@@ -4,3 +4,4 @@ user.name.not_blank: The name should not be blank
 user.lastname.not_blank: The lastname should not be blank
 user.birthdate.invalid: The birthdate is not valid
 user.legal_id.invalid: The legal id should contain only numbers
+user.client.duplicated: The client is duplicated for this user

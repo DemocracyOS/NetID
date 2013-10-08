@@ -9,6 +9,7 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\MaxDepth;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -17,16 +18,18 @@ use JMS\Serializer\Annotation\MaxDepth;
  * @ORM\HasLifecycleCallbacks()
  * @ExclusionPolicy("all")
  * @ORM\AttributeOverrides({
- *      @ORM\AttributeOverride(name="password", column=@ORM\Column(type="string", name="password", length=255, unique=false, nullable=true)),
- *      @ORM\AttributeOverride(name="salt", column=@ORM\Column(type="string", name="salt", length=255, unique=false, nullable=true)),
+ *      @ORM\AttributeOverride(name="password", column=@ORM\Column(type="string", name="password", length=255)),
+ *      @ORM\AttributeOverride(name="salt", column=@ORM\Column(type="string", name="salt", length=255, nullable=true)),
  *      @ORM\AttributeOverride(name="username", column=@ORM\Column(type="string", name="username", length=255, unique=false, nullable=true)),
  *      @ORM\AttributeOverride(name="usernameCanonical", column=@ORM\Column(type="string", name="username_canonical", length=255, unique=false, nullable=true))
  * })
+ * @Assert\Callback(methods={"isClientsValid"})
  */
 class User extends BaseUser
 {
     public function __construct()
     {
+        $this->clients = new ArrayCollection();
         parent::__construct();
     }
 
@@ -107,6 +110,12 @@ class User extends BaseUser
      * @Type("string")
      */
     protected $district;
+
+    /**
+     * @ORM\OneToMany(targetEntity="UsersClients", mappedBy="user", cascade="all", orphanRemoval=true)
+     * @Expose
+     */
+    protected $clients;
 
     /**
      * Get id
@@ -318,5 +327,53 @@ class User extends BaseUser
     public function getDistrict()
     {
         return $this->district;
+    }
+
+    
+    /**
+     * Add clients
+     *
+     * @param \PdR\NetIdBundle\Entity\UsersClients $clients
+     * @return Client
+     */
+    public function addClient(\PdR\NetIdBundle\Entity\UsersClients $clients)
+    {
+        $this->clients[] = $clients;
+    
+        return $this;
+    }
+
+    /**
+     * Remove clients
+     *
+     * @param \PdR\NetIdBundle\Entity\UsersClients $clients
+     */
+    public function removeClient(\PdR\NetIdBundle\Entity\UsersClients $clients)
+    {
+        $this->clients->removeElement($clients);
+    }
+
+    /**
+     * Get clients
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getClients()
+    {
+        return $this->clients;
+    }
+
+    public function isClientsValid(\Symfony\Component\Validator\ExecutionContextInterface $context)
+    {
+        $clients = array();
+        foreach ($this->clients as $client) {
+            if (!in_array($client->getClient(), $clients))
+            {
+                $clients[] = $client->getClient();
+            } else {
+                $context->addViolationAt('clients', 'user.client.duplicated', array(), null);
+                return;
+            }
+        }
     }
 }
