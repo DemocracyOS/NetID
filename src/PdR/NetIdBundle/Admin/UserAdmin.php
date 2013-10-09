@@ -24,7 +24,8 @@ class UserAdmin extends Admin
             ))
             ->add('district')
             ->add('clients', 'sonata_type_collection', array('by_reference' => false), 
-                array('edit' => 'inline', 'inline' => 'table'));
+                array('edit' => 'inline', 'inline' => 'table'))
+            ->add('staff', null, array('required' => false));
         
     }
 
