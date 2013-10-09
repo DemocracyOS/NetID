@@ -39,15 +39,54 @@ class UserController extends Controller
         if (!empty($content))
         {
             $params = json_decode($content, true);
+            $verb = $params['verb'];
+        } else {
+            return new JsonResponse(false);
         }
-        $headers = apache_request_headers();
-        var_dump($headers);exit;
-        $userRepository = $this->getDoctrine()->getManager()->getRepository('PdRNetIdBundle:User');
-        $user = $userRepository->findOneByEmail($email);
         
+        $token = $this->getRequestAccessToken();
+
+        if (!$token)
+        {
+            $response = array($verb => false);
+            return new JsonResponse($response);
+        }
+        
+        $foreignId = $params['foreignId'];
+        
+        $userRepository = $this->getDoctrine()->getManager()->getRepository('PdRNetIdBundle:User');
+        try { 
+            $user = $userRepository->findOneByClientTokenAndForeignId($token, $foreignId);
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            $user = null;
+        }
+
+        if (!$user)
+        {
+            $response = array($verb => false);
+            return new JsonResponse($response);
+        }
+
         $allowed = $user->isAllowed($verb);
         $response = array($verb => $allowed);
 
         return new JsonResponse($response);
+    }
+
+    protected function getRequestAccessToken()
+    {
+        $headers = apache_request_headers();
+        if (isset($headers['Authorization'])) {
+            $header = $headers['Authorization'];
+        } else {
+            $header = '';
+        }
+        if (!preg_match('/'.preg_quote('Bearer', '/').'\s(\S+)/', $header, $matches)) {          
+            return null;
+        }
+
+        $token = $matches[1];
+        
+        return $token;
     }
 }

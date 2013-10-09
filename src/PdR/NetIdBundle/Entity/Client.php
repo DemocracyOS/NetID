@@ -39,6 +39,11 @@ class Client extends BaseClient
      */
     protected $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AccessToken", mappedBy="client")
+     */
+    protected $tokens;
+
     public function __construct()
     {
         parent::__construct();
@@ -137,6 +142,6 @@ class Client extends BaseClient
 
     public function __toString()
     {
-        return 'fnjkasd';
+        return $this->application;
     }
 }

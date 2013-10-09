@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * User
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PdR\NetIdBundle\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks()
  * @ExclusionPolicy("all")
  * @Assert\Callback(methods={"isClientsValid"})
