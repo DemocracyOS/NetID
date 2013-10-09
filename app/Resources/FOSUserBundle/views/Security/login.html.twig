@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        {% stylesheets '@PdRNetIdBundle/Resources/public/css/login.css' %}
+		    <link rel="stylesheet" href="{{ asset_url }}" />
+		{% endstylesheets %}
+    </head>
+    <body>
+        <div>
+
+			<section class="login-box">
+				<header class="login-header">
+					<hgroup class="login-hgroup">
+						<img src="/bundles/pdrnetid/images/logo-white.png" alt="Partido de la Red - Admin">
+						<h1>Partido de la Red</h1>
+						<h2>Identificación de Usuarios</h2>
+					</hgroup>
+				</header>
+				<section class="login-body">
+					<div class="login-body-inner">
+						<form action="{{ path("fos_user_security_check") }}" method="post">
+							{% if error %}
+							    <div class="errors">{{ error|trans({}, 'FOSUserBundle') }}</div>
+							{% endif %}
+
+						    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+						    <div class="horizontal-control">
+							    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="{{ "Username" | trans }}" />
+						    </div>
+
+						    <div class="horizontal-control">
+							    <input type="password" id="password" name="_password" required="required" placeholder="{{ "Password" | trans }}" />
+							</div>
+
+						    <div class="horizontal-checkbox">
+							    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+							    <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
+							</div>
+
+						    <div class="login-form-bottom">
+							    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+							    <input type="reset" id="_reset" name="_reset" value="{{ 'security.login.reset'|trans }}" />
+							</div>
+						</form>
+					</div>
+				</section>
+			</section>     
+        </div>
+    </body>
+</html>
