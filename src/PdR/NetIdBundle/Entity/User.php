@@ -10,6 +10,8 @@ use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\MaxDepth;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * User
@@ -17,13 +19,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  * @ExclusionPolicy("all")
- * @ORM\AttributeOverrides({
- *      @ORM\AttributeOverride(name="password", column=@ORM\Column(type="string", name="password", length=255)),
- *      @ORM\AttributeOverride(name="salt", column=@ORM\Column(type="string", name="salt", length=255, nullable=true)),
- *      @ORM\AttributeOverride(name="username", column=@ORM\Column(type="string", name="username", length=255, unique=false, nullable=true)),
- *      @ORM\AttributeOverride(name="usernameCanonical", column=@ORM\Column(type="string", name="username_canonical", length=255, unique=false, nullable=true))
- * })
  * @Assert\Callback(methods={"isClientsValid"})
+ * @UniqueEntity(fields="email", message="user.email.duplicated")
  */
 class User extends BaseUser
 {
@@ -73,7 +70,6 @@ class User extends BaseUser
     /**
      * @ORM\ManyToOne(targetEntity="LegalId", inversedBy="users")
      * @ORM\JoinColumn(name="legal_id_type", nullable=true)
-     * @Assert\NotNull
      * @Expose
      * @MaxDepth(1)
      * @Type("string")
@@ -363,6 +359,11 @@ class User extends BaseUser
         return $this->clients;
     }
 
+    public function clearClients()
+    {
+        $this->clients = new ArrayCollection();
+    }
+
     public function isClientsValid(\Symfony\Component\Validator\ExecutionContextInterface $context)
     {
         $clients = array();
@@ -375,5 +376,21 @@ class User extends BaseUser
                 return;
             }
         }
+    }
+
+    public function setEmail($email)
+    {
+        $this->username = $email;
+        parent::setEmail($email);
+    }
+
+    protected function hasLegalId()
+    {
+        return isset($this->legalId);
+    }
+
+    public function isAllowed($verb)
+    {
+        return $this->hasLegalId();
     }
 }

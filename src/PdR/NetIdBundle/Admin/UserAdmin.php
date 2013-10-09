@@ -9,6 +9,13 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 
 class UserAdmin extends Admin
 {
+    protected $em;
+
+    public function setEntityManager($em)
+    {
+        $this->em = $em;
+    }
+
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -26,11 +33,11 @@ class UserAdmin extends Admin
             ->add('clients', 'sonata_type_collection', array('by_reference' => false), 
                 array('edit' => 'inline', 'inline' => 'table'))
             ->add('staff', null, array('required' => false));
-        
     }
 
     public function prePersist($user)
     {
+        $user->setPassword('');
         $this->persistClients($user);
     }
 
@@ -41,9 +48,17 @@ class UserAdmin extends Admin
 
     protected function persistClients($user)
     {
-        foreach ($user->getClients() as $client) {
+        $clients = $user->getClients();
+        $user->clearClients();
+        $this->em->persist($user);
+        $this->em->flush();
+        foreach ($clients as $client) {
+            $user->addClient($client);
             $client->setUser($user);
+            $this->em->persist($client);
         }
+        $this->em->persist($user);
+        $this->em->flush();
     }
 
     // Fields to be shown on filter forms

@@ -6,7 +6,7 @@ fos_user_security:
 
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /admin
+    prefix: /admin/
 
 _sonata_admin:
     resource: .
@@ -14,15 +14,20 @@ _sonata_admin:
     prefix: /admin
 
 users:
-    path:     /api/users
+    path:     /api/users/
     defaults: { _controller: PdRNetIdBundle:User:index }
 
 users_insert:
-    path:     /api/users/{email}
+    path:     /api/users/{email}/
     defaults: { _controller: PdRNetIdBundle:User:insert }
     methods: [GET]
     requirements:
         email: "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+
+users_verbs:
+    path:     /api/allowed/
+    defaults: { _controller: PdRNetIdBundle:User:allowed }
+    methods: [POST]
 
 root:
     path:     /

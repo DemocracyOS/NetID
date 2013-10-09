@@ -19,7 +19,7 @@ class UsersClients
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="clients", cascade="all")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="clients")
      * @ORM\Id
      * @ORM\JoinColumn(name="user_id")
      */
@@ -28,7 +28,7 @@ class UsersClients
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Client", inversedBy="users", cascade="all")
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="users")
      * @ORM\Id
      * @ORM\JoinColumn(name="client_id")
      * @Expose

@@ -9,6 +9,7 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PdRNetIdBundle]]
+            - [ setEntityManager, [@doctrine.orm.entity_manager]]
 
     sonata.admin.usersclients:
         class: PdR\NetIdBundle\Admin\UsersClientsAdmin

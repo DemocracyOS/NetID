@@ -1,5 +1,6 @@
 user.email.not_blank: The email should not be blank
 user.email.invalid: The email '{{ value }}' is not a valid email
+user.email.duplicated: The email is duplicated
 user.name.not_blank: The name should not be blank
 user.lastname.not_blank: The lastname should not be blank
 user.birthdate.invalid: The birthdate is not valid

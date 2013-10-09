@@ -14,6 +14,8 @@ use JMS\Serializer\Annotation\Expose;
  */
 class Client extends BaseClient
 {
+    const APPLICATION_DEMOCRACY_OS = 'democracyos';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

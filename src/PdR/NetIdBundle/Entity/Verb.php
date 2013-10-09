@@ -68,4 +68,27 @@ class Verb
     {
         return $this->name;
     }
+
+    /**
+     * Set application
+     *
+     * @param \PdR\NetIdBundle\Entity\Client $application
+     * @return Verb
+     */
+    public function setApplication(\PdR\NetIdBundle\Entity\Client $application = null)
+    {
+        $this->application = $application;
+    
+        return $this;
+    }
+
+    /**
+     * Get application
+     *
+     * @return \PdR\NetIdBundle\Entity\Client 
+     */
+    public function getApplication()
+    {
+        return $this->application;
+    }
 }
