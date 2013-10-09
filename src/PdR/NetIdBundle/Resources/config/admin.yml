@@ -13,7 +13,7 @@ services:
     sonata.admin.usersclients:
         class: PdR\NetIdBundle\Admin\UsersClientsAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "User clients" }
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "User clients", show_in_dashboard: false }
         arguments:
             - ~
             - PdR\NetIdBundle\Entity\UsersClients
@@ -22,7 +22,7 @@ services:
     sonata.admin.client:
         class: PdR\NetIdBundle\Admin\ClientAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Clients" }
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Clients", show_in_dashboard: false }
         arguments:
             - ~
             - PdR\NetIdBundle\Entity\Client
