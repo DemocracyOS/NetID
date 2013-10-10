@@ -21,16 +21,37 @@ class UserController extends Controller
         return new Response($json);
     }
 
-    public function insertAction($email)
+    public function insertAction()
     {
+        $content = $this->getRequest()->getContent();
+        if (!empty($content))
+        {
+            $params = json_decode($content, true);
+            if (isset($params['email']))
+            {
+                $email = $params['email'];   
+            } else {
+                $response = array('status' => 'error', 'error' => 'no email included in request');
+                return new JsonResponse($response);       
+            }
+        } else {
+            $response = array('status' => 'error', 'error' => 'no params included in request');
+            return new JsonResponse($response);   
+        }
         $user = new User();
         $user->setEmail($email);
         $user->setPassword('');
         $manager = $this->getDoctrine()->getManager();
         $manager->persist($user);
-        $manager->flush();
+        try {
+            $manager->flush();   
+        } catch (\Exception $e) {
+            $response = array('status' => 'error', 'error' => $e->getMessage());
+            return new JsonResponse($response);
+        }
 
-        return new Response($email);
+        $response = array('status' => 'ok');
+        return new JsonResponse($response);
     }
 
     public function allowedAction()

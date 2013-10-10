@@ -18,11 +18,9 @@ users:
     defaults: { _controller: PdRNetIdBundle:User:index }
 
 users_insert:
-    path:     /api/users/{email}/
+    path:     /api/users/new
     defaults: { _controller: PdRNetIdBundle:User:insert }
-    methods: [GET]
-    requirements:
-        email: "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    methods: [POST]
 
 users_verbs:
     path:     /api/allowed/
