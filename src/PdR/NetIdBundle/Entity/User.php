@@ -11,7 +11,7 @@ use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\MaxDepth;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * User
@@ -19,7 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="PdR\NetIdBundle\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks()
  * @ExclusionPolicy("all")
- * @Assert\Callback(methods={"isClientsValid"})
+ * @Assert\Callback(methods={"isClientsValid", "isLegalIdValid"})
  * @UniqueEntity(fields="email", message="user.email.duplicated")
  */
 class User extends BaseUser
@@ -364,17 +364,34 @@ class User extends BaseUser
         $this->clients = new ArrayCollection();
     }
 
-    public function isClientsValid(\Symfony\Component\Validator\ExecutionContextInterface $context)
+    public function isClientsValid(ExecutionContextInterface $context)
     {
         $clients = array();
+        $i = 0;
+        $error = false;
         foreach ($this->clients as $client) {
             if (!in_array($client->getClient(), $clients))
             {
                 $clients[] = $client->getClient();
             } else {
-                $context->addViolationAt('clients', 'user.client.duplicated', array(), null);
-                return;
+                $error = true;
+                $context->addViolationAt("clients[$i].client", 'user.client.duplicated', array(), null);
+                $j = array_search($client->getClient(), $clients);
+                $context->addViolationAt("clients[$j].client", 'user.client.duplicated', array(), null);
             }
+            $i++;
+        }
+        if ($error)
+        {
+            $context->addViolationAt("clients", 'user.client.duplicated', array(), null);
+        }
+    }
+
+    public function isLegalIdValid(ExecutionContextInterface $context)
+    {
+        if (isset($this->legalIdType) && !isset($this->legalId))
+        {
+            $context->addViolationAt('legalId', 'user.legalId.not.set', array(), null);
         }
     }
 

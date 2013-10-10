@@ -37,6 +37,7 @@
 	margin: 0;
 	margin-left: 90px;
 	text-transform: uppercase;
+	font-weight: normal;
 }
 
 .login-header h2

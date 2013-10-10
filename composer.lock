@@ -724,12 +724,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSOAuthServerBundle.git",
-                "reference": "e48ceba7a7678dc62854aab84c8b98c0f33b46aa"
+                "reference": "63606399946cb2d8b8db1f0375febedcc0723190"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSOAuthServerBundle/zipball/e48ceba7a7678dc62854aab84c8b98c0f33b46aa",
-                "reference": "e48ceba7a7678dc62854aab84c8b98c0f33b46aa",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSOAuthServerBundle/zipball/63606399946cb2d8b8db1f0375febedcc0723190",
+                "reference": "63606399946cb2d8b8db1f0375febedcc0723190",
                 "shasum": ""
             },
             "require": {
@@ -779,20 +779,20 @@
                 "oauth2",
                 "server"
             ],
-            "time": "2013-08-28 21:44:28"
+            "time": "2013-10-06 23:22:47"
         },
         {
             "name": "friendsofsymfony/oauth2-php",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/oauth2-php.git",
-                "reference": "e1037bfc98df15a5c46ff745a91de13c7f48f66a"
+                "reference": "f1c7fdf35cab264ca006e8189d8097166ebccf2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/oauth2-php/zipball/e1037bfc98df15a5c46ff745a91de13c7f48f66a",
-                "reference": "e1037bfc98df15a5c46ff745a91de13c7f48f66a",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/oauth2-php/zipball/f1c7fdf35cab264ca006e8189d8097166ebccf2a",
+                "reference": "f1c7fdf35cab264ca006e8189d8097166ebccf2a",
                 "shasum": ""
             },
             "require": {
@@ -830,7 +830,7 @@
                 "oauth",
                 "oauth2"
             ],
-            "time": "2013-07-24 06:48:28"
+            "time": "2013-10-08 22:55:49"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -839,12 +839,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "5e236332c3934fbc16b79eff3cf6ee9ee21b7519"
+                "reference": "f9ea1de0698e3055c9916e88c19f42e28844ef61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/5e236332c3934fbc16b79eff3cf6ee9ee21b7519",
-                "reference": "5e236332c3934fbc16b79eff3cf6ee9ee21b7519",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/f9ea1de0698e3055c9916e88c19f42e28844ef61",
+                "reference": "f9ea1de0698e3055c9916e88c19f42e28844ef61",
                 "shasum": ""
             },
             "require": {
@@ -899,7 +899,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-10-02 23:38:05"
+            "time": "2013-10-09 22:58:46"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1756,12 +1756,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "013456608134c704edb01ff9487d8a664200af11"
+                "reference": "37e87c9e7456b3186320639dda48278b717dbd1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/013456608134c704edb01ff9487d8a664200af11",
-                "reference": "013456608134c704edb01ff9487d8a664200af11",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/37e87c9e7456b3186320639dda48278b717dbd1e",
+                "reference": "37e87c9e7456b3186320639dda48278b717dbd1e",
                 "shasum": ""
             },
             "require": {
@@ -1826,7 +1826,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2013-10-04 10:31:12"
+            "time": "2013-10-10 08:12:10"
         },
         {
             "name": "sonata-project/block-bundle",

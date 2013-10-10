@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class UserAdmin extends Admin
 {
@@ -14,6 +15,11 @@ class UserAdmin extends Admin
     public function setEntityManager($em)
     {
         $this->em = $em;
+    }
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->remove('batch');
     }
 
     // Fields to be shown on create/edit forms
@@ -78,6 +84,13 @@ class UserAdmin extends Admin
             ->addIdentifier('email')
             ->add('name')
             ->add('lastname')
+            ->remove('batch')
+            ->add('_action', 'actions', array(
+                'actions' => array(
+                    'edit' => array(),
+                    'delete' => array(),
+                )
+            ));
         ;
     }
 }
