@@ -43,6 +43,8 @@ In order to install this application you shoud set the following config variable
 * SYMFONY__DATABASE__NAME: Database name.
 * SYMFONY__DATABASE__USER: Database login user.
 * SYMFONY__DATABASE__PASS: Database login password.
+* SYMFONY__ADMIN__USERNAME: Admin administration username.
+* SYMFONY__ADMIN__PASSWORD: Admin administration password.
 
 ## Useful links
 
