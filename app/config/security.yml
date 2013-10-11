@@ -8,7 +8,7 @@ security:
             id: fos_user.user_provider.username_email
         in_memory:
             memory:
-                users: [{ name: %admin_username%, password: %admin_password%, roles: 'ROLE_PDR' }]
+                users: [{ name: %admin.username%, password: %admin.password%, roles: 'ROLE_PDR' }]
 
     firewalls:
         oauth_token:
