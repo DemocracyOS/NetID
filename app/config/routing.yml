@@ -5,16 +5,16 @@ fos_oauth_server_token:
 #    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
 fos_user_security_login:
-    pattern: /admin/login
+    pattern: /admin/login/
     defaults: { _controller: FOSUserBundle:Security:login }
 
 fos_user_security_check:
-    pattern: /admin/login_check
+    pattern: /admin/login_check/
     defaults: { _controller: FOSUserBundle:Security:check }
     methods: [POST]
 
 fos_user_security_logout:
-    pattern: /admin/logout
+    pattern: /admin/logout/
     defaults: { _controller: FOSUserBundle:Security:logout }
 
 admin:
@@ -44,5 +44,5 @@ root:
     path:     /
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
-        path: /admin/login
+        path: /admin/login/
         permanent: true
