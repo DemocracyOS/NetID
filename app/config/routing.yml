@@ -1,8 +1,21 @@
 fos_oauth_server_token:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
 
-fos_user_security:
-    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+#fos_user_security:
+#    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_security_login:
+    pattern: /admin/login
+    defaults: { _controller: FOSUserBundle:Security:login }
+
+fos_user_security_check:
+    pattern: /admin/login_check
+    defaults: { _controller: FOSUserBundle:Security:check }
+    methods: [POST]
+
+fos_user_security_logout:
+    pattern: /admin/logout
+    defaults: { _controller: FOSUserBundle:Security:logout }
 
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
@@ -31,5 +44,5 @@ root:
     path:     /
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
-        path: /admin
+        path: /admin/login
         permanent: true
