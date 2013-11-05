@@ -43,7 +43,8 @@ class UserAdmin extends Admin
 
     public function prePersist($user)
     {
-        $user->setPassword('');
+        $user->setPlainPassword('123456');
+        $user->setEnabled(true);
         $this->persistClients($user);
     }
 
@@ -81,7 +82,8 @@ class UserAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('email')
+            ->addIdentifier('legalId')
+            ->add('legalIdType')
             ->add('name')
             ->add('lastname')
             ->remove('batch')
