@@ -7,16 +7,18 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class UserAdmin extends Admin
 {
     protected $em;
+    protected $baseRoutePattern = 'user';
 
     public function setEntityManager($em)
     {
         $this->em = $em;
     }
-
+    
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('batch');
@@ -39,6 +41,18 @@ class UserAdmin extends Admin
             ->add('clients', 'sonata_type_collection', array('by_reference' => false), 
                 array('edit' => 'inline', 'inline' => 'table'))
             ->add('staff', null, array('required' => false));
+    }
+
+    // Fields to be shown on show
+    protected function configureShowFields(ShowMapper $filter)
+    {
+        $filter
+            ->add('name')
+            ->add('lastname')
+            ->add('email')
+            ->add('birthdate', 'birthday', array('format' => 'ddMMyyyy'))
+            ->add('legalIdType')
+            ->add('legalId');
     }
 
     public function prePersist($user)
@@ -89,6 +103,7 @@ class UserAdmin extends Admin
             ->remove('batch')
             ->add('_action', 'actions', array(
                 'actions' => array(
+                    'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
                 )

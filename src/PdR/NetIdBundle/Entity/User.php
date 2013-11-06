@@ -297,7 +297,7 @@ class User extends BaseUser
         $roles = parent::getRoles();
         if ($this->staff)
         {
-            $roles[] = 'ROLE_ADMIN';
+            $roles[] = 'ROLE_STAFF';
         }
         return $roles;
     }

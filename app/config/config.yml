@@ -74,6 +74,8 @@ fos_oauth_server:
     auth_code_class:     PdR\NetIdBundle\Entity\AuthCode
 
 sonata_admin:
+    security:
+        handler: sonata.admin.security.handler.role
     title:      Partido de la Red - Admin
     title_logo: /bundles/pdrnetid/images/logo.png
     templates:
