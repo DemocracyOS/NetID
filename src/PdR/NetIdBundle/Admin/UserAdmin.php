@@ -40,7 +40,11 @@ class UserAdmin extends Admin
             ->add('district')
             ->add('clients', 'sonata_type_collection', array('by_reference' => false), 
                 array('edit' => 'inline', 'inline' => 'table'))
-            ->add('staff', null, array('required' => false));
+            ->add('staff', null, array('required' => false))
+            ;
+        if ($this->isGranted('ROLE_SUPER_ADMIN')) {
+            $formMapper->add('roles', 'choice', array('multiple'=>true, 'expanded' => true, 'choices' => array('ROLE_STAFF' => 'ROLE_STAFF', 'ROLE_SUPER_ADMIN' => 'ROLE_SUPER_ADMIN')));
+        }
     }
 
     // Fields to be shown on show
@@ -50,7 +54,7 @@ class UserAdmin extends Admin
             ->add('name')
             ->add('lastname')
             ->add('email')
-            ->add('birthdate', 'birthday', array('format' => 'ddMMyyyy'))
+            ->add('birthdate', null, array('format' => 'd/m/Y'))
             ->add('legalIdType')
             ->add('legalId');
     }
@@ -99,6 +103,7 @@ class UserAdmin extends Admin
             ->addIdentifier('legalId')
             ->add('legalIdType')
             ->add('name')
+            ->add('email')
             ->add('lastname')
             ->remove('batch')
             ->add('_action', 'actions', array(
