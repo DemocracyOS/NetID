@@ -8,6 +8,8 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class UserAdmin extends Admin
 {
@@ -24,9 +26,30 @@ class UserAdmin extends Admin
         $collection->remove('batch');
     }
 
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+        if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
+            $query = parent::createQuery($context);
+            $query->andWhere(
+                $query->getQueryBuilder()->expr()->not($query->getQueryBuilder()->expr()->like("o.roles", "'%ROLE_SUPER_ADMIN%'"))
+                )
+            ;
+        }
+        return $query;
+    }
+
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
+        if ($this->getSubject()->isSuperAdmin() && !$this->isGranted('ROLE_SUPER_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $choices = array(
+            'ROLE_STAFF' => 'Staff'
+        ,   'ROLE_ADMIN' => 'Admin'
+        ,   'ROLE_SUPER_ADMIN' => 'Super admin'
+        );
         $formMapper
             ->add('name')
             ->add('lastname')
@@ -40,10 +63,9 @@ class UserAdmin extends Admin
             ->add('district')
             ->add('clients', 'sonata_type_collection', array('by_reference' => false), 
                 array('edit' => 'inline', 'inline' => 'table'))
-            ->add('staff', null, array('required' => false))
             ;
         if ($this->isGranted('ROLE_SUPER_ADMIN')) {
-            $formMapper->add('roles', 'choice', array('multiple'=>true, 'expanded' => true, 'choices' => array('ROLE_STAFF' => 'ROLE_STAFF', 'ROLE_SUPER_ADMIN' => 'ROLE_SUPER_ADMIN')));
+            $formMapper->add('roles', 'choice', array('multiple'=>true, 'expanded' => true, 'choices' => $choices));
         }
     }
 
