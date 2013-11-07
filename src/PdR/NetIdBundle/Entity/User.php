@@ -93,13 +93,6 @@ class User extends BaseUser
     protected $createdAt;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    protected $staff = false;
-
-    /**
      * @ORM\ManyToOne(targetEntity="District", inversedBy="users")
      * @ORM\JoinColumn(name="district_id")
      * @Expose
@@ -270,39 +263,6 @@ class User extends BaseUser
     }
 
     /**
-     * Set staff
-     *
-     * @param boolean $staff
-     * @return User
-     */
-    public function setStaff($staff)
-    {
-        $this->staff = $staff;
-    
-        return $this;
-    }
-
-    /**
-     * Get staff
-     *
-     * @return boolean 
-     */
-    public function getStaff()
-    {
-        return $this->staff;
-    }
-
-    public function getRoles()
-    {
-        $roles = parent::getRoles();
-        if ($this->staff)
-        {
-            $roles[] = 'ROLE_STAFF';
-        }
-        return $roles;
-    }
-
-    /**
      * Set district
      *
      * @param \PdR\NetIdBundle\Entity\District $district
@@ -409,5 +369,10 @@ class User extends BaseUser
     public function isAllowed($verb)
     {
         return $this->hasLegalId();
+    }
+
+    public function isSuperAdmin()
+    {
+        return in_array('ROLE_SUPER_ADMIN', $this->roles);
     }
 }
