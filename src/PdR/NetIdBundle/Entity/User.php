@@ -360,6 +360,11 @@ class User extends BaseUser
         $this->userRoles->removeElement($role);
     }
 
+    public function getUserRoles()
+    {
+        return $this->userRoles;
+    }
+
     /**
      * Get roles
      */

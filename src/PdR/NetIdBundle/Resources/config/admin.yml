@@ -32,8 +32,18 @@ services:
     sonata.admin.role:
         class: PdR\NetIdBundle\Admin\RoleAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Role", show_in_dashboard: true }
+            - { name: sonata.admin, manager_type: orm, group: "Administration", label: "Role", show_in_dashboard: true }
         arguments:
             - ~
             - PdR\NetIdBundle\Entity\Role
+            - ~
+            - ~
+
+    sonata.admin.action:
+        class: PdR\NetIdBundle\Admin\ActionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Administration", label: "Action", show_in_dashboard: true }
+        arguments:
+            - ~
+            - PdR\NetIdBundle\Entity\Action
             - ~

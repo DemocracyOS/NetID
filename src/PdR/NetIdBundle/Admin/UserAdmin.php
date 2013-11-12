@@ -45,11 +45,6 @@ class UserAdmin extends Admin
         if ($this->getSubject()->isSuperAdmin() && !$this->isGranted('ROLE_SUPER_ADMIN')) {
             throw new AccessDeniedException();
         }
-        $choices = array(
-            'ROLE_STAFF' => 'Staff'
-        ,   'ROLE_ADMIN' => 'Admin'
-        ,   'ROLE_SUPER_ADMIN' => 'Super admin'
-        );
         $formMapper
             ->add('name')
             ->add('lastname')
@@ -65,7 +60,10 @@ class UserAdmin extends Admin
                 array('edit' => 'inline', 'inline' => 'table'))
             ;
         if ($this->isGranted('ROLE_SUPER_ADMIN')) {
-            $formMapper->add('roles', 'choice', array('multiple'=>true, 'expanded' => true, 'choices' => $choices));
+            $formMapper->add('plainPassword', 'password', array('required' => false));
+            $formMapper->with('Security')
+                        ->add('userRoles', 'sonata_type_model', array('multiple'=>true, 'expanded' => true))
+                        ->end();
         }
     }
 
