@@ -7,9 +7,10 @@ use Doctrine\Common\Persistence\ObjectManager;
 use PdR\NetIdBundle\Entity\User;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class Users implements FixtureInterface, ContainerAwareInterface
+class Users implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
 {
 	private $container;
 
@@ -21,23 +22,20 @@ class Users implements FixtureInterface, ContainerAwareInterface
     public function load(ObjectManager $manager)
     {
         $userManager = $this->container->get('fos_user.user_manager');
-        $sacha = $userManager->createUser();
-		$sacha->setUsername('slifszyc');
-		$sacha->setEmail('sacha.lifszyc@gmail.com');
-		$sacha->setPlainPassword('123456');
-		$sacha->setName('Sacha');
-		$sacha->setEnabled(true);
-		$sacha->setStaff(true);
+        $admin = $userManager->createUser();
+		$admin->setUsername('admin');
+		$admin->setPlainPassword('admin');
+		$admin->setEnabled(true);
 
-		$userManager->updateUser($sacha);
+		$roleRepository = $manager->getRepository('PdRNetIdBundle:Role');
+		$roleSuperAdmin = $roleRepository->findOneByName('ROLE_SUPER_ADMIN');
+		$admin->addRole($roleSuperAdmin);
 
-        $cristian = $userManager->createUser();
-		$cristian->setUsername('cdouce');
-		$cristian->setEmail('cristian.douce@gmail.com');
-		$cristian->setPlainPassword('123456');
-		$cristian->setName('Cristian');
-		$cristian->setEnabled(true);
+		$userManager->updateUser($admin);
+    }
 
-		$userManager->updateUser($cristian);
+    public function getOrder()
+    {
+        return 104;
     }
 }
