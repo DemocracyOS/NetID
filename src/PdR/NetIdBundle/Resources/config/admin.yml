@@ -28,3 +28,12 @@ services:
             - ~
             - PdR\NetIdBundle\Entity\Client
             - ~
+
+    sonata.admin.role:
+        class: PdR\NetIdBundle\Admin\RoleAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Role", show_in_dashboard: true }
+        arguments:
+            - ~
+            - PdR\NetIdBundle\Entity\Role
+            - ~

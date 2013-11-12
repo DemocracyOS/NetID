@@ -21,13 +21,26 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @ExclusionPolicy("all")
  * @Assert\Callback(methods={"isClientsValid", "isLegalIdValid"})
  * @UniqueEntity(fields="email", message="user.email.duplicated")
+ * @ORM\AttributeOverrides({
+ *      @ORM\AttributeOverride(name="email",
+ *          column=@ORM\Column(
+ *               nullable   = true
+ *          )
+ *      ),
+ *      @ORM\AttributeOverride(name="emailCanonical",
+ *          column=@ORM\Column(
+ *               nullable   = true
+ *          )
+ *      )
+ * })
  */
 class User extends BaseUser
 {
     public function __construct()
     {
-        $this->clients = new ArrayCollection();
         parent::__construct();
+        $this->clients = new ArrayCollection();
+        $this->userRoles = new ArrayCollection();
     }
 
     /**
@@ -105,6 +118,11 @@ class User extends BaseUser
      * @Expose
      */
     protected $clients;
+
+    /**
+    * @ORM\ManyToMany(targetEntity="Role")
+    */
+    protected $userRoles;
 
     /**
      * Get id
@@ -319,6 +337,42 @@ class User extends BaseUser
         return $this->clients;
     }
 
+    /**
+     * Add role
+     *
+     * @param \PdR\NetIdBundle\Entity\Role $role
+     * @return Role
+     */
+    public function addRole($role)
+    {
+        $this->userRoles[] = $role;
+    
+        return $this;
+    }
+
+    /**
+     * Remove Role
+     *
+     * @param \PdR\NetIdBundle\Entity\Role $roles
+     */
+    public function removeRole($role)
+    {
+        $this->userRoles->removeElement($role);
+    }
+
+    /**
+     * Get roles
+     */
+    public function getRoles()
+    {
+        $roles = array();
+        foreach ($this->userRoles as $role) {
+            $roles[] = $role->getName();
+            $roles = array_merge($roles, $role->getActionNames());
+        }
+        return $roles;
+    }
+
     public function clearClients()
     {
         $this->clients = new ArrayCollection();
@@ -373,6 +427,6 @@ class User extends BaseUser
 
     public function isSuperAdmin()
     {
-        return in_array('ROLE_SUPER_ADMIN', $this->roles);
+        return in_array('ROLE_SUPER_ADMIN', $this->getRoles());
     }
 }
