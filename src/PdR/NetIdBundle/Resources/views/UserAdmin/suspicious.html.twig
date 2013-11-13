@@ -1,0 +1,29 @@
+{% extends 'SonataAdminBundle:CRUD:show.html.twig' %}
+
+
+
+{% block actions %}
+    <div class="sonata-actions btn-group">
+        {% include 'SonataAdminBundle:Button:edit_button.html.twig' %}
+        {% include 'SonataAdminBundle:Button:create_button.html.twig' %}
+        {% include 'SonataAdminBundle:Button:list_button.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block show %}
+    <div class="well well-small form-actions">
+        Esta sgueor
+    </div>
+
+	<div class="well well-small form-actions">
+        <form method="POST" action="{{ admin.generateObjectUrl('mark_suspicious', object) }}">
+            <input type="hidden" name="_sonata_csrf_token" value="{{ csrf_token }}" />
+            <button type="submit" class="btn btn-danger"><i class="icon-trash icon-white"></i> {{ 'btn_delete'|trans({}, 'SonataAdminBundle') }}</button>
+            {% if admin.hasRoute('edit') and admin.isGranted('EDIT', object) %}
+                {{ 'delete_or'|trans({}, 'SonataAdminBundle') }}
+
+                {% include 'SonataAdminBundle:Button:list_button.html.twig' %}
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

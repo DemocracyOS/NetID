@@ -25,6 +25,8 @@ class UserAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('batch');
+        $collection->add('suspicious', $this->getRouterIdParameter().'/suspicious');
+        $collection->add('mark_suspicious', $this->getRouterIdParameter().'/mark_suspicious');
     }
 
     public function createQuery($context = 'list')
@@ -154,6 +156,7 @@ class UserAdmin extends Admin
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
+                    'suspicious' => array('template' => 'PdRNetIdBundle:UserAdmin:suspiciousButton.html.twig'),
                 )
             ));
         ;
