@@ -325,7 +325,7 @@ class UserLog
      *
      * @return string 
      */
-    public function getuser()
+    public function getUser()
     {
         return $this->user;
     }

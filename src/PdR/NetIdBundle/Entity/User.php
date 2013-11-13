@@ -120,8 +120,8 @@ class User extends BaseUser
     protected $clients;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Role")
-    */
+     * @ORM\ManyToMany(targetEntity="Role")
+     */
     protected $userRoles;
 
     /**
