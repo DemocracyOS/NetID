@@ -47,3 +47,12 @@ services:
             - ~
             - PdR\NetIdBundle\Entity\Action
             - ~
+
+    sonata.admin.action:
+        class: PdR\NetIdBundle\Admin\ActionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Log", label: "User log", show_in_dashboard: true }
+        arguments:
+            - ~
+            - PdR\NetIdBundle\Entity\UserLog
+            - ~
