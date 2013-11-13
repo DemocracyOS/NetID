@@ -135,6 +135,7 @@ class UserAdmin extends Admin
             ->add('email')
             ->add('name')
             ->add('lastname')
+            ->add('legalId')
         ;
     }
 
