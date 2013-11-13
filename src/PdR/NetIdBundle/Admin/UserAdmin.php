@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use PdR\NetIdBundle\Entity\UserLog;
 
 class UserAdmin extends Admin
 {
@@ -60,8 +61,9 @@ class UserAdmin extends Admin
                 array('edit' => 'inline', 'inline' => 'table'))
             ;
         if ($this->isGranted('ROLE_SUPER_ADMIN')) {
-            $formMapper->add('plainPassword', 'password', array('required' => false));
             $formMapper->with('Security')
+                        ->add('username')
+                        ->add('plainPassword', 'password', array('required' => false))
                         ->add('userRoles', 'sonata_type_model', array('multiple'=>true, 'expanded' => true))
                         ->end();
         }
@@ -89,6 +91,26 @@ class UserAdmin extends Admin
     public function preUpdate($user)
     {
         $this->persistClients($user);
+    }
+
+    public function postUpdate($user)
+    {
+        $this->logUser($user, 'UPD');
+    }
+
+    public function postInsert($user)
+    {
+        $this->logUser($user, 'INS');
+    }
+
+    protected function logUser($user, $action)
+    {
+        $userLog = new UserLog($user);
+        $securityContext = $this->getConfigurationPool()->getContainer()->get('security.context');
+        $userLog->setUser($securityContext->getToken()->getUser());
+        $userLog->setPerformedAction($action);
+        $this->em->persist($userLog);
+        $this->em->flush();
     }
 
     protected function persistClients($user)
