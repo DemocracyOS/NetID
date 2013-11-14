@@ -18,7 +18,7 @@ class Roles implements FixtureInterface, OrderedFixtureInterface
         $userActions[] = new Action('ROLE_SONATA_ADMIN_USER_EDIT');
         $userActions[] = new Action('ROLE_SONATA_ADMIN_USER_CREATE');
         $userActions[] = new Action('ROLE_SONATA_ADMIN_USER_DELETE');
-        $userActions[] = new Action('ROLE_SONATA_ADMIN_USER_EXPORT');
+        $userActions[] = $userExport = new Action('ROLE_SONATA_ADMIN_USER_EXPORT');
         
         $userActions[] = $roleList = new Action('ROLE_SONATA_ADMIN_ROLE_LIST');
         $userActions[] = $roleView = new Action('ROLE_SONATA_ADMIN_ROLE_VIEW');
@@ -52,10 +52,11 @@ class Roles implements FixtureInterface, OrderedFixtureInterface
         }
         $roles[] = $roleSuperAdmin;
         $roles[] = new Role('ROLE_ADMIN');
-        $roles[] = new Role('ROLE_STAFF');
-        $audit = new Role('ROLE_AUDIT');
+        $roles[] = new Role('ROLE_OPERATOR');
+        $audit = new Role('ROLE_AUDITOR');
         $audit->addAction($userList);
         $audit->addAction($userView);
+        $audit->addAction($userExport);
         $audit->addAction($roleList);
         $audit->addAction($roleView);
         $audit->addAction($actionList);

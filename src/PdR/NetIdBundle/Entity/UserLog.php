@@ -22,7 +22,7 @@ class UserLog
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Identity")
      */
     protected $user;
 

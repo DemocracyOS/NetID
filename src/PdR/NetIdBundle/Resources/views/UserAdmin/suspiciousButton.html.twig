@@ -1,11 +1,13 @@
-{% if not object.suspicious %}
-	<a href="{{ admin.generateObjectUrl('suspicious', object) }}" class="btn delete_link btn-small" title="{{ "Mark a user as suspicious" | trans }}">
-	    <i class="icon-warning-sign"></i>
-	    {{ "Suspicious user" | trans }}
-	</a>
-{% else %}
-	<a href="{{ admin.generateObjectUrl('unsuspicious', object) }}" class="btn delete_link btn-small" title="{{ "Mark a user as not suspicious" | trans }}">
-	    <i class="icon-ok"></i>
-	    {{ "Unsuspicious user" | trans }}
-	</a>
+{% if admin.isGranted('ROLE_SUPER_ADMIN') or admin.isGranted('ROLE_ADMIN') %}
+	{% if not object.suspicious %}
+		<a href="{{ admin.generateObjectUrl('suspicious', object) }}" class="btn delete_link btn-small" title="{{ "Mark identity as suspicious" | trans }}">
+		    <i class="icon-warning-sign"></i>
+		    {{ "Suspicious identity" | trans }}
+		</a>
+	{% else %}
+		<a href="{{ admin.generateObjectUrl('unsuspicious', object) }}" class="btn delete_link btn-small" title="{{ "Mark identity as not suspicious" | trans }}">
+		    <i class="icon-ok"></i>
+		    {{ "Unsuspicious identity" | trans }}
+		</a>
+	{% endif %}
 {% endif %}

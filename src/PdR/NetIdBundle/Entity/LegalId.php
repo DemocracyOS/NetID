@@ -18,7 +18,7 @@ class LegalId
 {
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->identities = new ArrayCollection();
     }
 
     /**
@@ -39,9 +39,9 @@ class LegalId
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="legalIdType")
+     * @ORM\OneToMany(targetEntity="Identity", mappedBy="legalIdType")
      */
-    private $users;
+    private $identities;
 
     /**
      * Get id
@@ -77,27 +77,26 @@ class LegalId
     }
 
     /**
-     * Set users
+     * Set identities
      *
      * @param string $name
      * @return LegalId
      */
-    public function setUsers($users)
+    public function setIdentities($identities)
     {
-        $this->users = $users;
+        $this->identities = $identities;
 
         return $this;
     }
 
-
     /**
-     * Get users
+     * Get identities
      *
      * @return ArrayCollection
      */
-    public function getUsers()
+    public function getIdentities()
     {
-        return $this->users;
+        return $this->identities;
     }
 
     public function __toString()

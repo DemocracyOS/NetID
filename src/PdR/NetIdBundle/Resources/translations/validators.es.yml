@@ -1,9 +1,9 @@
-user.email.not_blank: The email no debe estar vacío
-user.email.invalid: El email '{{ value }}' no es un email válido
-user.email.duplicated: El email ya se encuentra en uso
-user.name.not_blank: El nombre no debe estar vacío
-user.lastname.not_blank: El apellido no debe estar vacío
-user.birthdate.invalid: La fecha de nacimiento no es válida
-user.legal_id.invalid: El identificador legal debe contener sólo números
-user.client.duplicated: El cliente está duplicado
-user.legalId.not.set: Ingrese un ID legal para el tipo de ID legal seleccionado
+identity.email.not_blank: The email no debe estar vacío
+identity.email.invalid: El email '{{ value }}' no es un email válido
+identity.email.duplicated: El email ya se encuentra en uso
+identity.name.not_blank: El nombre no debe estar vacío
+identity.lastname.not_blank: El apellido no debe estar vacío
+identity.birthdate.invalid: La fecha de nacimiento no es válida
+identity.legal_id.invalid: El identificador legal debe contener sólo números
+identity.client.duplicated: El cliente está duplicado
+identity.legalId.not.set: Ingrese un ID legal para el tipo de ID legal seleccionado

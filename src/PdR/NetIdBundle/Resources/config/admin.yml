@@ -1,12 +1,12 @@
 services:
-    sonata.admin.user:
-        class: PdR\NetIdBundle\Admin\UserAdmin
+    sonata.admin.identity:
+        class: PdR\NetIdBundle\Admin\IdentityAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "User" }
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Identity" }
         arguments:
             - ~
-            - PdR\NetIdBundle\Entity\User
-            - 'PdRNetIdBundle:UserAdmin'
+            - PdR\NetIdBundle\Entity\Identity
+            - 'PdRNetIdBundle:IdentityAdmin'
         calls:
             - [ setTranslationDomain, [PdRNetIdBundle]]
             - [ setEntityManager, [@doctrine.orm.entity_manager]]
@@ -14,7 +14,7 @@ services:
     sonata.admin.usersclients:
         class: PdR\NetIdBundle\Admin\UsersClientsAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "User clients", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Identity clients", show_in_dashboard: false }
         arguments:
             - ~
             - PdR\NetIdBundle\Entity\UsersClients

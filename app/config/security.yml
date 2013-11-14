@@ -10,22 +10,6 @@ security:
             memory:
                 users: [{ name: %admin.username%, password: %admin.password%, roles: 'ROLE_PDR' }]
 
-    role_hierarchy:
-        ROLE_READER:
-            - ROLE_SONATA_ADMIN_USER_LIST
-            - ROLE_SONATA_ADMIN_USER_VIEW
-            - ROLE_SONATA_ADMIN_USERSCLIENTS_LIST
-            - ROLE_SONATA_ADMIN_USERSCLIENTS_VIEW
-        ROLE_ADMIN:
-            - ROLE_SONATA_ADMIN_USER_EDIT
-            - ROLE_SONATA_ADMIN_USER_CREATE
-            - ROLE_SONATA_ADMIN_USERSCLIENTS_EDIT
-            - ROLE_SONATA_ADMIN_USERSCLIENTS_CREATE
-            - ROLE_SONATA_ADMIN_USERSCLIENTS_DELETE
-        ROLE_SUPER_ADMIN:
-            - ROLE_SONATA_ADMIN_USER_DELETE
-            - ROLE_SONATA_ADMIN_USER_EXPORT
-        ROLE_STAFF: [ROLE_READER]
     firewalls:
         oauth_token:
             pattern:    ^/oauth/v2/token
@@ -58,4 +42,4 @@ security:
 
     access_control:
         - { path: ^/admin/login/, role: ROLE_PDR }
-        - { path: ^/admin/, role: [ROLE_STAFF, ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+        - { path: ^/admin/, role: [ROLE_AUDITOR, ROLE_OPERATOR, ROLE_ADMIN, ROLE_SUPER_ADMIN] }

@@ -9,26 +9,26 @@ use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\SerializedName;
 
 /**
- * UsersClient
+ * IdentitiesClient
  *
  * @ORM\Entity
  * @ExclusionPolicy("all")
  */
-class UsersClients
+class IdentitiesClients
 {
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="clients")
+     * @ORM\ManyToOne(targetEntity="Identity", inversedBy="clients")
      * @ORM\Id
-     * @ORM\JoinColumn(name="user_id")
+     * @ORM\JoinColumn(name="identity_id")
      */
-    private $user;
+    private $identity;
 
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Client", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="identities")
      * @ORM\Id
      * @ORM\JoinColumn(name="client_id")
      * @Expose
@@ -58,33 +58,33 @@ class UsersClients
     }
 
     /**
-     * Set user
+     * Set identity
      *
-     * @param \PdR\NetIdBundle\Entity\User $user
-     * @return UsersClient
+     * @param \PdR\NetIdBundle\Entity\Identity $identity
+     * @return IdentitiesClient
      */
-    public function setUser($user)
+    public function setIdentity($identity)
     {
-        $this->user = $user;
+        $this->identity = $identity;
     
         return $this;
     }
 
     /**
-     * Get user
+     * Get identity
      *
-     * @return \PdR\NetIdBundle\Entity\User 
+     * @return \PdR\NetIdBundle\Entity\Identity
      */
-    public function getUser()
+    public function getIdentity()
     {
-        return $this->user;
+        return $this->identity;
     }
 
     /**
      * Set client
      *
      * @param \PdR\NetIdBundle\Entity\Client $client
-     * @return UsersClient
+     * @return IdentitiesClient
      */
     public function setClient($client)
     {
@@ -107,7 +107,7 @@ class UsersClients
      * Set foreignId
      *
      * @param string $foreignId
-     * @return UsersClient
+     * @return IdentitiesClient
      */
     public function setForeignId($foreignId)
     {
