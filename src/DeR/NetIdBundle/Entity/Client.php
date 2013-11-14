@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation\Expose;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="client")
  * @ExclusionPolicy("all")
  */
 class Client extends BaseClient

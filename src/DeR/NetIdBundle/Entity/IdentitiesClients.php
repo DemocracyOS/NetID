@@ -12,6 +12,7 @@ use JMS\Serializer\Annotation\SerializedName;
  * IdentitiesClient
  *
  * @ORM\Entity
+ * @ORM\Table(name="identities_clients")
  * @ExclusionPolicy("all")
  */
 class IdentitiesClients

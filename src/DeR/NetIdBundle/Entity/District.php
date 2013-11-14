@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation\Expose;
 /**
  * District
  *
- * @ORM\Table()
+ * @ORM\Table(name="district")
  * @ORM\Entity
  * @ExclusionPolicy("all")
  */

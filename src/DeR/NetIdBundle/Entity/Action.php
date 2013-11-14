@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Action
  *
  * @ORM\Entity
+ * @ORM\Table(name="action")
  */
 class Action
 {

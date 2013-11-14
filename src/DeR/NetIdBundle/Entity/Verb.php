@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Verb
  *
+ * @ORM\Table(name="verb")
  * @ORM\Entity
  */
 class Verb

@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation\Expose;
 /**
  * LegalId
  *
- * @ORM\Table()
+ * @ORM\Table(name="legal_id")
  * @ORM\Entity
  * @ExclusionPolicy("all")
  */

@@ -13,12 +13,12 @@ class Roles implements FixtureInterface, OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $userActions = array();
-        $userActions[] = $userList = new Action('ROLE_SONATA_ADMIN_USER_LIST');
-        $userActions[] = $userView = new Action('ROLE_SONATA_ADMIN_USER_VIEW');
-        $userActions[] = new Action('ROLE_SONATA_ADMIN_USER_EDIT');
-        $userActions[] = new Action('ROLE_SONATA_ADMIN_USER_CREATE');
-        $userActions[] = new Action('ROLE_SONATA_ADMIN_USER_DELETE');
-        $userActions[] = $userExport = new Action('ROLE_SONATA_ADMIN_USER_EXPORT');
+        $userActions[] = $userList = new Action('ROLE_SONATA_ADMIN_IDENTITY_LIST');
+        $userActions[] = $userView = new Action('ROLE_SONATA_ADMIN_IDENTITY_VIEW');
+        $userActions[] = $userEdit = new Action('ROLE_SONATA_ADMIN_IDENTITY_EDIT');
+        $userActions[] = $userCreate = new Action('ROLE_SONATA_ADMIN_IDENTITY_CREATE');
+        $userActions[] = $userDelete = new Action('ROLE_SONATA_ADMIN_IDENTITY_DELETE');
+        $userActions[] = $userExport = new Action('ROLE_SONATA_ADMIN_IDENTITY_EXPORT');
         
         $userActions[] = $roleList = new Action('ROLE_SONATA_ADMIN_ROLE_LIST');
         $userActions[] = $roleView = new Action('ROLE_SONATA_ADMIN_ROLE_VIEW');
@@ -34,9 +34,9 @@ class Roles implements FixtureInterface, OrderedFixtureInterface
         $userActions[] = new Action('ROLE_SONATA_ADMIN_ACTION_DELETE');
         $userActions[] = new Action('ROLE_SONATA_ADMIN_ACTION_EXPORT');
 
-        $userActions[] = $identityLogList = new Action('ROLE_SONATA_ADMIN_USER_LOG_LIST');
-        $userActions[] = $identityLogView = new Action('ROLE_SONATA_ADMIN_USER_LOG_VIEW');
-        $userActions[] = $identityLogExport = new Action('ROLE_SONATA_ADMIN_USER_LOG_EXPORT');
+        $userActions[] = $identityLogList = new Action('ROLE_SONATA_ADMIN_IDENTITY_LOG_LIST');
+        $userActions[] = $identityLogView = new Action('ROLE_SONATA_ADMIN_IDENTITY_LOG_VIEW');
+        $userActions[] = $identityLogExport = new Action('ROLE_SONATA_ADMIN_IDENTITY_LOG_EXPORT');
 
         foreach ($userActions as $userAction) {
             $manager->persist($userAction);
@@ -51,7 +51,14 @@ class Roles implements FixtureInterface, OrderedFixtureInterface
             $roleSuperAdmin->addAction($action);
         }
         $roles[] = $roleSuperAdmin;
-        $roles[] = new Role('ROLE_ADMIN');
+        $admin = new Role('ROLE_ADMIN');
+        $admin->addAction($userList);
+        $admin->addAction($userView);
+        $admin->addAction($userExport);
+        $admin->addAction($userEdit);
+        $admin->addAction($userCreate);
+        $admin->addAction($userDelete);
+        $roles[] = $admin;
         $roles[] = new Role('ROLE_OPERATOR');
         $audit = new Role('ROLE_AUDITOR');
         $audit->addAction($userList);
