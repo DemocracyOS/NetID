@@ -10,13 +10,13 @@
 
 {% block show %}
     <div class="well well-small form-actions">
-        {{ "Are you sure you want to mark as suspicious this user?" | trans }}
+        {{ "Are you sure this user is not suspicious?" | trans }}
     </div>
 
 	<div class="well well-small form-actions">
-        <form method="POST" action="{{ admin.generateObjectUrl('mark_suspicious', object) }}">
+        <form method="POST" action="{{ admin.generateObjectUrl('mark_unsuspicious', object) }}">
             <input type="hidden" name="_sonata_csrf_token" value="{{ csrf_token }}" />
-            <button type="submit" class="btn btn-danger"><i class="icon-warning-sign icon-white"></i> {{ "Yes, mark as suspicious" | trans  }}</button>
+            <button type="submit" class="btn btn-success"><i class="icon-ok icon-white"></i> {{ "Yes, this user is not suspicious" | trans  }}</button>
             {% if admin.hasRoute('edit') and admin.isGranted('EDIT', object) %}
                 {{ 'delete_or'|trans({}, 'SonataAdminBundle') }}
 

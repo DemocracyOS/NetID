@@ -27,6 +27,8 @@ class UserAdmin extends Admin
         $collection->remove('batch');
         $collection->add('suspicious', $this->getRouterIdParameter().'/suspicious');
         $collection->add('mark_suspicious', $this->getRouterIdParameter().'/mark_suspicious');
+        $collection->add('unsuspicious', $this->getRouterIdParameter().'/unsuspicious');
+        $collection->add('mark_unsuspicious', $this->getRouterIdParameter().'/mark_unsuspicious');
     }
 
     public function createQuery($context = 'list')

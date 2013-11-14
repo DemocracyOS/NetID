@@ -386,11 +386,11 @@ class User extends BaseUser
     }
 
     /**
-     * Get suspicious
+     * Is suspicious
      *
      * @return boolean 
      */
-    public function getSuspicious()
+    public function isSuspicious()
     {
         return $this->suspicious;
     }

@@ -4,3 +4,4 @@ Content: Contenido
 Logout: Salir
 Administration: Administración
 flash_mark_suspicious_success: Usuario marcado como sospechoso
+flash_mark_unsuspicious_success: Usuario marcado como no sospechoso

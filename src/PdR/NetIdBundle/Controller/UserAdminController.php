@@ -8,9 +8,23 @@ use PdR\NetIdBundle\Entity\User;
 
 class UserAdminController extends CRUDController
 {
+    protected $id;
+
 	public function suspiciousAction($id)
 	{
-		$object = $this->admin->getObject($id);
+        $this->id = $id;
+        return $this->suspiciousyAction('PdRNetIdBundle:UserAdmin:suspicious.html.twig', 'suspicious');
+	}
+
+    public function unsuspiciousAction($id)
+    {
+        $this->id = $id;
+        return $this->suspiciousyAction('PdRNetIdBundle:UserAdmin:unsuspicious.html.twig', 'unsuspicious');
+    }
+
+    protected function suspiciousyAction($template, $action)
+    {
+        $object = $this->admin->getObject($this->id);
 
         if (!$object) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
@@ -20,24 +34,36 @@ class UserAdminController extends CRUDController
 
         $csrfToken = $this->getCsrfToken('suspicious');
 
-		return $this->render('PdRNetIdBundle:UserAdmin:suspicious.html.twig', array('object' => $object, 'action' => 'suspicious', 'csrf_token' => $csrfToken));
-	}
+        return $this->render($template, array('object' => $object, 'action' => $action, 'csrf_token' => $csrfToken));   
+    }
 
 	public function markSuspiciousAction($id)
 	{
-		$object = $this->admin->getObject($id);
+		$this->id = $id;
+        return $this->markSuspiciousy(true, 'flash_mark_suspicious_success');
+	}
+
+    public function markUnsuspiciousAction($id)
+    {
+        $this->id = $id;
+        return $this->markSuspiciousy(false, 'flash_mark_unsuspicious_success');
+    }
+
+    protected function markSuspiciousy($isSuspicious, $flashMessage)
+    {
+        $object = $this->admin->getObject($this->id);
 
         if (!$object) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
         }
 
-        $object->setSuspicious();
+        $object->setSuspicious($isSuspicious);
 
         $em = $this->getDoctrine()->getEntityManager();
         $em->persist($object);
         $em->flush();
 
-    	$this->addFlash('sonata_flash_success', 'flash_mark_suspicious_success');
+        $this->addFlash('sonata_flash_success', $flashMessage);
         return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
-	}
+    }
 }

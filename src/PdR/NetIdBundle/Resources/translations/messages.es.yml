@@ -5,4 +5,10 @@ Role List: Listado de Roles
 Actions: Acciones
 Name: Nombre
 Mark a user as suspicious: Marcar usuario como sospechoso
+Mark a user as not suspicious: Desmarcar usuario como sospechoso
 Suspicious user: Usuario sospechoso
+Unsuspicious user: Usuario no sospechoso
+Are you sure you want to mark as suspicious this user?: ¿Estás seguro que querés marcar como sospechoso a este usuario?
+Yes, mark as suspicious: Sí, marcar como sospechoso
+Are you sure this user is not suspicious?: ¿Estás seguro que este usuario no es sospechoso?
+Yes, this user is not suspicious: Sí, este usuario no es sospechoso
