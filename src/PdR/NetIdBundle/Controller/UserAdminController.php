@@ -4,6 +4,7 @@ namespace PdR\NetIdBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use PdR\NetIdBundle\Entity\User;
 
 class UserAdminController extends CRUDController
@@ -24,6 +25,10 @@ class UserAdminController extends CRUDController
 
     protected function suspiciousyAction($template, $action)
     {
+        $securityContext = $this->get('security.context');
+        if (!$securityContext->isGranted('ROLE_ADMIN') || !$securityContext->isGranted('ROLE_SUPER_ADMIN')) {
+            throw new AccessDeniedException();
+        }
         $object = $this->admin->getObject($this->id);
 
         if (!$object) {
@@ -51,6 +56,11 @@ class UserAdminController extends CRUDController
 
     protected function markSuspiciousy($isSuspicious, $flashMessage)
     {
+        $securityContext = $this->get('security.context');
+        if (!$securityContext->isGranted('ROLE_ADMIN') || !$securityContext->isGranted('ROLE_SUPER_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+
         $object = $this->admin->getObject($this->id);
 
         if (!$object) {

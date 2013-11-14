@@ -127,9 +127,9 @@ class User extends BaseUser
     /**
      * @var suspicious
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=false)
      */
-    protected $suspicious;
+    protected $suspicious = false;
 
     /**
      * Get id
