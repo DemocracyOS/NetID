@@ -25,6 +25,10 @@ class UserAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('batch');
+        $collection->add('suspicious', $this->getRouterIdParameter().'/suspicious');
+        $collection->add('mark_suspicious', $this->getRouterIdParameter().'/mark_suspicious');
+        $collection->add('unsuspicious', $this->getRouterIdParameter().'/unsuspicious');
+        $collection->add('mark_unsuspicious', $this->getRouterIdParameter().'/mark_unsuspicious');
     }
 
     public function createQuery($context = 'list')
@@ -135,6 +139,7 @@ class UserAdmin extends Admin
             ->add('email')
             ->add('name')
             ->add('lastname')
+            ->add('legalId')
         ;
     }
 
@@ -153,6 +158,7 @@ class UserAdmin extends Admin
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
+                    'suspicious' => array('template' => 'PdRNetIdBundle:UserAdmin:suspiciousButton.html.twig'),
                 )
             ));
         ;

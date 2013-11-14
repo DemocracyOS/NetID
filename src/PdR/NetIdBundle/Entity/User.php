@@ -125,6 +125,13 @@ class User extends BaseUser
     protected $userRoles;
 
     /**
+     * @var suspicious
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $suspicious;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -376,6 +383,29 @@ class User extends BaseUser
             $roles = array_merge($roles, $role->getActionNames());
         }
         return $roles;
+    }
+
+    /**
+     * Is suspicious
+     *
+     * @return boolean 
+     */
+    public function isSuspicious()
+    {
+        return $this->suspicious;
+    }
+
+    /**
+     * Set suspicious
+     *
+     * @param boolean $suspicious
+     * @return User
+     */
+    public function setSuspicious($suspicious = true)
+    {
+        $this->suspicious = $suspicious;
+    
+        return $this;
     }
 
     public function clearClients()

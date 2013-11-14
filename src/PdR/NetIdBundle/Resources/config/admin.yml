@@ -6,7 +6,7 @@ services:
         arguments:
             - ~
             - PdR\NetIdBundle\Entity\User
-            - ~
+            - 'PdRNetIdBundle:UserAdmin'
         calls:
             - [ setTranslationDomain, [PdRNetIdBundle]]
             - [ setEntityManager, [@doctrine.orm.entity_manager]]
