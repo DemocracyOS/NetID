@@ -7,3 +7,4 @@ identity.birthdate.invalid: La fecha de nacimiento no es válida
 identity.legal_id.invalid: El identificador legal debe contener sólo números
 identity.client.duplicated: El cliente está duplicado
 identity.legalId.not.set: Ingrese un ID legal para el tipo de ID legal seleccionado
+identity.username.duplicated: Ese nombre de usuario ya está en uso

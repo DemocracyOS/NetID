@@ -10,7 +10,6 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use PdR\NetIdBundle\Entity\UserLog;
 
 class IdentityAdmin extends Admin
 {
@@ -68,7 +67,7 @@ class IdentityAdmin extends Admin
             ;
         if ($this->isGranted('ROLE_SUPER_ADMIN')) {
             $formMapper->with('Security')
-                        ->add('username')
+                        ->add('username', null, array('required' => false, 'attr' => array('autocomplete' => 'off')))
                         ->add('plainPassword', 'password', array('required' => false))
                         ->add('userRoles', 'sonata_type_model', array('multiple'=>true, 'expanded' => true))
                         ->end();
@@ -89,7 +88,6 @@ class IdentityAdmin extends Admin
 
     public function prePersist($identity)
     {
-        $identity->setPlainPassword('');
         $identity->setEnabled(true);
         $this->persistClients($identity);
     }

@@ -22,7 +22,23 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @ExclusionPolicy("all")
  * @Assert\Callback(methods={"isClientsValid", "isLegalIdValid"})
  * @UniqueEntity(fields="email", message="identity.email.duplicated")
+ * @UniqueEntity(fields="username", message="identity.username.duplicated")
  * @ORM\AttributeOverrides({
+ *      @ORM\AttributeOverride(name="password",
+ *          column=@ORM\Column(
+ *               nullable   = true
+ *          )
+ *      ),
+ *      @ORM\AttributeOverride(name="username",
+ *          column=@ORM\Column(
+ *               nullable   = true
+ *          )
+ *      ),
+ *      @ORM\AttributeOverride(name="usernameCanonical",
+ *          column=@ORM\Column(
+ *               nullable   = true
+ *          )
+ *      ),
  *      @ORM\AttributeOverride(name="email",
  *          column=@ORM\Column(
  *               nullable   = true

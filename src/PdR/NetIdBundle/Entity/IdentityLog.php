@@ -5,26 +5,26 @@ namespace PdR\NetIdBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * User Log
+ * Identity Log
  *
- * This class is used to log every action performed to a user
+ * This class is used to log every action performed to an identity
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
- * @ORM\Table(name="user_log")
+ * @ORM\Table(name="identity_log")
  */
-class UserLog
+class IdentityLog
 {
     public function __toString()
     {
-        return $this->user->getUsername() . ' ' . $this->performedAction . ' on ' . $this->getFullname();
+        return $this->identity->getUsername() . ' ' . $this->performedAction . ' on ' . $this->getFullname();
     }
 
     /**
-     * @var string
+     * @var Identity
      *
      * @ORM\ManyToOne(targetEntity="Identity")
      */
-    protected $user;
+    protected $identity;
 
     /**
      * @var string
@@ -33,7 +33,7 @@ class UserLog
      */
     protected $performedAction;
 
-/**
+    /**
      * @var integer
      *
      * @ORM\Column(type="integer")
@@ -64,7 +64,7 @@ class UserLog
     protected $birthdate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="LegalId", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="LegalId")
      * @ORM\JoinColumn(name="legal_id_type", nullable=true)
      */
     protected $legalIdType;
@@ -82,7 +82,7 @@ class UserLog
     protected $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="District", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="District")
      * @ORM\JoinColumn(name="district_id")
      */
     protected $district;
@@ -94,14 +94,14 @@ class UserLog
      */
     protected $email;
 
-    public function __construct($user = null)
+    public function __construct($identity = null)
     {
-        $this->name = $user->getName();
-        $this->lastname = $user->getLastname();
-        $this->email = $user->getEmail();
-        $this->birthdate = $user->getBirthdate();
-        $this->legalIdT = $user->getLegalIdType();
-        $this->legalId = $user->getLegalId();
+        $this->name = $identity->getName();
+        $this->lastname = $identity->getLastname();
+        $this->email = $identity->getEmail();
+        $this->birthdate = $identity->getBirthdate();
+        $this->legalIdT = $identity->getLegalIdType();
+        $this->legalId = $identity->getLegalId();
     }
 
     /**
@@ -118,7 +118,7 @@ class UserLog
      * Set name
      *
      * @param string $name
-     * @return User
+     * @return IdentityLog
      */
     public function setName($name)
     {
@@ -141,7 +141,7 @@ class UserLog
      * Set lastname
      *
      * @param string $lastname
-     * @return User
+     * @return IdentityLog
      */
     public function setLastname($lastname)
     {
@@ -164,7 +164,7 @@ class UserLog
      * Set birthdate
      *
      * @param \DateTime $birthdate
-     * @return User
+     * @return IdentityLog
      */
     public function setBirthdate($birthdate)
     {
@@ -187,7 +187,7 @@ class UserLog
      * Set legalId
      *
      * @param integer $legalId
-     * @return User
+     * @return IdentityLog
      */
     public function setLegalId($legalId)
     {
@@ -210,7 +210,7 @@ class UserLog
      * Set legalIdType
      *
      * @param integer $legalIdType
-     * @return User
+     * @return IdentityLog
      */
     public function setLegalIdType($legalIdType)
     {
@@ -251,7 +251,7 @@ class UserLog
      * Set createdAt
      *
      * @param \DateTime $createdAt
-     * @return User
+     * @return IdentityLog
      */
     public function setCreatedAt($createdAt)
     {
@@ -264,7 +264,7 @@ class UserLog
      * Set district
      *
      * @param \PdR\NetIdBundle\Entity\District $district
-     * @return User
+     * @return IdentityLog
      */
     public function setDistrict(\PdR\NetIdBundle\Entity\District $district = null)
     {
@@ -287,7 +287,7 @@ class UserLog
      * Set performedAction
      *
      * @param string $performedAction
-     * @return UserLog
+     * @return IdentityLog
      */
     public function setPerformedAction($performedAction)
     {
@@ -308,26 +308,26 @@ class UserLog
 
 
     /**
-     * Set user
+     * Set identity
      *
-     * @param string $user
-     * @return UserLog
+     * @param Identity $identity
+     * @return IdentityLog
      */
-    public function setUser($user)
+    public function setIdentity($identity)
     {
-        $this->user = $user;
+        $this->identity = $identity;
     
         return $this;
     }
 
     /**
-     * Get user
+     * Get identity
      *
      * @return string 
      */
-    public function getUser()
+    public function getIdentity()
     {
-        return $this->user;
+        return $this->identity;
     }
 
     public function setEmail($email)
