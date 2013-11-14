@@ -36,9 +36,11 @@ class UserAdmin extends Admin
         $query = parent::createQuery($context);
         if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
             $query = parent::createQuery($context);
-            $query->andWhere(
-                $query->getQueryBuilder()->expr()->not($query->getQueryBuilder()->expr()->like("o.roles", "'%ROLE_SUPER_ADMIN%'"))
-                )
+            $query->getQueryBuilder()->leftJoin("o.userRoles", "r")
+                                    ->andWhere(
+                                        $query->getQueryBuilder()->expr()->notIn('r.name', array('ROLE_SUPER_ADMIN', 'ROLE_ADMIN'))
+                                    )
+
             ;
         }
         return $query;
@@ -148,7 +150,12 @@ class UserAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('legalId')
-            ->add('legalIdType')
+            ->add('legalIdType');
+        if ($this->isGranted('ROLE_SUPER_ADMIN'))
+        {
+            $listMapper->add('username');
+        }
+        $listMapper
             ->add('name')
             ->add('email')
             ->add('lastname')
@@ -162,5 +169,16 @@ class UserAdmin extends Admin
                 )
             ));
         ;
+    }
+
+    public function getExportFields()
+    {
+        $fields = array('legalIdType', 'legalId');
+        if ($this->isGranted('ROLE_SUPER_ADMIN'))
+        {
+            $fields[] = 'username';
+        }
+        $fields = array_merge($fields, array('name', 'email', 'lastname'));
+        return $fields;
     }
 }
