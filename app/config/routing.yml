@@ -28,16 +28,16 @@ _sonata_admin:
 
 users:
     path:     /api/users/
-    defaults: { _controller: PdRNetIdBundle:User:index }
+    defaults: { _controller: DeRNetIdBundle:User:index }
 
 users_insert:
     path:     /api/users/new
-    defaults: { _controller: PdRNetIdBundle:User:insert }
+    defaults: { _controller: DeRNetIdBundle:User:insert }
     methods: [POST]
 
 users_verbs:
     path:     /api/allowed/
-    defaults: { _controller: PdRNetIdBundle:User:allowed }
+    defaults: { _controller: DeRNetIdBundle:User:allowed }
     methods: [POST]
 
 root:

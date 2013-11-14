@@ -1,7 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: @PdRNetIdBundle/Resources/config/admin.yml }
+    - { resource: @DeRNetIdBundle/Resources/config/admin.yml }
 
 framework:
     #esi:             ~
@@ -68,18 +68,18 @@ swiftmailer:
 
 fos_oauth_server:
     db_driver: orm
-    client_class:        PdR\NetIdBundle\Entity\Client
-    access_token_class:  PdR\NetIdBundle\Entity\AccessToken
-    refresh_token_class: PdR\NetIdBundle\Entity\RefreshToken
-    auth_code_class:     PdR\NetIdBundle\Entity\AuthCode
+    client_class:        DeR\NetIdBundle\Entity\Client
+    access_token_class:  DeR\NetIdBundle\Entity\AccessToken
+    refresh_token_class: DeR\NetIdBundle\Entity\RefreshToken
+    auth_code_class:     DeR\NetIdBundle\Entity\AuthCode
 
 sonata_admin:
     security:
         handler: sonata.admin.security.handler.role
-    title:      Partido de la Red - Admin
-    title_logo: /bundles/pdrnetid/images/logo.png
+    title:      admin.title
+    title_logo: /bundles/dernetid/images/logo.png
     templates:
-        layout:  PdRNetIdBundle:SonataAdminBundle:standard_layout.html.twig
+        layout:  DeRNetIdBundle:SonataAdminBundle:standard_layout.html.twig
 
 sonata_block:
     default_contexts: [cms]
@@ -90,11 +90,11 @@ sonata_block:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: PdR\NetIdBundle\Entity\Identity
+    user_class: DeR\NetIdBundle\Entity\Identity
 
 services:
     identity_serializer:
-        class: PdR\NetIdBundle\Serializer\IdentitySerializer
+        class: DeR\NetIdBundle\Serializer\IdentitySerializer
         arguments: ["@jms_serializer"]
 
 jms_serializer:
@@ -103,7 +103,7 @@ jms_serializer:
         directories:
             fosub:
                 namespace_prefix: "FOS\\UserBundle"
-                path: "@PdRNetIdBundle/Resources/serializer/FOSUB"
+                path: "@DeRNetIdBundle/Resources/serializer/FOSUB"
             fos_ouath_client:
                 namespace_prefix: "FOS\\OAuthServerBundle"
-                path: "@PdRNetIdBundle/Resources/serializer/FOSOAuthClient"
+                path: "@DeRNetIdBundle/Resources/serializer/FOSOAuthClient"

@@ -1,7 +1,0 @@
-parameters:
-#    pd_r_net_id.example.class: PdR\NetIdBundle\Example
-
-services:
-#    pd_r_net_id.example:
-#        class: %pd_r_net_id.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
