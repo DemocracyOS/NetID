@@ -35,9 +35,9 @@ class Client extends BaseClient
     protected $verbs;
 
     /**
-     * @ORM\OneToMany(targetEntity="UsersClients", mappedBy="client")
+     * @ORM\OneToMany(targetEntity="IdentitiesClients", mappedBy="client")
      */
-    protected $users;
+    protected $identities;
 
     /**
      * @ORM\OneToMany(targetEntity="AccessToken", mappedBy="client")
@@ -48,7 +48,7 @@ class Client extends BaseClient
     {
         parent::__construct();
         $this->verbs = new ArrayCollection();
-        $this->users = new ArrayCollection();
+        $this->identities = new ArrayCollection();
     }
 
     public function getApplication()
@@ -108,36 +108,36 @@ class Client extends BaseClient
     }
 
     /**
-     * Add users
+     * Add identity
      *
-     * @param \PdR\NetIdBundle\Entity\UsersClients $users
+     * @param \PdR\NetIdBundle\Entity\IdentitiesClients $identity
      * @return Client
      */
-    public function addUser(\PdR\NetIdBundle\Entity\UsersClients $users)
+    public function addIdentity(\PdR\NetIdBundle\Entity\IdentitiesClients $identity)
     {
-        $this->users[] = $users;
+        $this->identities[] = $identity;
     
         return $this;
     }
 
     /**
-     * Remove users
+     * Remove identity
      *
-     * @param \PdR\NetIdBundle\Entity\UsersClients $users
+     * @param \PdR\NetIdBundle\Entity\IdentitiesClients $identities
      */
-    public function removeUser(\PdR\NetIdBundle\Entity\UsersClients $users)
+    public function removeIdentity(\PdR\NetIdBundle\Entity\IdentitiesClients $identity)
     {
-        $this->users->removeElement($users);
+        $this->identities->removeElement($identity);
     }
 
     /**
-     * Get users
+     * Get identities
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getUsers()
+    public function getIdentities()
     {
-        return $this->users;
+        return $this->identities;
     }
 
     public function __toString()

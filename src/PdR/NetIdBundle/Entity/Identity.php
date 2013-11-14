@@ -14,13 +14,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
- * User
+ * Identity
  *
- * @ORM\Entity(repositoryClass="PdR\NetIdBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="PdR\NetIdBundle\Repository\IdentityRepository")
+ * @ORM\Table(name="identity")
  * @ORM\HasLifecycleCallbacks()
  * @ExclusionPolicy("all")
  * @Assert\Callback(methods={"isClientsValid", "isLegalIdValid"})
- * @UniqueEntity(fields="email", message="user.email.duplicated")
+ * @UniqueEntity(fields="email", message="identity.email.duplicated")
  * @ORM\AttributeOverrides({
  *      @ORM\AttributeOverride(name="email",
  *          column=@ORM\Column(
@@ -34,7 +35,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  *      )
  * })
  */
-class User extends BaseUser
+class Identity extends BaseUser
 {
     public function __construct()
     {
@@ -56,7 +57,7 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message = "user.name.not_blank")
+     * @Assert\NotBlank(message = "identity.name.not_blank")
      * @Expose
      */
     protected $name;
@@ -65,7 +66,7 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message = "user.lastname.not_blank")
+     * @Assert\NotBlank(message = "identity.lastname.not_blank")
      * @Expose
      */
     protected $lastname;
@@ -74,7 +75,7 @@ class User extends BaseUser
      * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Date(message="user.birthdate.invalid")
+     * @Assert\Date(message="identity.birthdate.invalid")
      * @Expose
      * @Type("DateTime<'Y-m-d'>")
      */
@@ -93,7 +94,7 @@ class User extends BaseUser
      * @ORM\Column(name="legal_id", nullable=true)
      * @Assert\Regex(
      *     pattern="/\d/",
-     *     message="user.legal_id.invalid"
+     *     message="identity.legal_id.invalid"
      * )
      */
     protected $legalId;
@@ -106,7 +107,7 @@ class User extends BaseUser
     protected $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="District", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="District", inversedBy="identities")
      * @ORM\JoinColumn(name="district_id")
      * @Expose
      * @Type("string")
@@ -114,7 +115,7 @@ class User extends BaseUser
     protected $district;
 
     /**
-     * @ORM\OneToMany(targetEntity="UsersClients", mappedBy="user", cascade="all", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="IdentitiesClients", mappedBy="identity", cascade="all", orphanRemoval=true)
      * @Expose
      */
     protected $clients;
@@ -145,7 +146,7 @@ class User extends BaseUser
      * Set name
      *
      * @param string $name
-     * @return User
+     * @return Identity
      */
     public function setName($name)
     {
@@ -168,7 +169,7 @@ class User extends BaseUser
      * Set lastname
      *
      * @param string $lastname
-     * @return User
+     * @return Identity
      */
     public function setLastname($lastname)
     {
@@ -191,7 +192,7 @@ class User extends BaseUser
      * Set birthdate
      *
      * @param \DateTime $birthdate
-     * @return User
+     * @return Identity
      */
     public function setBirthdate($birthdate)
     {
@@ -214,7 +215,7 @@ class User extends BaseUser
      * Set legalId
      *
      * @param integer $legalId
-     * @return User
+     * @return Identity
      */
     public function setLegalId($legalId)
     {
@@ -237,7 +238,7 @@ class User extends BaseUser
      * Set legalIdType
      *
      * @param integer $legalIdType
-     * @return User
+     * @return Identity
      */
     public function setLegalIdType($legalIdType)
     {
@@ -278,7 +279,7 @@ class User extends BaseUser
      * Set createdAt
      *
      * @param \DateTime $createdAt
-     * @return User
+     * @return Identity
      */
     public function setCreatedAt($createdAt)
     {
@@ -291,7 +292,7 @@ class User extends BaseUser
      * Set district
      *
      * @param \PdR\NetIdBundle\Entity\District $district
-     * @return User
+     * @return Identity
      */
     public function setDistrict(\PdR\NetIdBundle\Entity\District $district = null)
     {
@@ -312,26 +313,26 @@ class User extends BaseUser
 
     
     /**
-     * Add clients
+     * Add client
      *
-     * @param \PdR\NetIdBundle\Entity\UsersClients $clients
+     * @param \PdR\NetIdBundle\Entity\IdentitiesClients $client
      * @return Client
      */
-    public function addClient(\PdR\NetIdBundle\Entity\UsersClients $clients)
+    public function addClient(\PdR\NetIdBundle\Entity\IdentitiesClients $client)
     {
-        $this->clients[] = $clients;
+        $this->clients[] = $client;
     
         return $this;
     }
 
     /**
-     * Remove clients
+     * Remove client
      *
-     * @param \PdR\NetIdBundle\Entity\UsersClients $clients
+     * @param \PdR\NetIdBundle\Entity\IdentityClients $client
      */
-    public function removeClient(\PdR\NetIdBundle\Entity\UsersClients $clients)
+    public function removeClient(\PdR\NetIdBundle\Entity\IdentitiesClients $client)
     {
-        $this->clients->removeElement($clients);
+        $this->clients->removeElement($client);
     }
 
     /**
@@ -399,7 +400,7 @@ class User extends BaseUser
      * Set suspicious
      *
      * @param boolean $suspicious
-     * @return User
+     * @return Identity
      */
     public function setSuspicious($suspicious = true)
     {
@@ -424,15 +425,15 @@ class User extends BaseUser
                 $clients[] = $client->getClient();
             } else {
                 $error = true;
-                $context->addViolationAt("clients[$i].client", 'user.client.duplicated', array(), null);
+                $context->addViolationAt("clients[$i].client", 'identity.client.duplicated', array(), null);
                 $j = array_search($client->getClient(), $clients);
-                $context->addViolationAt("clients[$j].client", 'user.client.duplicated', array(), null);
+                $context->addViolationAt("clients[$j].client", 'identity.client.duplicated', array(), null);
             }
             $i++;
         }
         if ($error)
         {
-            $context->addViolationAt("clients", 'user.client.duplicated', array(), null);
+            $context->addViolationAt("clients", 'identity.client.duplicated', array(), null);
         }
     }
 
@@ -440,7 +441,7 @@ class User extends BaseUser
     {
         if (isset($this->legalIdType) && !isset($this->legalId))
         {
-            $context->addViolationAt('legalId', 'user.legalId.not.set', array(), null);
+            $context->addViolationAt('legalId', 'identity.legalId.not.set', array(), null);
         }
     }
 

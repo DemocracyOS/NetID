@@ -5,22 +5,22 @@ namespace PdR\NetIdBundle\Controller;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use PdR\NetIdBundle\Entity\User;
+use PdR\NetIdBundle\Entity\Identity;
 
-class UserAdminController extends CRUDController
+class IdentityAdminController extends CRUDController
 {
     protected $id;
 
 	public function suspiciousAction($id)
 	{
         $this->id = $id;
-        return $this->suspiciousyAction('PdRNetIdBundle:UserAdmin:suspicious.html.twig', 'suspicious');
+        return $this->suspiciousyAction('PdRNetIdBundle:IdentityAdmin:suspicious.html.twig', 'suspicious');
 	}
 
     public function unsuspiciousAction($id)
     {
         $this->id = $id;
-        return $this->suspiciousyAction('PdRNetIdBundle:UserAdmin:unsuspicious.html.twig', 'unsuspicious');
+        return $this->suspiciousyAction('PdRNetIdBundle:IdentityAdmin:unsuspicious.html.twig', 'unsuspicious');
     }
 
     protected function suspiciousyAction($template, $action)

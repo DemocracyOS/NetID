@@ -4,7 +4,7 @@ namespace PdR\NetIdBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class UserRepository extends EntityRepository
+class IdentityRepository extends EntityRepository
 {
 	public function findOneByClientTokenAndForeignId($token, $foreignId)
     {

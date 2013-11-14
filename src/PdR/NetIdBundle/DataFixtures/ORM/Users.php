@@ -4,7 +4,6 @@ namespace PdR\NetIdBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use PdR\NetIdBundle\Entity\User;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;

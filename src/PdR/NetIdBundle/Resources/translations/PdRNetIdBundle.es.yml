@@ -1,15 +1,15 @@
-"Role": "Rol"
-"User": "Usuario"
-"Lastname": "Apellido"
-"Name": "Nombre"
-"Legal Id Type": "Tipo de documento"
-"Legal Id": "Número de documento"
-"Email": "Correo electrónico"
-"Birthdate": "Fecha de nacimiento"
-"District": "Provincia"
-"Clients": "Clientes"
-"Staff": "Miembro"
-"Action": "Acción"
-"User List": "Listado de Usuarios"
-"Role List": "Listado de Roles"
-"Actinos": "Acciones"
+Role: Rol
+Identity: Identidad
+Lastname: Apellido
+Name: Nombre
+Legal Id Type: Tipo de documento
+Legal Id: Número de documento
+Email: Correo electrónico
+Birthdate: Fecha de nacimiento
+District: Provincia
+Clients: Clientes
+Staff: Miembro
+Action: Acción
+Identity List: Listado de Identidades
+Role List: Listado de Roles
+Actinos: Acciones

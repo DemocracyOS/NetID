@@ -34,9 +34,9 @@ class District
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="district")
+     * @ORM\OneToMany(targetEntity="Identity", mappedBy="district")
      */
-    protected $users;
+    protected $identities;
 
     /**
      * Get id

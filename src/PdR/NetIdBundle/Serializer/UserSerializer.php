@@ -2,10 +2,9 @@
 namespace PdR\NetIdBundle\Serializer;
 
 use JMS\Serializer\SerializerBuilder;
-use PdR\NetIdBundle\Entity\User;
 use JMS\Serializer\SerializationContext;
 
-class UserSerializer
+class IdentitySerializer
 {
 	protected $serializer;
 

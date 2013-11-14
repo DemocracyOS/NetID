@@ -1,9 +1,9 @@
-user.email.not_blank: The email should not be blank
-user.email.invalid: The email '{{ value }}' is not a valid email
-user.email.duplicated: The email is duplicated
-user.name.not_blank: The name should not be blank
-user.lastname.not_blank: The lastname should not be blank
-user.birthdate.invalid: The birthdate is not valid
-user.legal_id.invalid: The legal id should contain only numbers
-user.client.duplicated: The client is duplicated for this user
-user.legalId.not.set: Insert a legal ID for the legal ID type selected
+identity.email.not_blank: The email should not be blank
+identity.email.invalid: The email '{{ value }}' is not a valid email
+identity.email.duplicated: The email is duplicated
+identity.name.not_blank: The name should not be blank
+identity.lastname.not_blank: The lastname should not be blank
+identity.birthdate.invalid: The birthdate is not valid
+identity.legal_id.invalid: The legal id should contain only numbers
+identity.client.duplicated: The client is duplicated for this identity
+identity.legalId.not.set: Insert a legal ID for the legal ID type selected

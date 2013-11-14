@@ -90,11 +90,11 @@ sonata_block:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: PdR\NetIdBundle\Entity\User
+    user_class: PdR\NetIdBundle\Entity\Identity
 
 services:
-    user_serializer:
-        class: PdR\NetIdBundle\Serializer\UserSerializer
+    identity_serializer:
+        class: PdR\NetIdBundle\Serializer\IdentitySerializer
         arguments: ["@jms_serializer"]
 
 jms_serializer:

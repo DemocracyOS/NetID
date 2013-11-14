@@ -12,10 +12,10 @@ use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use PdR\NetIdBundle\Entity\UserLog;
 
-class UserAdmin extends Admin
+class IdentityAdmin extends Admin
 {
     protected $em;
-    protected $baseRoutePattern = 'user';
+    protected $baseRoutePattern = 'identity';
 
     public function setEntityManager($em)
     {
@@ -87,31 +87,31 @@ class UserAdmin extends Admin
             ->add('legalId');
     }
 
-    public function prePersist($user)
+    public function prePersist($identity)
     {
-        $user->setPlainPassword('123456');
-        $user->setEnabled(true);
-        $this->persistClients($user);
+        $identity->setPlainPassword('');
+        $identity->setEnabled(true);
+        $this->persistClients($identity);
     }
 
-    public function preUpdate($user)
+    public function preUpdate($identity)
     {
-        $this->persistClients($user);
+        $this->persistClients($identity);
     }
 
-    public function postUpdate($user)
+    public function postUpdate($identity)
     {
-        $this->logUser($user, 'UPD');
+        $this->logIdentity($identity, 'UPD');
     }
 
-    public function postInsert($user)
+    public function postInsert($identity)
     {
-        $this->logUser($user, 'INS');
+        $this->logIdentity($identity, 'INS');
     }
 
-    protected function logUser($user, $action)
+    protected function logIdentity($identity, $action)
     {
-        $userLog = new UserLog($user);
+        $userLog = new UserLog($identity);
         $securityContext = $this->getConfigurationPool()->getContainer()->get('security.context');
         $userLog->setUser($securityContext->getToken()->getUser());
         $userLog->setPerformedAction($action);
@@ -119,18 +119,18 @@ class UserAdmin extends Admin
         $this->em->flush();
     }
 
-    protected function persistClients($user)
+    protected function persistClients($identity)
     {
-        $clients = $user->getClients();
-        $user->clearClients();
-        $this->em->persist($user);
+        $clients = $identity->getClients();
+        $identity->clearClients();
+        $this->em->persist($identity);
         $this->em->flush();
         foreach ($clients as $client) {
-            $user->addClient($client);
-            $client->setUser($user);
+            $identity->addClient($client);
+            $client->setUser($identity);
             $this->em->persist($client);
         }
-        $this->em->persist($user);
+        $this->em->persist($identity);
         $this->em->flush();
     }
 

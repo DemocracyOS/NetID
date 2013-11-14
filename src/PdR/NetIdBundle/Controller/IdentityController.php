@@ -6,17 +6,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use PdR\NetIdBundle\Entity\User;
+use PdR\NetIdBundle\Entity\Identity;
 
-class UserController extends Controller
+class IdentityController extends Controller
 {
     public function indexAction(Request $request)
     {
-    	$userRepository = $this->getDoctrine()->getManager()->getRepository('PdRNetIdBundle:User');
-        $users = $userRepository->findAll();
-        $userSerializer = $this->get('user_serializer');
+    	$identityRepository = $this->getDoctrine()->getManager()->getRepository('PdRNetIdBundle:Identity');
+        $identities = $identityRepository->findAll();
+        $identitySerializer = $this->get('identity_serializer');
 
-        $json = $userSerializer->serialize($users);
+        $json = $identitySerializer->serialize($identities);
 
         return new Response($json);
     }
@@ -38,11 +38,11 @@ class UserController extends Controller
             $response = array('status' => 'error', 'error' => 'no params included in request');
             return new JsonResponse($response);   
         }
-        $user = new User();
-        $user->setEmail($email);
-        $user->setPassword('');
+        $identity = new Identity();
+        $identity->setEmail($email);
+        $identity->setPassword('');
         $manager = $this->getDoctrine()->getManager();
-        $manager->persist($user);
+        $manager->persist($identity);
         try {
             $manager->flush();   
         } catch (\Exception $e) {
@@ -75,20 +75,20 @@ class UserController extends Controller
         
         $foreignId = $params['foreignId'];
         
-        $userRepository = $this->getDoctrine()->getManager()->getRepository('PdRNetIdBundle:User');
+        $identityRepository = $this->getDoctrine()->getManager()->getRepository('PdRNetIdBundle:Identity');
         try { 
-            $user = $userRepository->findOneByClientTokenAndForeignId($token, $foreignId);
+            $identity = $identityRepository->findOneByClientTokenAndForeignId($token, $foreignId);
         } catch (\Doctrine\ORM\NoResultException $e) {
-            $user = null;
+            $identity = null;
         }
 
-        if (!$user)
+        if (!$identity)
         {
             $response = array($verb => false);
             return new JsonResponse($response);
         }
 
-        $allowed = $user->isAllowed($verb);
+        $allowed = $identity->isAllowed($verb);
         $response = array($verb => $allowed);
 
         return new JsonResponse($response);
