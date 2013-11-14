@@ -1,5 +1,12 @@
 {% extends 'SonataAdminBundle::standard_layout.html.twig' %}
 
+{% block logo %}
+	<a href="{{ url('sonata_admin_dashboard') }}" class="brand">
+	    <img src="{{ asset(admin_pool.titlelogo) }}"  alt="{{ admin_pool.title }}" />
+	    {{ admin_pool.title | trans }}
+	</a>
+{% endblock %}
+
 {% block sonata_nav_menu %}
 	{{ parent() }}
 	<div class="pull-right navbar-text">

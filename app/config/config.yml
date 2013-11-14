@@ -76,7 +76,7 @@ fos_oauth_server:
 sonata_admin:
     security:
         handler: sonata.admin.security.handler.role
-    title:      admin.title
+    title:      Net ID - Administration
     title_logo: /bundles/dernetid/images/logo.png
     templates:
         layout:  DeRNetIdBundle:SonataAdminBundle:standard_layout.html.twig
