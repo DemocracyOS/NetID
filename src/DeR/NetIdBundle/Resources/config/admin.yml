@@ -1,0 +1,58 @@
+services:
+    sonata.admin.identity:
+        class: DeR\NetIdBundle\Admin\IdentityAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Identity" }
+        arguments:
+            - ~
+            - DeR\NetIdBundle\Entity\Identity
+            - 'DeRNetIdBundle:IdentityAdmin'
+        calls:
+            - [ setTranslationDomain, [DeRNetIdBundle]]
+            - [ setEntityManager, [@doctrine.orm.entity_manager]]
+
+    sonata.admin.identitiesclients:
+        class: DeR\NetIdBundle\Admin\IdentitiesClientsAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Identity clients", show_in_dashboard: false }
+        arguments:
+            - ~
+            - DeR\NetIdBundle\Entity\IdentitiesClients
+            - ~
+
+    sonata.admin.client:
+        class: DeR\NetIdBundle\Admin\ClientAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Clients", show_in_dashboard: false }
+        arguments:
+            - ~
+            - DeR\NetIdBundle\Entity\Client
+            - ~
+
+    sonata.admin.role:
+        class: DeR\NetIdBundle\Admin\RoleAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Administration", label: "Role", show_in_dashboard: true }
+        arguments:
+            - ~
+            - DeR\NetIdBundle\Entity\Role
+            - ~
+            - ~
+
+    sonata.admin.action:
+        class: DeR\NetIdBundle\Admin\ActionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Administration", label: "Action", show_in_dashboard: true }
+        arguments:
+            - ~
+            - DeR\NetIdBundle\Entity\Action
+            - ~
+
+    sonata.admin.identitylog:
+        class: DeR\NetIdBundle\Admin\ActionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Log", label: "Identity log", show_in_dashboard: true }
+        arguments:
+            - ~
+            - DeR\NetIdBundle\Entity\IdentityLog
+            - ~

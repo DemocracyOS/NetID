@@ -8,7 +8,7 @@ security:
             id: fos_user.user_provider.username_email
         in_memory:
             memory:
-                users: [{ name: %admin.username%, password: %admin.password%, roles: 'ROLE_PDR' }]
+                users: [{ name: %admin.username%, password: %admin.password%, roles: 'ROLE_DeR' }]
 
     firewalls:
         oauth_token:
@@ -41,5 +41,5 @@ security:
                 invalidate_session: false
 
     access_control:
-        - { path: ^/admin/login/, role: ROLE_PDR }
+        - { path: ^/admin/login/, role: ROLE_DeR }
         - { path: ^/admin/, role: [ROLE_AUDITOR, ROLE_OPERATOR, ROLE_ADMIN, ROLE_SUPER_ADMIN] }
