@@ -3,6 +3,7 @@
 namespace DeR\NetIdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use FOS\UserBundle\Model\User as BaseUser;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -18,6 +19,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  *
  * @ORM\Entity(repositoryClass="DeR\NetIdBundle\Repository\IdentityRepository")
  * @ORM\Table(name="identity")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\HasLifecycleCallbacks()
  * @ExclusionPolicy("all")
  * @Assert\Callback(methods={"isClientsValid", "isLegalIdValid"})
@@ -157,6 +159,13 @@ class Identity extends BaseUser
      * @ORM\Column(type="boolean", nullable=false)
      */
     protected $suspicious = false;
+
+    /**
+     * @var deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    protected $deletedAt;
 
     /**
      * Get id
@@ -435,6 +444,29 @@ class Identity extends BaseUser
         return $this;
     }
 
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     * @return Identity
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+    
+        return $this;
+    }
+
     public function clearClients()
     {
         $this->clients = new ArrayCollection();
@@ -490,6 +522,11 @@ class Identity extends BaseUser
     public function isSuperAdmin()
     {
         return in_array('ROLE_SUPER_ADMIN', $this->getRoles());
+    }
+
+    public function isAdmin()
+    {
+        return in_array('ROLE_ADMIN', $this->getRoles());
     }
     
     public function getFullname()

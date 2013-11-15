@@ -21,6 +21,18 @@ class IdentityAdmin extends Admin
     {
         $this->em = $em;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configure()
+    {
+        if ($this->isGranted('ROLE_SUPER_ADMIN'))
+        {
+            $filters = $this->em->getFilters();
+            $filters->disable('softdeleteable');
+        }
+    }
     
     protected function configureRoutes(RouteCollection $collection)
     {
@@ -38,7 +50,10 @@ class IdentityAdmin extends Admin
             $query = parent::createQuery($context);
             $query->getQueryBuilder()->leftJoin("o.userRoles", "r")
                                     ->andWhere(
-                                        $query->getQueryBuilder()->expr()->notIn('r.name', array('ROLE_SUPER_ADMIN', 'ROLE_ADMIN'))
+                                        $query->getQueryBuilder()->expr()->orX(
+                                            $query->getQueryBuilder()->expr()->isNull('r.name'),
+                                            $query->getQueryBuilder()->expr()->notIn('r.name', array('ROLE_SUPER_ADMIN', 'ROLE_ADMIN'))
+                                      )
                                     )
 
             ;
@@ -49,7 +64,7 @@ class IdentityAdmin extends Admin
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
-        if ($this->getSubject()->isSuperAdmin() && !$this->isGranted('ROLE_SUPER_ADMIN')) {
+        if (($this->getSubject()->isSuperAdmin() || $this->getSubject()->isAdmin()) && !$this->isGranted('ROLE_SUPER_ADMIN')) {
             throw new AccessDeniedException();
         }
         $formMapper
