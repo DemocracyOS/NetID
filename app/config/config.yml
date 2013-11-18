@@ -1,5 +1,5 @@
 imports:
-    - { resource: parameters.yml }
+#    - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: @DeRNetIdBundle/Resources/config/admin.yml }
 
