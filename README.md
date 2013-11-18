@@ -34,6 +34,7 @@ Or set the `BUILDPACK_URL` config var on an existing app:
 Dependencies on `./composer.json` will be installed when pushed to heroku server.
 
 ### Heroku Settings
+First of all enable environment variables through `heroku labs:enable user-env-compile`
 In order to install this application you shoud set the following config variables.
 
 #### Database
