@@ -38,6 +38,8 @@ class Roles implements FixtureInterface, OrderedFixtureInterface
         $userActions[] = $identityLogView = new Action('ROLE_SONATA_ADMIN_IDENTITY_LOG_VIEW');
         $userActions[] = $identityLogExport = new Action('ROLE_SONATA_ADMIN_IDENTITY_LOG_EXPORT');
 
+        $userActions[] = new Action('ROLE_ACCESS'); /* Action created to access the dashboard, required if a custom role is created */
+
         foreach ($userActions as $userAction) {
             $manager->persist($userAction);
         }

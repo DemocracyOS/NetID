@@ -3,18 +3,20 @@
 namespace DeR\NetIdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Role
  *
  * @ORM\Table(name="role")
  * @ORM\Entity
+ * @UniqueEntity(fields="name", message="role.name.duplicated")
  */
 class Role
 {
     public function __toString()
     {
-        return $this->name;
+        return $this->name ? $this->name : '';
     }
 
     /**

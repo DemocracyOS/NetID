@@ -8,3 +8,5 @@ identity.legal_id.invalid: The legal id should contain only numbers
 identity.client.duplicated: The client is duplicated for this identity
 identity.legalId.not.set: Insert a legal ID for the legal ID type selected
 identity.username.duplicated: The username is duplicated
+
+role.name.duplicated: The name is duplicated

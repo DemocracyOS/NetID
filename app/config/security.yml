@@ -42,4 +42,4 @@ security:
 
     access_control:
         - { path: ^/admin/login/, role: ROLE_DeR }
-        - { path: ^/admin/, role: [ROLE_AUDITOR, ROLE_OPERATOR, ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+        - { path: ^/admin/, role: [ROLE_ACCESS, ROLE_AUDITOR, ROLE_OPERATOR, ROLE_ADMIN, ROLE_SUPER_ADMIN] }
