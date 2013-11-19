@@ -104,6 +104,12 @@ fos_user:
     user_class: DeR\NetIdBundle\Entity\Identity
 
 services:
+    login_listener:
+        class: 'DeR\NetIdBundle\Listener\LoginListener'
+        arguments: ['@doctrine']
+        tags:
+            - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+
     identity_serializer:
         class: DeR\NetIdBundle\Serializer\IdentitySerializer
         arguments: ["@jms_serializer"]
