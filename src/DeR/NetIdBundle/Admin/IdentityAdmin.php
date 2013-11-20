@@ -128,7 +128,7 @@ class IdentityAdmin extends Admin
         $this->logIdentity($identity, 'DEL');
     }
 
-    protected function logIdentity($object, $action)
+    public function logIdentity($object, $action)
     {
         $securityContext = $this->getConfigurationPool()->getContainer()->get('security.context');
         $subject = $securityContext->getToken()->getUser();
