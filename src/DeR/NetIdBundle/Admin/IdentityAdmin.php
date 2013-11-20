@@ -118,18 +118,17 @@ class IdentityAdmin extends Admin
         $this->logIdentity($identity, 'UPD');
     }
 
-    public function postInsert($identity)
+    public function postPersist($identity)
     {
         $this->logIdentity($identity, 'INS');
     }
 
-    protected function logIdentity($identity, $action)
+    protected function logIdentity($object, $action)
     {
-        $identityLog = new IdentityLog($identity);
         $securityContext = $this->getConfigurationPool()->getContainer()->get('security.context');
-        $identityLog->setIdentity($securityContext->getToken()->getUser());
-        $identityLog->setPerformedAction($action);
-        $this->em->persist($identity);
+        $subject = $securityContext->getToken()->getUser();
+        $identityLog = new IdentityLog($subject, $action, $object);
+        $this->em->persist($identityLog);
         $this->em->flush();
     }
 

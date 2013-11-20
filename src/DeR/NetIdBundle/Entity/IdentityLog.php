@@ -19,19 +19,12 @@ class IdentityLog
         return $this->identity->getUsername() . ' ' . $this->performedAction . ' on ' . $this->getFullname();
     }
 
-    /**
-     * @var Identity
-     *
-     * @ORM\ManyToOne(targetEntity="Identity")
-     */
-    protected $identity;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="performed_action", length=5)
-     */
-    protected $performedAction;
+    public function __construct($subject, $performedAction, $object)
+    {
+        $this->subject = $subject;
+        $this->performedAction = $performedAction;
+        $this->object = $object;
+    }
 
     /**
      * @var integer
@@ -43,66 +36,34 @@ class IdentityLog
     protected $id;
 
     /**
+     * @var Identity
+     *
+     * @ORM\ManyToOne(targetEntity="Identity")
+     * @ORM\JoinColumn(name="subject_id")
+     */
+    protected $subject;
+
+    /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(name="performed_action", length=5)
      */
-    protected $name;
+    protected $performedAction;
 
     /**
-     * @var string
+     * @var Identity
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Identity")
+     * @ORM\JoinColumn(name="object_id")
      */
-    protected $lastname;
+    protected $object;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="date", nullable=true)
-     */
-    protected $birthdate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="LegalId")
-     * @ORM\JoinColumn(name="legal_id_type", nullable=true)
-     */
-    protected $legalIdType;
-
-    /**
-     * @ORM\Column(name="legal_id", nullable=true)
-     */
-    protected $legalId;
-
-    /**
-     * @var date
+     * @var datetime
      *
      * @ORM\Column(name="date", type="datetime")
      */
     protected $date;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="District")
-     * @ORM\JoinColumn(name="district_id")
-     */
-    protected $district;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    protected $email;
-
-    public function __construct($identity = null)
-    {
-        $this->name = $identity->getName();
-        $this->lastname = $identity->getLastname();
-        $this->email = $identity->getEmail();
-        $this->birthdate = $identity->getBirthdate();
-        $this->legalIdT = $identity->getLegalIdType();
-        $this->legalId = $identity->getLegalId();
-    }
 
     /**
      * Get id
@@ -112,175 +73,6 @@ class IdentityLog
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return IdentityLog
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set lastname
-     *
-     * @param string $lastname
-     * @return IdentityLog
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-    
-        return $this;
-    }
-
-    /**
-     * Get lastname
-     *
-     * @return string 
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * Set birthdate
-     *
-     * @param \DateTime $birthdate
-     * @return IdentityLog
-     */
-    public function setBirthdate($birthdate)
-    {
-        $this->birthdate = $birthdate;
-    
-        return $this;
-    }
-
-    /**
-     * Get birthdate
-     *
-     * @return \DateTime 
-     */
-    public function getBirthdate()
-    {
-        return $this->birthdate;
-    }
-
-    /**
-     * Set legalId
-     *
-     * @param integer $legalId
-     * @return IdentityLog
-     */
-    public function setLegalId($legalId)
-    {
-        $this->legalId = $legalId;
-    
-        return $this;
-    }
-
-    /**
-     * Get legalId
-     *
-     * @return integer
-     */
-    public function getLegalId()
-    {
-        return $this->legalId;
-    }
-
-    /**
-     * Set legalIdType
-     *
-     * @param integer $legalIdType
-     * @return IdentityLog
-     */
-    public function setLegalIdType($legalIdType)
-    {
-        $this->legalIdType = $legalIdType;
-    
-        return $this;
-    }
-
-    /**
-     * Get legalIdType
-     *
-     * @return LegalIdType
-     */
-    public function getLegalIdType()
-    {
-        return $this->legalIdType;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function setCreatedAtValue()
-    {
-        $this->date = new \DateTime();
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime 
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return IdentityLog
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    
-        return $this;
-    }
-
-    /**
-     * Set district
-     *
-     * @param \DeR\NetIdBundle\Entity\District $district
-     * @return IdentityLog
-     */
-    public function setDistrict(\DeR\NetIdBundle\Entity\District $district = null)
-    {
-        $this->district = $district;
-    
-        return $this;
-    }
-
-    /**
-     * Get district
-     *
-     * @return \DeR\NetIdBundle\Entity\District 
-     */
-    public function getDistrict()
-    {
-        return $this->district;
     }
 
     /**
@@ -306,42 +98,57 @@ class IdentityLog
         return $this->performedAction;
     }
 
-
     /**
-     * Set identity
+     * Set subject
      *
-     * @param Identity $identity
+     * @param \DeR\NetIdBundle\Entity\Identity $subject
      * @return IdentityLog
      */
-    public function setIdentity($identity)
+    public function setSubject(\DeR\NetIdBundle\Entity\Identity $subject = null)
     {
-        $this->identity = $identity;
+        $this->subject = $subject;
     
         return $this;
     }
 
     /**
-     * Get identity
+     * Get subject
      *
-     * @return string 
+     * @return \DeR\NetIdBundle\Entity\Identity 
      */
-    public function getIdentity()
+    public function getSubject()
     {
-        return $this->identity;
+        return $this->subject;
     }
 
-    public function setEmail($email)
+    /**
+     * Set object
+     *
+     * @param \DeR\NetIdBundle\Entity\Identity $object
+     * @return IdentityLog
+     */
+    public function setObject(\DeR\NetIdBundle\Entity\Identity $object = null)
     {
-        $this->email = $email;
+        $this->object = $object;
+    
+        return $this;
     }
 
-    public function getEmail()
+    /**
+     * Get object
+     *
+     * @return \DeR\NetIdBundle\Entity\Identity 
+     */
+    public function getObject()
     {
-        return $this->email;
+        return $this->object;
     }
 
-    public function getFullname()
+    /**
+     * @ORM\PrePersist
+     */
+    public function setDate()
     {
-        return $this->name . ' ' . $this->lastname;
+        $this->date = new \DateTime();
     }
 }
