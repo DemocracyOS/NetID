@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use DeR\NetIdBundle\Entity\Identity;
+use Symfony\Component\HttpFoundation\Request;
 
 class IdentityAdminController extends CRUDController
 {
@@ -86,4 +87,12 @@ class IdentityAdminController extends CRUDController
         $this->admin->logIdentity(null, 'LIST');
         return $render;
     }
+
+    public function exportAction(Request $request)
+    {
+        $response = parent::exportAction($request);
+        $this->admin->logIdentity(null, 'EXP');
+        return $response;
+    }
+
 }
