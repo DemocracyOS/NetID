@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use DeR\NetIdBundle\Entity\Identity;
+use Symfony\Component\HttpFoundation\Request;
 
 class IdentityAdminController extends CRUDController
 {
@@ -76,4 +77,22 @@ class IdentityAdminController extends CRUDController
         $this->addFlash('sonata_flash_success', $flashMessage);
         return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function listAction()
+    {
+        $render = parent::listAction();
+        $this->admin->logIdentity(null, 'LIST');
+        return $render;
+    }
+
+    public function exportAction(Request $request)
+    {
+        $response = parent::exportAction($request);
+        $this->admin->logIdentity(null, 'EXP');
+        return $response;
+    }
+
 }
