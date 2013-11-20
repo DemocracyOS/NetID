@@ -76,4 +76,14 @@ class IdentityAdminController extends CRUDController
         $this->addFlash('sonata_flash_success', $flashMessage);
         return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function listAction()
+    {
+        $render = parent::listAction();
+        $this->admin->logIdentity(null, 'LIST');
+        return $render;
+    }
 }
