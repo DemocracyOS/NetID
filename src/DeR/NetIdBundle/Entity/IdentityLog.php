@@ -151,4 +151,14 @@ class IdentityLog
     {
         $this->date = new \DateTime();
     }
+
+    /**
+     * Get date
+     *
+     * @return datetime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
 }

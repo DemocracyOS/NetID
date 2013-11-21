@@ -14,3 +14,8 @@ Yes, mark as suspicious: Sí, marcar como sospechosa
 Are you sure this identity is not suspicious?: ¿Estás seguro que esta identidad no es sospechosa?
 Yes, this identity is not suspicious: Sí, esta identidad no es sospechosa
 Net ID - Administration: Net ID - Administración
+INS: creó la identidad
+DEL: borró la identidad
+UPD: actualizó la identidad
+LIST: listó las identidades
+EXP: exportó las identidades

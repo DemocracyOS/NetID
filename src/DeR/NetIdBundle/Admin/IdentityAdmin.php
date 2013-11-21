@@ -27,11 +27,8 @@ class IdentityAdmin extends Admin
      */
     public function configure()
     {
-        if ($this->isGranted('ROLE_SUPER_ADMIN'))
-        {
-            $filters = $this->em->getFilters();
-            $filters->disable('softdeleteable');
-        }
+        $filters = $this->em->getFilters();
+        $filters->enable('softdeleteable');
     }
     
     protected function configureRoutes(RouteCollection $collection)

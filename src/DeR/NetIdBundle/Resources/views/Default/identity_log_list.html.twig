@@ -1,0 +1,13 @@
+{% extends 'SonataAdminBundle:CRUD:list.html.twig' %}
+
+{% block table_header %}{% endblock %}
+
+{% block table_body %}
+	<ul>
+		{% for log in admin.datagrid.results %}
+	        <li>
+	            {{log|identitylog|trans}}
+        	</li>
+	    {% endfor %}
+	</ul>
+{% endblock %}
