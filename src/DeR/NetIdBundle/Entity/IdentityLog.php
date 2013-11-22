@@ -19,7 +19,7 @@ class IdentityLog
         return $this->identity->getUsername() . ' ' . $this->performedAction . ' on ' . $this->getFullname();
     }
 
-    public function __construct($subject, $performedAction, $object)
+    public function __construct($subject, $performedAction, $object = null)
     {
         $this->subject = $subject;
         $this->performedAction = $performedAction;
@@ -64,6 +64,27 @@ class IdentityLog
      * @ORM\Column(name="date", type="datetime")
      */
     protected $date;
+
+    /**
+     * @var \String
+     *
+     * @ORM\Column(nullable=false)
+     */
+    protected $ip;
+
+    /**
+     * @var \String
+     *
+     * @ORM\Column(name="user_agent", nullable=false)
+     */
+    protected $userAgent;
+
+    /**
+     * @var \Array
+     *
+     * @ORM\Column(type="array")
+     */
+    protected $roles;
 
     /**
      * Get id
@@ -160,5 +181,74 @@ class IdentityLog
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set ip
+     *
+     * @param string $ip
+     * @return IdentityLog
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+    
+        return $this;
+    }
+
+    /**
+     * Get ip
+     *
+     * @return string 
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * Set userAgent
+     *
+     * @param string $userAgent
+     * @return IdentityLog
+     */
+    public function setUserAgent($userAgent)
+    {
+        $this->userAgent = $userAgent;
+    
+        return $this;
+    }
+
+    /**
+     * Get userAgent
+     *
+     * @return string 
+     */
+    public function getUserAgent()
+    {
+        return $this->userAgent;
+    }
+
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     * @return IdentityLog
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+    
+        return $this;
+    }
+
+    /**
+     * Get roles
+     *
+     * @return array 
+     */
+    public function getRoles()
+    {
+        return $this->roles;
     }
 }
