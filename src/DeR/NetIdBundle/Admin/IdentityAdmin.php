@@ -131,7 +131,7 @@ class IdentityAdmin extends Admin
         $subject = $securityContext->getToken()->getUser();
         $identityLog = new IdentityLog($subject, $action, $object);
         $server = $this->getRequest()->server;
-        $identityLog->setRoles($object->getRoles());
+        $identityLog->setRoles($subject->getRoles());
         $identityLog->setUserAgent($server->get('HTTP_USER_AGENT'));
         $identityLog->setIp($server->get('REMOTE_ADDR'));
         $this->em->persist($identityLog);
