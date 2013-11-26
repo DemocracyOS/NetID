@@ -81,6 +81,13 @@ fos_oauth_server:
     refresh_token_class: DeR\NetIdBundle\Entity\RefreshToken
     auth_code_class:     DeR\NetIdBundle\Entity\AuthCode
 
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        sonata.block.identity.validation: ~
+
 sonata_admin:
     security:
         handler: sonata.admin.security.handler.role
@@ -88,12 +95,10 @@ sonata_admin:
     title_logo: /bundles/dernetid/images/logo.png
     templates:
         layout:  DeRNetIdBundle:SonataAdminBundle:standard_layout.html.twig
-
-sonata_block:
-    default_contexts: [cms]
-    blocks:
-        sonata.admin.block.admin_list:
-            contexts:   [admin]
+    dashboard:
+        blocks:
+            - { position: left, type: sonata.admin.block.admin_list }
+            - { position: left, type: sonata.block.identity.validation }
 
 fos_user:
     db_driver: orm
