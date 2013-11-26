@@ -4,7 +4,7 @@ namespace DeR\NetIdBundle\Listener;
  
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
-use DeR\NetIdBundle\Entity\LoginLog;
+use DeR\NetIdBundle\Entity\IdentityLog;
  
 /**
  * Custom login listener.
@@ -34,12 +34,11 @@ class LoginListener
 	{
 		$identity = $event->getAuthenticationToken()->getUser();
 		$server = $event->getRequest()->server;
-		$loginLog = new LoginLog();
-		$loginLog->setIdentity($identity);
-		$loginLog->setRoles($identity->getRoles());
-		$loginLog->setUserAgent($server->get('HTTP_USER_AGENT'));
-		$loginLog->setIp($server->get('REMOTE_ADDR'));
-		$this->em->persist($loginLog);
+		$identityLog = new IdentityLog($identity, 'LOGIN');
+		$identityLog->setRoles($identity->getRoles());
+		$identityLog->setUserAgent($server->get('HTTP_USER_AGENT'));
+		$identityLog->setIp($server->get('REMOTE_ADDR'));
+		$this->em->persist($identityLog);
 		$this->em->flush();
 	}
 }

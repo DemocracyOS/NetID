@@ -27,11 +27,8 @@ class IdentityAdmin extends Admin
      */
     public function configure()
     {
-        if ($this->isGranted('ROLE_SUPER_ADMIN'))
-        {
-            $filters = $this->em->getFilters();
-            $filters->disable('softdeleteable');
-        }
+        $filters = $this->em->getFilters();
+        $filters->enable('softdeleteable');
     }
     
     protected function configureRoutes(RouteCollection $collection)
@@ -133,6 +130,12 @@ class IdentityAdmin extends Admin
         $securityContext = $this->getConfigurationPool()->getContainer()->get('security.context');
         $subject = $securityContext->getToken()->getUser();
         $identityLog = new IdentityLog($subject, $action, $object);
+        $server = $this->getRequest()->server;
+        $identityLog->setRoles($object->getRoles());
+        $identityLog->setUserAgent($server->get('HTTP_USER_AGENT'));
+        $identityLog->setIp($server->get('REMOTE_ADDR'));
+        $this->em->persist($identityLog);
+        $this->em->flush();
         $this->em->persist($identityLog);
         $this->em->flush();
     }

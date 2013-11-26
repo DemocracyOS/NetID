@@ -49,10 +49,10 @@ services:
             - ~
 
     sonata.admin.identitylog:
-        class: DeR\NetIdBundle\Admin\ActionAdmin
+        class: DeR\NetIdBundle\Admin\AuditorAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Log", label: "Identity log", show_in_dashboard: true }
         arguments:
             - ~
             - DeR\NetIdBundle\Entity\IdentityLog
-            - ~
+            - 'DeRNetIdBundle:Auditor'
