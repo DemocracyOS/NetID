@@ -154,6 +154,13 @@ class Identity extends BaseUser
     protected $userRoles;
 
     /**
+     * @var validated
+     *
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    protected $validated = false;
+
+    /**
      * @var suspicious
      *
      * @ORM\Column(type="boolean", nullable=false)
@@ -445,6 +452,29 @@ class Identity extends BaseUser
     }
 
     /**
+     * Is validated
+     *
+     * @return boolean 
+     */
+    public function isValidated()
+    {
+        return $this->validated;
+    }
+
+    /**
+     * Set validated
+     *
+     * @param boolean $validated
+     * @return Identity
+     */
+    public function setValidated($validated = true)
+    {
+        $this->validated = $validated;
+    
+        return $this;
+    }
+
+    /**
      * Get deletedAt
      *
      * @return \DateTime 
@@ -532,5 +562,36 @@ class Identity extends BaseUser
     public function getFullname()
     {
         return $this->name . ' ' . $this->lastname;
+    }
+
+    public function getRowStatus()
+    {
+        if ($this->isValidated())
+        {
+            return 'success';
+        } elseif ($this->isSuspicious()) {
+            return 'error';
+        }
+        return 'info';
+    }
+
+    public function isValidatable()
+    {
+        return !$this->isSuspicious() && !$this->validated;
+    }
+
+    public function isInvalidatable()
+    {
+        return !$this->isSuspicious() && $this->validated;
+    }
+
+    public function validate()
+    {
+        $this->setValidated(true);
+    }
+
+    public function invalidate()
+    {
+        $this->setValidated(false);
     }
 }

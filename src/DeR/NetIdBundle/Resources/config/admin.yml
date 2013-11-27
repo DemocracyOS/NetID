@@ -56,3 +56,11 @@ services:
             - ~
             - DeR\NetIdBundle\Entity\IdentityLog
             - 'DeRNetIdBundle:Auditor'
+
+    sonata.block.identity.validation:
+        class: DeR\NetIdBundle\Blocks\IdentityValidationBlockService
+        arguments: [ "sonata.block.identity.validation", @templating ]
+        calls:
+            - [ setContainer, [@service_container] ]
+        tags:
+            - { name: sonata.block, position: left, type: sonata.block.identity.validation }
