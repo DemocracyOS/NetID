@@ -28,3 +28,6 @@ search: Buscar
 fullname: Nombre completo
 actions: Acciones
 clear.search: Borrar búsqueda
+validate: Validar
+invalidate: Invalidar
+suspicious.identity: Identidad sospechosa

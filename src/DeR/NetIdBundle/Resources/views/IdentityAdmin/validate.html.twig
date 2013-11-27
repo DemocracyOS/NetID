@@ -51,11 +51,13 @@
                         {% set action = identity.validatable ? 'validateIdentity' : 'invalidateIdentity' %}
                         <form action="{{ admin.generateObjectUrl(action, identity) }}" method="post">
                           {% if identity.validatable %}
-                            <button class="btn btn-link"><i class="icon-user"></i> {{ "Validate"|trans }}</button>
+                            <button class="btn btn-link"><i class="icon-user"></i> {{ "validate"|trans }}</button>
                           {% elseif identity.invalidatable %}
-                            <button class="btn btn-link"><i class="icon-remove-circle"></i> {{ "Invalidate"|trans }}</button>
+                            <button class="btn btn-link"><i class="icon-remove-circle"></i> {{ "invalidate"|trans }}</button>
                           {% endif %}
                         </form>
+                      {% else %}
+                        <i class="icon-warning-sign"></i> <i>{{ "suspicious.identity"|trans }}</i>
                       {% endif %}
                     </td>
                   </tr>

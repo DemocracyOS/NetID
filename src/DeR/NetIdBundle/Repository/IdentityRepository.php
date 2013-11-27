@@ -26,11 +26,13 @@ class IdentityRepository extends EntityRepository
     {
         return $this->getEntityManager()
             ->createQuery(
-                'SELECT i FROM DeRNetIdBundle:Identity i 
+                "SELECT i FROM DeRNetIdBundle:Identity i 
+                JOIN i.userRoles r
                 WHERE   (:email is null or i.email = :email)
                 AND     (:legalId is null or i.legalId = :legalId)
                 AND     (:name is null or i.name = :name)
-                AND     (:lastname is null or i.lastname = :lastname)'
+                AND     (:lastname is null or i.lastname = :lastname)
+                AND     r.name not in ('ROLE_ADMIN', 'ROLE_SUPER_ADMIN')"
             )
             ->setParameter('email', $identitySearch->getEmail())
             ->setParameter('legalId', $identitySearch->getLegalId())
