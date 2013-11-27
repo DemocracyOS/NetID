@@ -11,6 +11,8 @@ use Sonata\BlockBundle\Block\BlockContextInterface;
 
 class IdentityValidationBlockService extends BaseBlockService
 {
+    protected $container;
+
     public function getName()
     {
         return 'Identity Validation';
@@ -33,10 +35,15 @@ class IdentityValidationBlockService extends BaseBlockService
     {
         // merge settings
         $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
-
         return $this->renderResponse('DeRNetIdBundle:Blocks:block_identity_validation.html.twig', array(
             'block'     => $block,
-            'settings'  => $settings
+            'settings'  => $settings,
+            'admin'     => $this->container->get('sonata.admin.identity')
             ), $response);
+    }
+
+    public function setContainer($container)
+    {
+        $this->container = $container;
     }
 }

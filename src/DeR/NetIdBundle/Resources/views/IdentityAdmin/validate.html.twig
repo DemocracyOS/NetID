@@ -1,0 +1,66 @@
+{% extends 'SonataAdminBundle:CRUD:action.html.twig' %}
+
+{% block content %}
+    {{ form_start(form, { 'action': admin.generateUrl('identityValidateSearchPost'), 'attr': { 'method': 'post', 'class': 'form-horizontal' } }) }}
+      <div class="control-group">
+        {{ form_label(form.email, null, {'label_attr': {'class': 'control-label'}}) }}
+        <div class="controls">
+          {{ form_widget(form.email) }}
+        </div>
+      </div>
+      <div class="control-group">
+        {{ form_label(form.legalId, null, {'label_attr': {'class': 'control-label'}}) }}
+        <div class="controls">
+          {{ form_widget(form.legalId) }}
+        </div>
+      </div>
+      <div class="control-group">
+        {{ form_label(form.firstname, null, {'label_attr': {'class': 'control-label'}}) }}
+        <div class="controls">
+          {{ form_widget(form.firstname) }}
+          {{ form_widget(form.lastname) }}
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          {{ form_widget(form.search) }}
+        </div>
+      </div>
+
+    {% if identities|length > 0 %}
+        <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>{{ "legal.id"|trans }}</th>
+                  <th>{{ "email"|trans }}</th>
+                  <th>{{ "fullname"|trans }}</th>
+                  <th>{{ "actions"|trans }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for identity in identities %}
+                  <tr class="{{ identity.rowStatus }}">
+                    <td>{{ loop.index }}</td>
+                    <td>{{ identity.legalId }}</td>
+                    <td>{{ identity.email }}</td>
+                    <td>{{ identity.fullname }}</td>
+                    <td>
+                      {% if not identity.suspicious %}
+                        {% set action = identity.validatable ? 'validateIdentity' : 'invalidateIdentity' %}
+                        <form action="{{ admin.generateObjectUrl(action, identity) }}" method="post">
+                          {% if identity.validatable %}
+                            <button class="btn btn-link"><i class="icon-user"></i> {{ "Validate"|trans }}</button>
+                          {% elseif identity.invalidatable %}
+                            <button class="btn btn-link"><i class="icon-remove-circle"></i> {{ "Invalidate"|trans }}</button>
+                          {% endif %}
+                        </form>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </ul>
+    {% endif %}
+{% endblock %}

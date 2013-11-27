@@ -34,6 +34,10 @@ class IdentityAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('batch');
+        $collection->add('validateIdentity', $this->getRouterIdParameter(). '/validate-identity', array(), array('_method' => 'post'));
+        $collection->add('invalidateIdentity', $this->getRouterIdParameter(). '/invalidate-identity', array(), array('_method' => 'post'));
+        $collection->add('identityValidateSearch', 'validate', array(), array('_method' => 'get'));
+        $collection->add('identityValidateSearchPost', 'validate', array(), array('_method' => 'post'));
         $collection->add('suspicious', $this->getRouterIdParameter().'/suspicious');
         $collection->add('mark_suspicious', $this->getRouterIdParameter().'/mark_suspicious');
         $collection->add('unsuspicious', $this->getRouterIdParameter().'/unsuspicious');
