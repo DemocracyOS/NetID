@@ -24,6 +24,7 @@
       <div class="control-group">
         <div class="controls">
           {{ form_widget(form.search) }}
+          <a href="{{ admin.generateUrl('identityValidateSearch') }}" class="btn">{{ "clear.search"|trans  }}</a>
         </div>
       </div>
 
