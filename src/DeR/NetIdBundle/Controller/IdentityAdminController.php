@@ -130,6 +130,7 @@ class IdentityAdminController extends CRUDController
 
         $this->identity->validate();
         $this->persistIdentity();
+        $this->admin->logIdentity($this->identity, 'VAL');
 
         $this->addFlash('sonata_flash_success', 'flash_validate_identity_success');
         return $this->redirect($this->admin->generateUrl('identityValidateSearch'));
@@ -147,6 +148,7 @@ class IdentityAdminController extends CRUDController
 
         $this->identity->invalidate();
         $this->persistIdentity();
+        $this->admin->logIdentity($this->identity, 'INVAL');
 
         $this->addFlash('sonata_flash_success', 'flash_invalidate_identity_success');
         return $this->redirect($this->admin->generateUrl('identityValidateSearch'));
