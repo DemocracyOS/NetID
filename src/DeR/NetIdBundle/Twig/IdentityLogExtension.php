@@ -25,7 +25,7 @@ class IdentityLogExtension extends \Twig_Extension
         $action .= $identityLog->getSubject();
         $action .= ' ' . $this->translator->trans($identityLog->getPerformedAction());
 
-        if (in_array($identityLog->getPerformedAction(), array('INS', 'UPD', 'DEL'))) {
+        if (in_array($identityLog->getPerformedAction(), array('INS', 'UPD', 'DEL', 'VAL', 'INVAL'))) {
             $filters = $this->em->getFilters();
             $filters->disable('softdeleteable');
             $action .= ' ' . $identityLog->getObject();

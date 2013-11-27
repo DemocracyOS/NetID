@@ -20,6 +20,8 @@ UPD: actualizó la identidad
 LIST: listó las identidades
 EXP: exportó las identidades
 LOGIN: se inició sesión
+VAL: validó a la identidad
+INVAL: invalidó a la identidad
 legal.id: DNI
 email: Correo electrónico
 firstname: Nombre

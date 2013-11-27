@@ -27,7 +27,8 @@
           <a href="{{ admin.generateUrl('identityValidateSearch') }}" class="btn">{{ "clear.search"|trans  }}</a>
         </div>
       </div>
-
+    {{ form_end(form) }}
+    
     {% if identities|length > 0 %}
         <table class="table">
               <thead>
