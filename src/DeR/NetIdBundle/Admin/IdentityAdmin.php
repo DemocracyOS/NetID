@@ -34,8 +34,10 @@ class IdentityAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('batch');
-        $collection->add('validateIdentity', $this->getRouterIdParameter(). '/validate-identity', array(), array('_method' => 'post'));
-        $collection->add('invalidateIdentity', $this->getRouterIdParameter(). '/invalidate-identity', array(), array('_method' => 'post'));
+        $collection->add('validateIdentity', $this->getRouterIdParameter(). '/validate-identity', array(), array('_method' => 'get'));
+        $collection->add('validateIdentityPost', $this->getRouterIdParameter(). '/validate-identity', array(), array('_method' => 'post'));
+        $collection->add('invalidateIdentity', $this->getRouterIdParameter(). '/invalidate-identity', array(), array('_method' => 'get'));
+        $collection->add('invalidateIdentityPost', $this->getRouterIdParameter(). '/invalidate-identity', array(), array('_method' => 'post'));
         $collection->add('identityValidateSearch', 'validate', array(), array('_method' => 'get'));
         $collection->add('identityValidateSearchPost', 'validate', array(), array('_method' => 'post'));
         $collection->add('suspicious', $this->getRouterIdParameter().'/suspicious');
@@ -190,7 +192,7 @@ class IdentityAdmin extends Admin
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
-                    'suspicious' => array('template' => 'DeRNetIdBundle:UserAdmin:suspiciousButton.html.twig'),
+                    'suspicious' => array('template' => 'DeRNetIdBundle:IdentityAdmin:suspiciousButton.html.twig'),
                 )
             ));
         ;

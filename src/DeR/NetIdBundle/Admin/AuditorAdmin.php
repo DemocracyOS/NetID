@@ -12,6 +12,13 @@ class AuditorAdmin extends Admin
 {
     protected $baseRoutePattern = 'auditor';
 
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+        $query->getQueryBuilder()->orderBy("o.date", "DESC");
+        return $query;
+    }
+
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('batch');
@@ -47,5 +54,17 @@ class AuditorAdmin extends Admin
                 )
             ))
             ->remove('batch');
+    }
+
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getExportFormats()
+    {
+        return array(
+            'csv', 'xls'
+        );
     }
 }
