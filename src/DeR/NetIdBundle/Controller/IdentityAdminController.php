@@ -121,12 +121,26 @@ class IdentityAdminController extends CRUDController
     public function validateIdentityAction($id)
     {
         $this->id = $id;
+        return $this->renderValidateIdentity('validate');
+    }
+
+    public function invalidateIdentityAction($id)
+    {
+        $this->id = $id;
+        return $this->renderValidateIdentity('invalidate');
+    }
+
+    protected function renderValidateIdentity($action)
+    {
         $this->findIdentity();
-        
-        if ($this->identity->isValidated())
-        {
-            throw new AccessDeniedException(sprintf('Identity is already validated.'));
-        }
+        $csrfToken = $this->getCsrfToken('suspicious');
+        return $this->render('DeRNetIdBundle:IdentityAdmin:confirmValidate.html.twig', array('identity' => $this->identity, 'action' => $action, 'csrf_token' => $csrfToken));
+    }
+
+    public function validateIdentityPostAction($id)
+    {
+        $this->id = $id;
+        $this->findIdentity();
 
         $this->identity->validate();
         $this->persistIdentity();
@@ -136,15 +150,10 @@ class IdentityAdminController extends CRUDController
         return $this->redirect($this->admin->generateUrl('identityValidateSearch'));
     }
 
-    public function invalidateIdentityAction($id)
+    public function invalidateIdentityPostAction($id)
     {
         $this->id = $id;
         $this->findIdentity();
-        
-        if (!$this->identity->isValidated())
-        {
-            throw new AccessDeniedException(sprintf('Identity is already invalidated.'));
-        }
 
         $this->identity->invalidate();
         $this->persistIdentity();

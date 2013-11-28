@@ -1,5 +1,12 @@
 {% extends 'SonataAdminBundle:CRUD:action.html.twig' %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  {% stylesheets '@DeRNetIdBundle/Resources/public/css/*' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all"></link>
+  {% endstylesheets %}
+{% endblock %}
+
 {% block content %}
     {{ form_start(form, { 'action': admin.generateUrl('identityValidateSearchPost'), 'attr': { 'method': 'post', 'class': 'form-horizontal' } }) }}
       <div class="control-group">
@@ -49,14 +56,11 @@
                     <td>{{ identity.fullname }}</td>
                     <td>
                       {% if not identity.suspicious %}
-                        {% set action = identity.validatable ? 'validateIdentity' : 'invalidateIdentity' %}
-                        <form action="{{ admin.generateObjectUrl(action, identity) }}" method="post">
-                          {% if identity.validatable %}
-                            <button class="btn btn-link"><i class="icon-user"></i> {{ "validate"|trans }}</button>
-                          {% elseif identity.invalidatable %}
-                            <button class="btn btn-link"><i class="icon-remove-circle"></i> {{ "invalidate"|trans }}</button>
-                          {% endif %}
-                        </form>
+                        {% set action  = identity.validatable ? 'validateIdentity' : 'invalidateIdentity' %} 
+                        {% set icon    = identity.validatable ? 'user' : 'remove-circle' %}
+                        {% set text    = identity.validatable ? "Validate"|trans : "Invalidate"|trans %}
+                        <a href="{{ admin.generateObjectUrl(action, identity) }}" class="btn btn-link no-space"><i class="icon-{{ icon }}"></i> {{ text }}
+                        </a>
                       {% else %}
                         <i class="icon-warning-sign"></i> <i>{{ "suspicious.identity"|trans }}</i>
                       {% endif %}
