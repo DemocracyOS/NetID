@@ -115,7 +115,13 @@ class IdentityAdminController extends CRUDController
         $form = $this->createForm(new IdentitySearchType(), $identitySearch);
         $form->bind($request);
         $identities = $repository->search($identitySearch);
-        return $this->render('DeRNetIdBundle:IdentityAdmin:validate.html.twig', array('action' => 'validate', 'identities' => $identities, 'form' => $form->createView()));
+        $searchLimit = $this->container->getParameter('identity.validation.search.limit');
+        $exceeded = count($identities) > $searchLimit;
+        return $this->render('DeRNetIdBundle:IdentityAdmin:validate.html.twig', 
+            array('action' => 'validate',
+                'identities' => $identities, 
+                'form' => $form->createView(),
+                'exceeded' => $exceeded));
     }
 
     public function validateIdentityAction($id)

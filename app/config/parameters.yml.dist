@@ -16,3 +16,5 @@ parameters:
 
     admin.username: admin
     admin.password: admin
+
+    identity.validation.search.limit: 4

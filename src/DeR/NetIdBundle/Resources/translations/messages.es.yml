@@ -40,3 +40,4 @@ I understand, %action%!: Entiendo, ¡%action%!
 validate: validar
 invalidate: invalidar
 Identity validation: Validación de identidades
+identity.search.limit.exceeded: Su búsqueda superó el límite establecido de resultados.
