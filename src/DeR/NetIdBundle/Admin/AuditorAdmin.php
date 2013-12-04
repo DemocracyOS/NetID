@@ -56,8 +56,6 @@ class AuditorAdmin extends Admin
             ->remove('batch');
     }
 
-
-
     /**
      * {@inheritdoc}
      */

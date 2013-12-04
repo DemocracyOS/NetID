@@ -36,8 +36,12 @@ suspicious.identity: Identidad sospechosa
 Are you sure you want to %action% this identity?: ¿Estás seguro de %action% a esta identidad?
 This action will be logged for future reference: Esta acción será registrada para futuras referencias
 Cancel: Cancelar
+Export: Exportar
 I understand, %action%!: Entiendo, ¡%action%!
 validate: validar
 invalidate: invalidar
 Identity validation: Validación de identidades
 identity.search.limit.exceeded: Su búsqueda superó el límite establecido de resultados.
+
+export.csv: Exportar a CSV
+file.md5.is: El md5 del archivo es %md5%
