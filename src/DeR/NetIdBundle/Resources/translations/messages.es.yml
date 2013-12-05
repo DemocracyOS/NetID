@@ -44,4 +44,5 @@ Identity validation: Validación de identidades
 identity.search.limit.exceeded: Su búsqueda superó el límite establecido de resultados.
 
 export.csv: Exportar a CSV
+export.xls: Exportar a XLS
 file.md5.is: El md5 del archivo es %md5%
