@@ -208,4 +208,14 @@ class IdentityAdmin extends Admin
         $fields = array_merge($fields, array('name', 'email', 'lastname'));
         return $fields;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getExportFormats()
+    {
+        return array(
+            'csv', 'xls'
+        );
+    }
 }
