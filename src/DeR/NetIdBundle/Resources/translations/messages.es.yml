@@ -46,3 +46,5 @@ identity.search.limit.exceeded: Su búsqueda superó el límite establecido de r
 export.csv: Exportar a CSV
 export.xls: Exportar a XLS
 file.md5.is: El md5 del archivo es %md5%
+
+not.verified.identity: La identidad no se encuentra verificada
