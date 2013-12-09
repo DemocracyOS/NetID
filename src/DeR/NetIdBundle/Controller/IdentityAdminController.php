@@ -102,10 +102,12 @@ class IdentityAdminController extends CRUDController
     public function identityValidateSearchAction()
     {
         $form = $this->createForm(new IdentitySearchType(), new IdentitySearch());
+        $exceeded = false;
         return $this->render('DeRNetIdBundle:IdentityAdmin:validate.html.twig', 
             array('action'      =>  'validate',
                 'form'          =>  $form->createView(),
-                'identities'    =>  array()));
+                'identities'    =>  array(),
+                'exceeded'      =>  $exceeded));
     }
 
     public function identityValidateSearchPostAction(Request $request)
