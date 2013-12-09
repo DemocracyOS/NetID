@@ -26,18 +26,23 @@ _sonata_admin:
     type: sonata_admin
     prefix: /admin
 
-users:
-    path:     /api/users/
-    defaults: { _controller: DeRNetIdBundle:User:index }
-
-users_insert:
-    path:     /api/users/new
-    defaults: { _controller: DeRNetIdBundle:User:insert }
+verify:
+    path:     /api/verify/
+    defaults: { _controller: DeRNetIdBundle:Identity:verify }
     methods: [POST]
 
-users_verbs:
+identities:
+    path:     /api/identities/
+    defaults: { _controller: DeRNetIdBundle:Identity:index }
+
+identities_insert:
+    path:     /api/identities/new
+    defaults: { _controller: DeRNetIdBundle:Identity:insert }
+    methods: [POST]
+
+identities_verbs:
     path:     /api/allowed/
-    defaults: { _controller: DeRNetIdBundle:User:allowed }
+    defaults: { _controller: DeRNetIdBundle:Identity:allowed }
     methods: [POST]
 
 root:
