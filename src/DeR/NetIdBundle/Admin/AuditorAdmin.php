@@ -22,6 +22,7 @@ class AuditorAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('batch');
+        $collection->remove('create');
     }
     
 	// Fields to be shown on create/edit forms
