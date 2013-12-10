@@ -67,9 +67,6 @@ class IdentityAdmin extends Admin
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
-        if (($this->getSubject()->isSuperAdmin() || $this->getSubject()->isAdmin()) && !$this->isGranted('ROLE_SUPER_ADMIN')) {
-            throw new AccessDeniedException();
-        }
         $formMapper
             ->add('name')
             ->add('lastname')
