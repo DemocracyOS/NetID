@@ -1,7 +1,6 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: fos_user_config.yml }
 
 framework:
     translator:      { fallback: "%locale%" }
@@ -46,10 +45,13 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
-
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
+        entity_managers:
+            default:
+                auto_mapping: true
+                mappings:
+                    FOSUserBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -58,3 +60,18 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: DemocracyOS\NetIdAdminBundle\Entity\User
+
+sonata_admin:
+    title:      DemocracyOS - NetId
+    title_logo: bundles/netidadminbundle/images/democracy_os_logo.png
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]

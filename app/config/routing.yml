@@ -4,3 +4,6 @@ democracy_os_net_id_admin:
 
 fos_user_routing:
     resource: fos_user_routing.yml
+
+sonata_admin_routing:
+    resource: sonata_admin_routing.yml
