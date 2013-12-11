@@ -23,7 +23,8 @@
         "sonata-project/admin-bundle": "2.2.8",
         "sonata-project/cache-bundle": "2.1.5",
         "sonata-project/doctrine-orm-admin-bundle": "2.2.5",
-        "sonata-project/easy-extends-bundle": "2.1.4"
+        "sonata-project/easy-extends-bundle": "2.1.4",
+        "sonata-project/user-bundle": "2.2.2"
     },
     "scripts": {
         "post-install-cmd": [

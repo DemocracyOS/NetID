@@ -2,8 +2,8 @@ democracy_os_net_id_admin:
     resource: "@DemocracyOSNetIdAdminBundle/Resources/config/routing.yml"
     prefix:   /
 
-fos_user_routing:
-    resource: fos_user_routing.yml
-
 sonata_admin_routing:
     resource: sonata_admin_routing.yml
+
+sonata_user_routing:
+    resource: sonata_user_routing.yml
