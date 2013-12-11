@@ -1,0 +1,6 @@
+democracy_os_net_id_admin:
+    resource: "@DemocracyOSNetIdAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_user_routing:
+    resource: fos_user_routing.yml
