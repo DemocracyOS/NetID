@@ -1,0 +1,12 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% block logo %}
+	<a href="{{ url('sonata_admin_dashboard') }}" class="brand">
+	    {% image '@DemocracyOSNetIdAdminBundle/Resources/public/images/democracyos-logo.png' %}
+		    <img src="{{ asset_url }}" alt="{{ admin_pool.title }}" />
+		{% endimage %}
+	    {{ admin_pool.title | trans }}
+	</a>
+{% endblock %}
+
+{% block footer %}{% endblock %}

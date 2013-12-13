@@ -31,7 +31,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ 'DemocracyOSNetIdAdminBundle' ]
     filters:
         cssrewrite: ~
 
@@ -70,10 +70,11 @@ sonata_block:
         sonata.block.service.rss:
 
 sonata_admin:
-    title:      Admin Panel
+    title:      Net Id Admin
+    title_logo: @DemocracyOSNetIdAdminBundle/Resources/public/images/democracyos-logo.png
     templates:
         ## default global templates
-        layout:  SonataAdminBundle::standard_layout.html.twig
+        layout:  DemocracyOSNetIdAdminBundle:SonataAdminBundle:standard_layout.html.twig
         ajax:    SonataAdminBundle::ajax_layout.html.twig
 
         ## default actions templates, should extend a global templates
