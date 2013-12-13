@@ -1,0 +1,11 @@
+services:
+    sonata.admin.identity:
+        class: DemocracyOS\NetIdAdminBundle\Admin\IdentityAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Identity" }
+        arguments:
+            - ~
+            - DemocracyOS\NetIdAdminBundle\Entity\Identity
+            - ~
+        calls:
+            - [ setTranslationDomain, [DemocracyOSNetIdAdminBundle]]
