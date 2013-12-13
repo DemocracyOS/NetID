@@ -54,6 +54,19 @@ class Identity
     protected $lastname;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="date", nullable=true)
+     */
+    protected $birthday;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="LegalIdType", inversedBy="identities")
+     * @ORM\JoinColumn(name="legal_id_type", nullable=true)
+     */
+    protected $legalIdType;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -107,5 +120,51 @@ class Identity
     public function getLastname()
     {
         return $this->lastname;
+    }
+
+    /**
+     * Set birthday
+     *
+     * @param \DateTime $birthday
+     * @return Identity
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+    
+    /**
+     * Get birthday
+     *
+     * @return \DateTime 
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * Set legalIdType
+     *
+     * @param \DemocracyOS\NetIdAdminBundle\Entity\LegalIdType $legalIdType
+     * @return Identity
+     */
+    public function setLegalIdType(\DemocracyOS\NetIdAdminBundle\Entity\LegalIdType $legalIdType = null)
+    {
+        $this->legalIdType = $legalIdType;
+
+        return $this;
+    }
+
+    /**
+     * Get legalIdType
+     *
+     * @return \DemocracyOS\NetIdAdminBundle\Entity\LegalIdType 
+     */
+    public function getLegalIdType()
+    {
+        return $this->legalIdType;
     }
 }

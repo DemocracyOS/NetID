@@ -10,6 +10,8 @@ use Sonata\AdminBundle\Route\RouteCollection;
 
 class IdentityAdmin extends Admin
 {
+    protected $baseRoutePattern = 'identity';
+
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('batch');
@@ -20,6 +22,7 @@ class IdentityAdmin extends Admin
         $formMapper
             ->add('firstname')
             ->add('lastname')
+            ->add('birthday', 'birthday', array('format' => 'ddMMMMyyyy'))
         ;
     }
 
@@ -36,6 +39,7 @@ class IdentityAdmin extends Admin
         $listMapper
             ->addIdentifier('firstname')
             ->add('lastname')
+            ->add('birthday')
             ->remove('batch')
         ;
     }
