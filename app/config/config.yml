@@ -47,15 +47,10 @@ doctrine:
         charset:  UTF8
         types:
             json: Sonata\Doctrine\Types\JsonType
+
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        entity_managers:
-            default:
-                auto_mapping: true
-                mappings:
-                    FOSUserBundle: ~
-                    ApplicationSonataUserBundle: ~
-                    SonataUserBundle: ~
+        auto_mapping: true
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -65,38 +60,28 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: DemocracyOS\NetIdAdminBundle\Entity\User
-
-sonata_admin:
-    title:      DemocracyOS - NetId
-    title_logo: bundles/netidadminbundle/images/democracy_os_logo.png
-
 sonata_block:
     default_contexts: [cms]
     blocks:
         sonata.admin.block.admin_list:
             contexts:   [admin]
+        sonata.block.service.text:
+        sonata.block.service.action:
+        sonata.block.service.rss:
 
-sonata_user:
-    security_acl: false
-    class:
-        user: DemocracyOS\NetIdAdminBundle\Entity\User
-    admin:                  # Admin Classes
-        user:
-            class:          Sonata\UserBundle\Admin\Entity\UserAdmin
-            controller:     SonataAdminBundle:CRUD
-            translation:    SonataUserBundle
+sonata_admin:
+    title:      Admin Panel
+    templates:
+        ## default global templates
+        layout:  SonataAdminBundle::standard_layout.html.twig
+        ajax:    SonataAdminBundle::ajax_layout.html.twig
 
-        group:
-            class:          Sonata\UserBundle\Admin\Entity\GroupAdmin
-            controller:     SonataAdminBundle:CRUD
-            translation:    SonataUserBundle
-    profile:
-        form:
-            type:               sonata_user_profile
-            handler:            sonata.user.profile.form.handler.default
-            name:               sonata_user_profile_form
-            validation_groups:  [Profile]
+        ## default actions templates, should extend a global templates
+        list:    SonataAdminBundle:CRUD:list.html.twig
+        show:    SonataAdminBundle:CRUD:show.html.twig
+        edit:    SonataAdminBundle:CRUD:edit.html.twig
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Application\Sonata\UserBundle\Entity\User
