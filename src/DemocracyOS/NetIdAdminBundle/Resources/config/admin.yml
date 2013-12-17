@@ -15,3 +15,11 @@ services:
             - ~
             - DemocracyOS\NetIdApiBundle\Entity\Application
             - ~
+    sonata.admin.identity_application:
+        class: DemocracyOS\NetIdAdminBundle\Admin\IdentityApplicationAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Identity Application", show_in_dashboard: false }
+        arguments:
+            - ~
+            - DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication
+            - ~

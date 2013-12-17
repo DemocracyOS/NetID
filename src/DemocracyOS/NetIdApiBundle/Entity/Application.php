@@ -4,6 +4,8 @@ namespace DemocracyOS\NetIdApiBundle\Entity;
 
 use FOS\OAuthServerBundle\Entity\Client as BaseClient;
 use Doctrine\ORM\Mapping as ORM;
+use DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication;
+
 
 /**
  * @ORM\Entity
@@ -28,11 +30,17 @@ class Application extends BaseClient
     protected $description;
 
     /**
+     * @ORM\OneToMany(targetEntity="\DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication", mappedBy="applications")
+     */
+    protected $identities;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         parent::__construct();
+        $this->identities = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -105,15 +113,35 @@ class Application extends BaseClient
     }
 
     /**
-     * Set publicId
+     * Add identities
      *
-     * @param string $publicId
+     * @param \DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication $identities
      * @return Application
      */
-    public function setPublicId($publicId)
+    public function addIdentity(IdentityApplication $identities)
     {
-        $this->publicId = $publicId;
+        $this->identities[] = $identities;
 
         return $this;
+    }
+
+    /**
+     * Remove identities
+     *
+     * @param \DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication $identities
+     */
+    public function removeIdentity(IdentityApplication $identities)
+    {
+        $this->identities->removeElement($identities);
+    }
+
+    /**
+     * Get identities
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIdentities()
+    {
+        return $this->identities;
     }
 }

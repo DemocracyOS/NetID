@@ -32,7 +32,7 @@ class LegalIdType
     /**
      * @ORM\OneToMany(targetEntity="Identity", mappedBy="legalIdType")
      */
-    private $identities;   
+    private $identities;
     
     /**
      * Constructor

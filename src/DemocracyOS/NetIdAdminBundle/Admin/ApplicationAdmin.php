@@ -23,7 +23,7 @@ class ApplicationAdmin extends Admin
             ->add('name')
             ->add('description')
         ;
-        if ($this->getSubject()->getId())
+        if ($this->getSubject() && $this->getSubject()->getId())
         {
             $formMapper
                 ->add('publicId', 'text', array('read_only' => true))

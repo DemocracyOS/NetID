@@ -4,6 +4,7 @@ namespace DemocracyOS\NetIdAdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication;
 
 /**
  * Identity
@@ -21,6 +22,11 @@ class Identity
         } else {
             return 'New Identity';
         }
+    }
+
+    public function __construct()
+    {
+        $this->applications = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getFullname()
@@ -76,6 +82,11 @@ class Identity
      * @ORM\JoinColumn(name="district_id")
      */
     protected $district;
+
+    /**
+     * @ORM\OneToMany(targetEntity="IdentityApplication", mappedBy="identity", cascade={"persist", "merge"}, orphanRemoval=true)
+     */
+    private $applications;
 
     /**
      * Get id
@@ -223,5 +234,50 @@ class Identity
     public function getDistrict()
     {
         return $this->district;
+    }
+
+    /**
+     * Add applications
+     *
+     * @param \DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication $applications
+     * @return Identity
+     */
+    public function addApplication(\DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication $applications)
+    {
+        $this->applications[] = $applications;
+
+        return $this;
+    }
+
+    /**
+     * Remove applications
+     *
+     * @param \DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication $applications
+     */
+    public function removeApplication(\DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication $applications)
+    {
+        $this->applications->removeElement($applications);
+    }
+
+    /**
+     * Get applications
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getApplications()
+    {
+        return $this->applications;
+    }
+
+    /**
+     * Clear applications
+     *
+     * @return Identity
+     */
+    public function clearApplications()
+    {
+        $this->applications = new \Doctrine\Common\Collections\ArrayCollection();
+
+        return $this;
     }
 }

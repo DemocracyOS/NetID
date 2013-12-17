@@ -29,6 +29,11 @@ class IdentityAdmin extends Admin
                'legalId' => 'Example: 33333333'
             ))
             ->add('district')
+            ->add('applications', 'sonata_type_collection', array(), array(
+                'edit' => 'inline',
+                'inline' => 'table',
+                'sortable' => 'position',
+            ))
         ;
     }
 
@@ -48,6 +53,20 @@ class IdentityAdmin extends Admin
             ->add('birthday')
             ->remove('batch')
         ;
+    }
+
+    public function prePersist($identity)
+    {
+        foreach ($identity->getApplications() as $application) {
+            $application->setIdentity($identity);
+        }
+    }
+
+    public function preUpdate($identity)
+    {
+        foreach ($identity->getApplications() as $application) {
+            $application->setIdentity($identity);
+        }
     }
 
     /**
