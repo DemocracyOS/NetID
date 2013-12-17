@@ -1,3 +1,7 @@
+democracy_os_net_id_api:
+    resource: "@DemocracyOSNetIdApiBundle/Resources/config/routing.yml"
+    prefix:   /
+
 democracy_os_net_id_admin:
     resource: "@DemocracyOSNetIdAdminBundle/Resources/config/routing.yml"
     prefix:   /
@@ -7,3 +11,9 @@ sonata_admin_routing:
 
 sonata_user_routing:
     resource: sonata_user_routing.yml
+
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
+fos_oauth_server_authorize:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"

@@ -87,3 +87,10 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Application\Sonata\UserBundle\Entity\User
+
+fos_oauth_server:
+    db_driver: orm
+    client_class:        DemocracyOS\NetidApiBundle\Entity\Application
+    access_token_class:  DemocracyOS\NetIdApiBundle\Entity\AccessToken
+    refresh_token_class: DemocracyOS\NetIdApiBundle\Entity\RefreshToken
+    auth_code_class:     DemocracyOS\NetIdApiBundle\Entity\AuthCode

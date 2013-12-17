@@ -67,6 +67,17 @@ class Identity
     protected $legalIdType;
 
     /**
+     * @ORM\Column(name="legal_id", nullable=true)
+     */
+    protected $legalId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="District", inversedBy="identities")
+     * @ORM\JoinColumn(name="district_id")
+     */
+    protected $district;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -166,5 +177,51 @@ class Identity
     public function getLegalIdType()
     {
         return $this->legalIdType;
+    }
+
+    /**
+     * Set legalId
+     *
+     * @param string $legalId
+     * @return Identity
+     */
+    public function setLegalId($legalId)
+    {
+        $this->legalId = $legalId;
+
+        return $this;
+    }
+
+    /**
+     * Get legalId
+     *
+     * @return string 
+     */
+    public function getLegalId()
+    {
+        return $this->legalId;
+    }
+
+    /**
+     * Set district
+     *
+     * @param \DemocracyOS\NetIdAdminBundle\Entity\District $district
+     * @return Identity
+     */
+    public function setDistrict(\DemocracyOS\NetIdAdminBundle\Entity\District $district = null)
+    {
+        $this->district = $district;
+
+        return $this;
+    }
+
+    /**
+     * Get district
+     *
+     * @return \DemocracyOS\NetIdAdminBundle\Entity\District 
+     */
+    public function getDistrict()
+    {
+        return $this->district;
     }
 }

@@ -27,6 +27,16 @@ security:
                 invalidate_session: false
             anonymous:    true
 
+        oauth_token:
+            pattern:    ^/oauth/v2/token
+            security:   false
+
+        api:
+            pattern:    ^/api
+            fos_oauth:  true
+            stateless:  true
+            anonymous:  false
+
     access_control:
         # Admin login page needs to be access without credential
         - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -37,4 +47,5 @@ security:
         # This config requires being logged for the whole site and having the admin role for the admin part.
         # Change these rules to adapt them to your needs
         - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        - { path: ^/api, roles: [ IS_AUTHENTICATED_FULLY ] }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -8,9 +8,9 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class IdentityAdmin extends Admin
+class ApplicationAdmin extends Admin
 {
-    protected $baseRoutePattern = 'identity';
+    protected $baseRoutePattern = 'application';
 
     protected function configureRoutes(RouteCollection $collection)
     {
@@ -20,33 +20,30 @@ class IdentityAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('firstname')
-            ->add('lastname')
-            ->add('birthday', 'birthday', array('format' => 'ddMMMMyyyy'))
-            ->add('legalIdType')
-            ->add('legalId')
-            ->setHelps(array(
-               'legalId' => 'Example: 33333333'
-            ))
-            ->add('district')
+            ->add('name')
+            ->add('description')
         ;
+        if ($this->getSubject()->getId())
+        {
+            $formMapper
+                ->add('publicId', 'text', array('read_only' => true))
+                ->add('secret');
+        }
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('firstname')
-            ->add('lastname')
+            ->add('name')
+            ->add('description')
         ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('firstname')
-            ->add('lastname')
-            ->add('birthday')
-            ->remove('batch')
+            ->addIdentifier('name')
+            ->add('description')
         ;
     }
 

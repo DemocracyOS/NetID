@@ -33,12 +33,21 @@ class LegalIdType
      * @ORM\OneToMany(targetEntity="Identity", mappedBy="legalIdType")
      */
     private $identities;   
+    
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->identities = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * ToString method
+     */
+    public function __toString()
+    {
+        return $this->name;
     }
 
     /**
