@@ -18,6 +18,10 @@ class IdentityAdmin extends Admin
             ->remove('batch')
             ->add('identityValidateSearch', 'validate', array(), array('_method' => 'get'))
             ->add('identityValidateSearchPost', 'validate', array(), array('_method' => 'post'))
+            ->add('validateIdentity', $this->getRouterIdParameter(). '/validate-identity', array(), array('_method' => 'get'))
+            ->add('validateIdentityPost', $this->getRouterIdParameter(). '/validate-identity', array(), array('_method' => 'post'))
+            ->add('invalidateIdentity', $this->getRouterIdParameter(). '/invalidate-identity', array(), array('_method' => 'get'))
+            ->add('invalidateIdentityPost', $this->getRouterIdParameter(). '/invalidate-identity', array(), array('_method' => 'post'))
         ;
     }
 

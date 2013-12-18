@@ -53,7 +53,7 @@
                       {% set action  = identity.validatable ? 'validateIdentity' : 'invalidateIdentity' %} 
                       {% set icon    = identity.validatable ? 'user' : 'remove-circle' %}
                       {% set text    = identity.validatable ? "Validate"|trans : "Invalidate"|trans %}
-                      {#<a href="{{ admin.generateObjectUrl(action, identity) }}" class="btn btn-link no-space"><i class="icon-{{ icon }}"></i> {{ text }}#}
+                      <a href="{{ admin.generateObjectUrl(action, identity) }}" class="btn btn-link no-space"><i class="icon-{{ icon }}"></i> {{ text }}
                       </a>
                     {% else %}
                       <i class="icon-warning-sign"></i> <i>{{ "suspicious.identity"|trans }}</i>
