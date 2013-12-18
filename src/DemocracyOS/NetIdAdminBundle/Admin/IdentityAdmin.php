@@ -22,6 +22,10 @@ class IdentityAdmin extends Admin
             ->add('validateIdentityPost', $this->getRouterIdParameter(). '/validate-identity', array(), array('_method' => 'post'))
             ->add('invalidateIdentity', $this->getRouterIdParameter(). '/invalidate-identity', array(), array('_method' => 'get'))
             ->add('invalidateIdentityPost', $this->getRouterIdParameter(). '/invalidate-identity', array(), array('_method' => 'post'))
+            ->add('suspicious', $this->getRouterIdParameter().'/suspicious')
+            ->add('mark_suspicious', $this->getRouterIdParameter().'/mark_suspicious')
+            ->add('unsuspicious', $this->getRouterIdParameter().'/unsuspicious')
+            ->add('mark_unsuspicious', $this->getRouterIdParameter().'/mark_unsuspicious')
         ;
     }
 
@@ -60,6 +64,15 @@ class IdentityAdmin extends Admin
             ->add('lastname')
             ->add('birthday')
             ->remove('batch')
+            ->add('_action', 'actions', array(
+                    'actions' => array(
+                        'show' => array(),
+                        'edit' => array(),
+                        'delete' => array(),
+                        'suspicious' => array('template' => 'DemocracyOSNetIdAdminBundle:Identity:suspiciousButton.html.twig'),
+                    )
+                )
+            )
         ;
     }
 

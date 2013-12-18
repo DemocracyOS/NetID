@@ -14,6 +14,69 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class IdentityController extends CRUDController
 {
     protected $id;
+    protected $identity;
+
+    public function suspiciousAction($id)
+    {
+        $this->id = $id;
+        return $this->suspiciousyAction('DemocracyOSNetIdAdminBundle:Identity:suspicious.html.twig', 'suspicious');
+    }
+
+    public function unsuspiciousAction($id)
+    {
+        $this->id = $id;
+        return $this->suspiciousyAction('DemocracyOSNetIdAdminBundle:Identity:unsuspicious.html.twig', 'unsuspicious');
+    }
+
+    protected function getObject()
+    {
+        $securityContext = $this->get('security.context');
+        if (!$securityContext->isGranted('ROLE_ADMIN') || !$securityContext->isGranted('ROLE_SUPER_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $object = $this->admin->getObject($this->id);
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        return $object;
+    }
+
+    protected function suspiciousyAction($template, $action)
+    {
+        $object = $this->getObject();
+        $this->admin->setSubject($object);
+
+        $csrfToken = $this->getCsrfToken('suspicious');
+
+        return $this->render($template, array('object' => $object, 'action' => $action, 'csrf_token' => $csrfToken));
+    }
+
+    public function markSuspiciousAction($id)
+    {
+        $this->id = $id;
+        return $this->markSuspiciousy(true, 'flash_mark_suspicious_success');
+    }
+
+    public function markUnsuspiciousAction($id)
+    {
+        $this->id = $id;
+        return $this->markSuspiciousy(false, 'flash_mark_unsuspicious_success');
+    }
+
+    protected function markSuspiciousy($isSuspicious, $flashMessage)
+    {
+        $object = $this->getObject();
+        $object->setSuspicious($isSuspicious);
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($object);
+        $em->flush();
+
+        $this->addFlash('sonata_flash_success', $flashMessage);
+        return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
+    }
 
     public function identityValidateSearchAction()
     {
