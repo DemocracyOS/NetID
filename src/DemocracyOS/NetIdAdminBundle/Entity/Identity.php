@@ -11,6 +11,7 @@ use DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication;
  *
  * @ORM\Entity
  * @ORM\Table(name="identity")
+ * @ORM\Entity(repositoryClass="DemocracyOS\NetIdAdminBundle\Repository\IdentityRepository")
  */
 class Identity
 {
@@ -60,6 +61,13 @@ class Identity
     protected $lastname;
 
     /**
+     * @var string
+     *
+     * @ORM\Column()
+     */
+    protected $email;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
@@ -87,6 +95,20 @@ class Identity
      * @ORM\OneToMany(targetEntity="IdentityApplication", mappedBy="identity", cascade={"persist", "merge"}, orphanRemoval=true)
      */
     private $applications;
+
+    /**
+     * @var validated
+     *
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    protected $validated = false;
+
+    /**
+     * @var suspicious
+     *
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    protected $suspicious = false;
 
     /**
      * Get id
@@ -119,6 +141,29 @@ class Identity
     public function getFirstname()
     {
         return $this->firstname;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Identity
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
@@ -270,6 +315,52 @@ class Identity
     }
 
     /**
+     * Is validated
+     *
+     * @return boolean 
+     */
+    public function isValidated()
+    {
+        return $this->validated;
+    }
+
+    /**
+     * Set validated
+     *
+     * @param boolean $validated
+     * @return Identity
+     */
+    public function setValidated($validated = true)
+    {
+        $this->validated = $validated;
+    
+        return $this;
+    }
+
+    /**
+     * Is suspicious
+     *
+     * @return boolean 
+     */
+    public function isSuspicious()
+    {
+        return $this->suspicious;
+    }
+
+    /**
+     * Set suspicious
+     *
+     * @param boolean $suspicious
+     * @return Identity
+     */
+    public function setSuspicious($suspicious = true)
+    {
+        $this->suspicious = $suspicious;
+    
+        return $this;
+    }
+
+    /**
      * Clear applications
      *
      * @return Identity
@@ -279,5 +370,36 @@ class Identity
         $this->applications = new \Doctrine\Common\Collections\ArrayCollection();
 
         return $this;
+    }
+
+    public function getRowStatus()
+    {
+        if ($this->isValidated())
+        {
+            return 'success';
+        } elseif ($this->isSuspicious()) {
+            return 'error';
+        }
+        return 'info';
+    }
+
+    public function isValidatable()
+    {
+        return !$this->isSuspicious() && !$this->validated;
+    }
+
+    public function isInvalidatable()
+    {
+        return !$this->isSuspicious() && $this->validated;
+    }
+
+    public function validate()
+    {
+        $this->setValidated(true);
+    }
+
+    public function invalidate()
+    {
+        $this->setValidated(false);
     }
 }

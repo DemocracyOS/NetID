@@ -66,9 +66,7 @@ sonata_block:
     blocks:
         sonata.admin.block.admin_list:
             contexts:   [admin]
-        sonata.block.service.text:
-        sonata.block.service.action:
-        sonata.block.service.rss:
+        sonata.block.identity.validation: ~
 
 sonata_admin:
     title:      Net Id Admin
@@ -82,6 +80,10 @@ sonata_admin:
         list:    SonataAdminBundle:CRUD:list.html.twig
         show:    SonataAdminBundle:CRUD:show.html.twig
         edit:    SonataAdminBundle:CRUD:edit.html.twig
+    dashboard:
+        blocks:
+            - { position: left, type: sonata.admin.block.admin_list }
+            - { position: left, type: sonata.block.identity.validation }
 
 fos_user:
     db_driver: orm

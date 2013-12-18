@@ -14,7 +14,11 @@ class IdentityAdmin extends Admin
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('batch');
+        $collection
+            ->remove('batch')
+            ->add('identityValidateSearch', 'validate', array(), array('_method' => 'get'))
+            ->add('identityValidateSearchPost', 'validate', array(), array('_method' => 'post'))
+        ;
     }
 
     protected function configureFormFields(FormMapper $formMapper)

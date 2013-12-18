@@ -6,7 +6,7 @@ services:
         arguments:
             - ~
             - DemocracyOS\NetIdAdminBundle\Entity\Identity
-            - ~
+            - 'DemocracyOSNetIdAdminBundle:Identity'
     sonata.admin.application:
         class: DemocracyOS\NetIdAdminBundle\Admin\ApplicationAdmin
         tags:
@@ -23,3 +23,10 @@ services:
             - ~
             - DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication
             - ~
+    sonata.block.identity.validation:
+        class: DemocracyOS\NetIdAdminBundle\Blocks\IdentityValidationBlockService
+        arguments: [ "sonata.block.identity.validation", @templating ]
+        calls:
+            - [ setContainer, [@service_container] ]
+        tags:
+            - { name: sonata.block, position: left, type: sonata.block.identity.validation }
