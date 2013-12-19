@@ -33,6 +33,7 @@ class Application extends BaseClient
      * @ORM\OneToMany(targetEntity="\DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication", mappedBy="applications")
      */
     protected $identities;
+    
 
     /**
      * Constructor
@@ -40,6 +41,7 @@ class Application extends BaseClient
     public function __construct()
     {
         parent::__construct();
+        $this->setAllowedGrantTypes(array('client_credentials'));
         $this->identities = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

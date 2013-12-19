@@ -42,7 +42,6 @@ security:
             pattern:    ^/api
             fos_oauth:  true
             stateless:  true
-            anonymous:  false
 
     access_control:
         # Admin login page needs to be access without credential
@@ -54,5 +53,4 @@ security:
         # This config requires being logged for the whole site and having the admin role for the admin part.
         # Change these rules to adapt them to your needs
         - { path: ^/admin/, role: [ROLE_USER, ROLE_SONATA_ADMIN] }
-        - { path: ^/api, roles: [ IS_AUTHENTICATED_FULLY ] }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }

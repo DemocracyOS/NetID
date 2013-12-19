@@ -1,0 +1,4 @@
+verify:
+    path:     /api/verify
+    defaults: { _controller: DemocracyOSNetIdApiBundle:Identity:verify }
+    methods: [POST]
