@@ -96,3 +96,24 @@ fos_oauth_server:
     access_token_class:  DemocracyOS\NetIdApiBundle\Entity\AccessToken
     refresh_token_class: DemocracyOS\NetIdApiBundle\Entity\RefreshToken
     auth_code_class:     DemocracyOS\NetIdApiBundle\Entity\AuthCode
+
+services:
+    json_formatter:
+        class: Monolog\Formatter\JsonFormatter
+    audit_logger:
+        class: DemocracyOS\NetIdAdminBundle\Logger\AuditLogger
+        arguments: ["@monolog.logger.audit", "@security.context", "@service_container"]
+    login_listener:
+        class: DemocracyOS\NetIdAdminBundle\Listener\LoginListener
+        arguments: ["@audit_logger"]
+        tags:
+            - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+
+monolog:
+    channels: ["audit"]
+    handlers:
+        audit:
+            type: stream
+            path: "%kernel.root_dir%/logs/netid.log"
+            channels: [audit]
+            formatter: json_formatter

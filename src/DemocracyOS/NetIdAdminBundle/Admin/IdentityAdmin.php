@@ -11,6 +11,13 @@ use Sonata\AdminBundle\Route\RouteCollection;
 class IdentityAdmin extends Admin
 {
     protected $baseRoutePattern = 'identity';
+    protected $container;
+    protected $auditLogger;
+
+    public function setContainer($container)
+    {
+        $this->container = $container;
+    }
 
     protected function configureRoutes(RouteCollection $collection)
     {
@@ -92,6 +99,21 @@ class IdentityAdmin extends Admin
         }
     }
 
+    public function postPersist($identity)
+    {
+        $this->auditLogger->create($identity);   
+    }
+
+    public function postUpdate($identity)
+    {
+        $this->auditLogger->edit($identity);   
+    }
+
+    public function preRemove($identity)
+    {
+        $this->auditLogger->delete($identity);   
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -100,5 +122,10 @@ class IdentityAdmin extends Admin
         return array(
             'csv', 'xls'
         );
+    }
+
+    public function setLogger($auditLogger)
+    {
+        $this->auditLogger = $auditLogger;
     }
 }

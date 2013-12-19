@@ -19,7 +19,7 @@ class Identity
     {
         if (isset($this->id))
         {
-            return $this->getFullname();
+            return $this->id . ' ' . $this->getFullname();
         } else {
             return 'New Identity';
         }
