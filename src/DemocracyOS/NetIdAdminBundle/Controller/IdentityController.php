@@ -56,13 +56,13 @@ class IdentityController extends CRUDController
     public function markSuspiciousAction($id)
     {
         $this->id = $id;
-        return $this->markSuspiciousy(true, 'flash_mark_suspicious_success');
+        return $this->markSuspiciousy(true, 'Identity marked as suspicious successfully');
     }
 
     public function markUnsuspiciousAction($id)
     {
         $this->id = $id;
-        return $this->markSuspiciousy(false, 'flash_mark_unsuspicious_success');
+        return $this->markSuspiciousy(false, 'Identity unmarked as suspicious successfully');
     }
 
     protected function markSuspiciousy($isSuspicious, $flashMessage)
@@ -75,6 +75,14 @@ class IdentityController extends CRUDController
         $em->flush();
 
         $this->addFlash('sonata_flash_success', $flashMessage);
+
+        $auditLogger = $this->container->get('audit_logger');
+        if ($isSuspicious)
+        {
+            $auditLogger->markSuspicious($this->identity);
+        } else {
+            $auditLogger->unmarkSuspicious($this->identity);
+        }
         return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
     }
 
@@ -132,7 +140,9 @@ class IdentityController extends CRUDController
         $this->identity->validate();
         $this->persistIdentity();
 
-        $this->addFlash('sonata_flash_success', 'Identity successfully invalidated');
+        $this->addFlash('sonata_flash_success', 'Identity successfully validated');
+        $auditLogger = $this->container->get('audit_logger');
+        $auditLogger->validate($this->identity);
         return $this->redirect($this->admin->generateUrl('identityValidateSearch'));
     }
 
@@ -144,7 +154,7 @@ class IdentityController extends CRUDController
         $this->identity->invalidate();
         $this->persistIdentity();
 
-        $this->addFlash('sonata_flash_success', 'Identity successfully validated');
+        $this->addFlash('sonata_flash_success', 'Identity successfully invalidated');
         return $this->redirect($this->admin->generateUrl('identityValidateSearch'));
     }
 

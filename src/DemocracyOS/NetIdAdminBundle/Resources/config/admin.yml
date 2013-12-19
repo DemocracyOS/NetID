@@ -7,6 +7,9 @@ services:
             - ~
             - DemocracyOS\NetIdAdminBundle\Entity\Identity
             - 'DemocracyOSNetIdAdminBundle:Identity'
+        calls:
+            - [ setContainer, [ @service_container ] ]
+            - [ setLogger, [ @audit_logger ] ]
     sonata.admin.application:
         class: DemocracyOS\NetIdAdminBundle\Admin\ApplicationAdmin
         tags:
