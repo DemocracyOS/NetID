@@ -34,6 +34,7 @@ class IdentityAdmin extends Admin
         $formMapper
             ->add('firstname')
             ->add('lastname')
+            ->add('email', 'email')
             ->add('birthday', 'birthday', array('format' => 'ddMMMMyyyy'))
             ->add('legalIdType')
             ->add('legalId')
@@ -60,8 +61,9 @@ class IdentityAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('firstname')
+            ->add('firstname')
             ->add('lastname')
+            ->add('email', 'email')
             ->add('birthday')
             ->remove('batch')
             ->add('_action', 'actions', array(
