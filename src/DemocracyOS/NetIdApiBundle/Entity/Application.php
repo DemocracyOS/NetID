@@ -66,7 +66,6 @@ class Application extends BaseClient
      */
     public function getId()
     {
-        var_dump('expression');exit;
         return $this->id;
     }
 
