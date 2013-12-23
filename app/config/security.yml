@@ -36,7 +36,7 @@ security:
 
         oauth_token:
             pattern:    ^/oauth/v2/token
-            security:   false
+            anonymous: true
 
         api:
             pattern:    ^/api

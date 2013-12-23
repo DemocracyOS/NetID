@@ -11,6 +11,12 @@ use Sonata\AdminBundle\Route\RouteCollection;
 class ApplicationAdmin extends Admin
 {
     protected $baseRoutePattern = 'application';
+    protected $container;
+
+    public function setContainer($container)
+    {
+        $this->container = $container;
+    }
 
     protected function configureRoutes(RouteCollection $collection)
     {
@@ -55,5 +61,15 @@ class ApplicationAdmin extends Admin
         return array(
             'csv', 'xls'
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function postPersist($object)
+    {
+        $clientManager = $this->container->get('fos_oauth_server.client_manager.default');
+        $object->setAllowedGrantTypes(array('client_credentials'));
+        $clientManager->updateClient($object);
     }
 }
