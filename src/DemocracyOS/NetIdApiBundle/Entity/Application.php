@@ -9,6 +9,7 @@ use DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="application")
  */
 class Application extends BaseClient
 {

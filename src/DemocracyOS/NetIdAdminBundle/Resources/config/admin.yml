@@ -18,8 +18,6 @@ services:
             - ~
             - DemocracyOS\NetIdApiBundle\Entity\Application
             - ~
-        calls:
-            - [ setContainer, [ @service_container ] ]
     sonata.admin.identity_application:
         class: DemocracyOS\NetIdAdminBundle\Admin\IdentityApplicationAdmin
         tags:
