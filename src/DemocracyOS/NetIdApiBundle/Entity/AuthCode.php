@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="auth_code")
  */
 class AuthCode extends BaseAuthCode
 {
@@ -21,5 +22,10 @@ class AuthCode extends BaseAuthCode
      * @ORM\ManyToOne(targetEntity="Application")
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $application;
+    protected $client;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Application")
+     */
+    protected $user;
 }
