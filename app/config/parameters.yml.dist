@@ -1,10 +1,10 @@
 parameters:
-    database_driver:   %database.driver%
-    database_host:     %database.host%
-    database_port:     %database.port%
-    database_name:     %database.name%
-    database_user:     %database.user%
-    database_password: %database.pass%
+    database_driver:   pdo_mysql
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     symfony
+    database_user:     root
+    database_password: ~
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
@@ -13,8 +13,4 @@ parameters:
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
-
-    admin.username: admin
-    admin.password: admin
-
     identity.validation.search.limit: 4

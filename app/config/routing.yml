@@ -1,53 +1,19 @@
+democracy_os_net_id_api:
+    resource: "@DemocracyOSNetIdApiBundle/Resources/config/routing.yml"
+    prefix:   /
+
+democracy_os_net_id_admin:
+    resource: "@DemocracyOSNetIdAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+
+sonata_admin_routing:
+    resource: sonata_admin_routing.yml
+
+sonata_user_routing:
+    resource: sonata_user_routing.yml
+
 fos_oauth_server_token:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
 
-#fos_user_security:
-#    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-
-fos_user_security_login:
-    pattern: /admin/login/
-    defaults: { _controller: FOSUserBundle:Security:login }
-
-fos_user_security_check:
-    pattern: /admin/login_check/
-    defaults: { _controller: FOSUserBundle:Security:check }
-    methods: [POST]
-
-fos_user_security_logout:
-    pattern: /admin/logout/
-    defaults: { _controller: FOSUserBundle:Security:logout }
-
-admin:
-    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /admin/
-
-_sonata_admin:
-    resource: .
-    type: sonata_admin
-    prefix: /admin
-
-verify:
-    path:     /api/verify/
-    defaults: { _controller: DeRNetIdBundle:Identity:verify }
-    methods: [POST]
-
-identities:
-    path:     /api/identities/
-    defaults: { _controller: DeRNetIdBundle:Identity:index }
-
-identities_insert:
-    path:     /api/identities/new
-    defaults: { _controller: DeRNetIdBundle:Identity:insert }
-    methods: [POST]
-
-identities_verbs:
-    path:     /api/allowed/
-    defaults: { _controller: DeRNetIdBundle:Identity:allowed }
-    methods: [POST]
-
-root:
-    path:     /
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path: /admin/login/
-        permanent: true
+fos_oauth_server_authorize:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"

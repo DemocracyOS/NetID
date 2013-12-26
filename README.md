@@ -1,62 +1,171 @@
-NetID
-=====
+Symfony Standard Edition
+========================
 
-Administrative tool for validated identities used in DemocracyOS/app
+Welcome to the Symfony Standard Edition - a fully-functional Symfony2
+application that you can use as the skeleton for your new applications.
 
-## Install
-1. Fork and/or clone or even just download this repository.
-2. Copy `./app/config/parameters.yml.dist` file to `./app/config/parameters.yml`.
-3. Set your configuration keys for database driver, host, port, name, user and password on `./app/config/parameters.yml`.
-The parameters.yml file is ignored by git (see .gitignore) so that machine-specific settings like database passwords aren't committed.
-By creating the parameters.yml.dist file, new developers can quickly clone the project, copy this file to parameters.yml, customize it, and start developing.
-4. On the project root directory, run `php app/console doctrine:database:create` command to create the database and `php app/console doctrine:schema:update --force` to create the Net ID database schema.
+This document contains information on how to download, install, and start
+using Symfony. For a more detailed explanation, see the [Installation][1]
+chapter of the Symfony Documentation.
 
-Note on #3: Either replace parameters variables on `./app/config/parameters.yml` or set them as environment variables as shown below.
+1) Installing the Standard Edition
+----------------------------------
 
-##  Settings
+When it comes to installing the Symfony Standard Edition, you have the
+following options.
 
-### Config variables
-Symfony will grab any environment variable prefixed with SYMFONY__ and set it as a parameter in the service container.
-Double underscores are replaced with a period, as a period is not a valid character in an environment variable name.
+### Use Composer (*recommended*)
 
-## Production Settings
+As Symfony uses [Composer][2] to manage its dependencies, the recommended way
+to create a new project is to use it.
 
-### Heroku buildpack
-In order to install this application you must use `heroku-buildpack-php`.
-Use the `--buildpack` parameter when creating a new app:
+If you don't have Composer yet, download it following the instructions on
+http://getcomposer.org/ or just run the following command:
 
-    heroku create --buildpack https://github.com/CHH/heroku-buildpack-php myapp
+    curl -s http://getcomposer.org/installer | php
 
-Or set the `BUILDPACK_URL` config var on an existing app:
+Then, use the `create-project` command to generate a new Symfony application:
 
-    heroku config:set BUILDPACK_URL=https://github.com/CHH/heroku-buildpack-php
-    
-Dependencies on `./composer.json` will be installed when pushed to heroku server.
+    php composer.phar create-project symfony/framework-standard-edition path/to/install
 
-### Heroku Settings
-First of all enable environment variables through `heroku labs:enable user-env-compile`
-In order to install this application you shoud set the following config variables.
+Composer will install Symfony and all its dependencies under the
+`path/to/install` directory.
 
-#### Database
-* SYMFONY__DATABASE__DRIVER: Database driver `pdo_mysql` for MySQL Server.
-* SYMFONY__DATABASE__HOST: Database host url.
-* SYMFONY__DATABASE__PORT: Database port. Add it as `null` for default driver port.
-* SYMFONY__DATABASE__NAME: Database name.
-* SYMFONY__DATABASE__USER: Database login user.
-* SYMFONY__DATABASE__PASS: Database login password.
-* SYMFONY__ADMIN__USERNAME: Admin administration username.
-* SYMFONY__ADMIN__PASSWORD: Admin administration password.
+### Download an Archive File
 
-## Useful links
+To quickly test Symfony, you can also download an [archive][3] of the Standard
+Edition and unpack it somewhere under your web server root directory.
 
-* [PDR Site](http://partidodelared.org): The `Net Party` official site.
-* [PDR Wiki](http://wiki.partidodelared.org): The `Net Party` official wiki.
-* [PDR Facebook](http://facebook.com/partidodelared): The `Net Party` official Facebook page.
-* [PDR Twitter](http://twitter.com/partidodelared): The `Net Party` official Twitter account.
+If you downloaded an archive "without vendors", you also need to install all
+the necessary dependencies. Download composer (see above) and run the
+following command:
 
-## Active Contributors
-* [Sacha Lifszyc](http://twitter.com/slifszyc)  
+    php composer.phar install
 
-## License 
+2) Checking your System Configuration
+-------------------------------------
 
-MIT
+Before starting coding, make sure that your local system is properly
+configured for Symfony.
+
+Execute the `check.php` script from the command line:
+
+    php app/check.php
+
+The script returns a status code of `0` if all mandatory requirements are met,
+`1` otherwise.
+
+Access the `config.php` script from a browser:
+
+    http://localhost/path/to/symfony/app/web/config.php
+
+If you get any warnings or recommendations, fix them before moving on.
+
+3) Browsing the Demo Application
+--------------------------------
+
+Congratulations! You're now ready to use Symfony.
+
+From the `config.php` page, click the "Bypass configuration and go to the
+Welcome page" link to load up your first Symfony page.
+
+You can also use a web-based configurator by clicking on the "Configure your
+Symfony Application online" link of the `config.php` page.
+
+To see a real-live Symfony page in action, access the following page:
+
+    web/app_dev.php/demo/hello/Fabien
+
+4) Getting started with Symfony
+-------------------------------
+
+This distribution is meant to be the starting point for your Symfony
+applications, but it also contains some sample code that you can learn from
+and play with.
+
+A great way to start learning Symfony is via the [Quick Tour][4], which will
+take you through all the basic features of Symfony2.
+
+Once you're feeling good, you can move onto reading the official
+[Symfony2 book][5].
+
+A default bundle, `AcmeDemoBundle`, shows you Symfony2 in action. After
+playing with it, you can remove it by following these steps:
+
+  * delete the `src/Acme` directory;
+
+  * remove the routing entry referencing AcmeDemoBundle in `app/config/routing_dev.yml`;
+
+  * remove the AcmeDemoBundle from the registered bundles in `app/AppKernel.php`;
+
+  * remove the `web/bundles/acmedemo` directory;
+
+  * remove the `security.providers`, `security.firewalls.login` and
+    `security.firewalls.secured_area` entries in the `security.yml` file or
+    tweak the security configuration to fit your needs.
+
+What's inside?
+---------------
+
+The Symfony Standard Edition is configured with the following defaults:
+
+  * Twig is the only configured template engine;
+
+  * Doctrine ORM/DBAL is configured;
+
+  * Swiftmailer is configured;
+
+  * Annotations for everything are enabled.
+
+It comes pre-configured with the following bundles:
+
+  * **FrameworkBundle** - The core Symfony framework bundle
+
+  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
+    template and routing annotation capability
+
+  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
+
+  * [**TwigBundle**][8] - Adds support for the Twig templating engine
+
+  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
+    component
+
+  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
+    sending emails
+
+  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
+
+  * [**AsseticBundle**][12] - Adds support for Assetic, an asset processing
+    library
+
+  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
+    the web debug toolbar
+
+  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
+    configuring and working with Symfony distributions
+
+  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
+    capabilities
+
+  * **AcmeDemoBundle** (in dev/test env) - A demo bundle with some example
+    code
+
+All libraries and bundles included in the Symfony Standard Edition are
+released under the MIT or BSD license.
+
+Enjoy!
+
+[1]:  http://symfony.com/doc/2.4/book/installation.html
+[2]:  http://getcomposer.org/
+[3]:  http://symfony.com/download
+[4]:  http://symfony.com/doc/2.4/quick_tour/the_big_picture.html
+[5]:  http://symfony.com/doc/2.4/index.html
+[6]:  http://symfony.com/doc/2.4/bundles/SensioFrameworkExtraBundle/index.html
+[7]:  http://symfony.com/doc/2.4/book/doctrine.html
+[8]:  http://symfony.com/doc/2.4/book/templating.html
+[9]:  http://symfony.com/doc/2.4/book/security.html
+[10]: http://symfony.com/doc/2.4/cookbook/email.html
+[11]: http://symfony.com/doc/2.4/cookbook/logging/monolog.html
+[12]: http://symfony.com/doc/2.4/cookbook/assetic/asset_management.html
+[13]: http://symfony.com/doc/2.4/bundles/SensioGeneratorBundle/index.html

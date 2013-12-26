@@ -1,0 +1,50 @@
+services:
+    sonata.admin.identity:
+        class: DemocracyOS\NetIdAdminBundle\Admin\IdentityAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Identity" }
+        arguments:
+            - ~
+            - DemocracyOS\NetIdAdminBundle\Entity\Identity
+            - 'DemocracyOSNetIdAdminBundle:Identity'
+        calls:
+            - [ setContainer, [ @service_container ] ]
+            - [ setLogger, [ @audit_logger ] ]
+    sonata.admin.application:
+        class: DemocracyOS\NetIdAdminBundle\Admin\ApplicationAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Application" }
+        arguments:
+            - ~
+            - DemocracyOS\NetIdApiBundle\Entity\Application
+            - ~
+    sonata.admin.identity_application:
+        class: DemocracyOS\NetIdAdminBundle\Admin\IdentityApplicationAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Identity Application", show_in_dashboard: false }
+        arguments:
+            - ~
+            - DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication
+            - ~
+    sonata.block.identity.validation:
+        class: DemocracyOS\NetIdAdminBundle\Blocks\IdentityValidationBlockService
+        arguments: [ "sonata.block.identity.validation", @templating ]
+        calls:
+            - [ setContainer, [@service_container] ]
+        tags:
+            - { name: sonata.block, position: left, type: sonata.block.identity.validation }
+    sonata.block.audit:
+        class: DemocracyOS\NetIdAdminBundle\Blocks\AuditBlockService
+        arguments: [ "sonata.block.audit", @templating ]
+        calls:
+            - [ setContainer, [@service_container] ]
+        tags:
+            - { name: sonata.block, position: left, type: sonata.block.audit }
+    admin.sonata.audit:
+        class: DemocracyOS\NetIdAdminBundle\Admin\AuditAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Identity Application", show_in_dashboard: false }
+        arguments:
+            - ~
+            - ~
+            - 'DemocracyOSNetIdAdminBundle:Audit'
