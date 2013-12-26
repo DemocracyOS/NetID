@@ -1,9 +1,0 @@
-Dashboard: Panel de Control
-Action: Acción
-Content: Contenido
-Logout: Salir
-Administration: Administración
-flash_mark_suspicious_success: Identidad marcada como sospechoso
-flash_mark_unsuspicious_success: Identidad marcada como no sospechoso
-flash_validate_identity_success: Identitdad validada exitosamente
-flash_invalidate_identity_success: Identitdad invalidada exitosamente

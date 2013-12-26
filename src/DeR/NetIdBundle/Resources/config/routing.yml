@@ -1,3 +1,0 @@
-users:
-    pattern:  /users
-    defaults: { _controller: DeRNetIdBundle:Default:users }
