@@ -41,7 +41,11 @@ class IdentityAdmin extends Admin
         $formMapper
             ->add('firstname')
             ->add('lastname')
-            ->add('email', 'email')
+            ->add('emails', 'sonata_type_collection', array(), array(
+                'edit' => 'inline',
+                'inline' => 'table',
+                'sortable' => 'position',
+            ))
             ->add('birthday', 'birthday', array('format' => 'ddMMMMyyyy'))
             ->add('legalIdType')
             ->add('legalId')
@@ -87,15 +91,21 @@ class IdentityAdmin extends Admin
 
     public function prePersist($identity)
     {
-        foreach ($identity->getApplications() as $application) {
-            $application->setIdentity($identity);
-        }
+        $this->updateDependencies($identity);
     }
 
     public function preUpdate($identity)
     {
+        $this->updateDependencies($identity);
+    }
+
+    protected function updateDependencies($identity)
+    {
         foreach ($identity->getApplications() as $application) {
             $application->setIdentity($identity);
+        }
+        foreach ($identity->getEmails() as $email) {
+            $email->setIdentity($identity);
         }
     }
 

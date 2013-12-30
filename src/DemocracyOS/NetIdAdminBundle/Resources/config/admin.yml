@@ -10,6 +10,14 @@ services:
         calls:
             - [ setContainer, [ @service_container ] ]
             - [ setLogger, [ @audit_logger ] ]
+    sonata.admin.email:
+        class: DemocracyOS\NetIdAdminBundle\Admin\EmailAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", show_in_dashboard: false }
+        arguments:
+            - ~
+            - DemocracyOS\NetIdAdminBundle\Entity\Email
+            - ~
     sonata.admin.application:
         class: DemocracyOS\NetIdAdminBundle\Admin\ApplicationAdmin
         tags:

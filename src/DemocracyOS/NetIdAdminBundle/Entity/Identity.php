@@ -63,9 +63,9 @@ class Identity
     /**
      * @var string
      *
-     * @ORM\Column()
+     * @ORM\OneToMany(targetEntity="Email", mappedBy="identity", cascade={"all"}, orphanRemoval=true)
      */
-    protected $email;
+    protected $emails;
 
     /**
      * @var \DateTime
@@ -141,29 +141,6 @@ class Identity
     public function getFirstname()
     {
         return $this->firstname;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return Identity
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
     }
 
     /**
@@ -401,5 +378,59 @@ class Identity
     public function invalidate()
     {
         $this->setValidated(false);
+    }
+
+    /**
+     * Get validated
+     *
+     * @return boolean 
+     */
+    public function getValidated()
+    {
+        return $this->validated;
+    }
+
+    /**
+     * Get suspicious
+     *
+     * @return boolean 
+     */
+    public function getSuspicious()
+    {
+        return $this->suspicious;
+    }
+
+    /**
+     * Add emails
+     *
+     * @param \DemocracyOS\NetIdAdminBundle\Entity\Email $emails
+     * @return Identity
+     */
+    public function addEmail(\DemocracyOS\NetIdAdminBundle\Entity\Email $email)
+    {
+        $this->emails[] = $email;
+        $email->setIdentity($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove emails
+     *
+     * @param \DemocracyOS\NetIdAdminBundle\Entity\Email $emails
+     */
+    public function removeEmail(\DemocracyOS\NetIdAdminBundle\Entity\Email $emails)
+    {
+        $this->emails->removeElement($emails);
+    }
+
+    /**
+     * Get emails
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEmails()
+    {
+        return $this->emails;
     }
 }
