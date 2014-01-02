@@ -13,7 +13,7 @@ class Groups implements FixtureInterface
         $dni = new LegalIdType();
         $dni->setName('DNI');
 
-        $manager->persist($dni);
-        $manager->flush();
+        #$manager->persist($dni);
+        #$manager->flush();
     }
 }

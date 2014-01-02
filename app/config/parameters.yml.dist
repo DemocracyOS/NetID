@@ -15,3 +15,7 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     identity.validation.search.limit: 4
+
+    root_username: %root.username%
+    root_password: %root.password%
+    root_email: %root.email%
