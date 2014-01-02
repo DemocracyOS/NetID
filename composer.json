@@ -55,6 +55,12 @@
         },
         "branch-alias": {
             "dev-master": "2.4-dev"
+        },
+        "heroku": {
+            "framework": "symfony2",
+            "document-root": "web",
+            "index-document": "app.php",
+            "php-config": ["date.timezone=America/Argentina/Buenos_Aires"]
         }
     }
 }
