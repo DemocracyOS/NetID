@@ -15,6 +15,11 @@ use DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication;
  */
 class Email
 {
+    public function __toString()
+    {
+        return $this->email;
+    }
+
 	/**
      * @var integer
      *

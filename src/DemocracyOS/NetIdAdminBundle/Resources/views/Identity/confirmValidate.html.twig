@@ -5,7 +5,7 @@
 
     <div class="well well-small form-actions">
         <p>{{ "Are you sure you want to %action% this identity?" | trans({'%action%': action|trans}) }}</p>
-        <p>{{ identity.fullname }} - {{ identity.email }} - {{ identity.legalId }}</p>
+        <p>{{ identity.fullname }} - {{ identity.emails|join(',') }} - {{ identity.legalId }}</p>
         <p><strong>{{ "This action will be logged for future reference" | trans }}</strong></p>
     </div>
 

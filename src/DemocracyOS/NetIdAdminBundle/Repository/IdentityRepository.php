@@ -12,7 +12,8 @@ class IdentityRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery(
                 "SELECT i FROM DemocracyOSNetIdAdminBundle:Identity i 
-                WHERE   (:email is null or i.email = :email)
+                LEFT JOIN i.emails e
+                WHERE   (:email is null or e.email = :email)
                 AND     (:legalId is null or i.legalId = :legalId)
                 AND     (:firstname is null or i.firstname = :firstname)
                 AND     (:lastname is null or i.lastname = :lastname)"

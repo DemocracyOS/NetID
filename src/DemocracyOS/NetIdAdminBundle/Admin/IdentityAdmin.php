@@ -76,7 +76,7 @@ class IdentityAdmin extends Admin
         $listMapper
             ->add('firstname')
             ->add('lastname')
-            ->add('email', 'email')
+            ->add('emails')
             ->add('birthday')
             ->remove('batch')
             ->add('_action', 'actions', array(
