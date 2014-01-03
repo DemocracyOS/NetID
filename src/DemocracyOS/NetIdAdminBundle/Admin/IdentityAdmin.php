@@ -13,6 +13,7 @@ class IdentityAdmin extends Admin
     protected $baseRoutePattern = 'identity';
     protected $container;
     protected $auditLogger;
+    protected $baseRouteName = 'identity';
 
     public function setContainer($container)
     {
@@ -33,6 +34,7 @@ class IdentityAdmin extends Admin
             ->add('mark_suspicious', $this->getRouterIdParameter().'/mark_suspicious')
             ->add('unsuspicious', $this->getRouterIdParameter().'/unsuspicious')
             ->add('mark_unsuspicious', $this->getRouterIdParameter().'/mark_unsuspicious')
+            ->add('downloadLog', 'download-log', array(), array('_method' => 'get'));
         ;
     }
 

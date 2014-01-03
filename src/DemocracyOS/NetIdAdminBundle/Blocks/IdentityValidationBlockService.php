@@ -33,7 +33,6 @@ class IdentityValidationBlockService extends BaseBlockService
 
     public function execute(BlockContextInterface $block, Response $response = null)
     {
-        // merge settings
         $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
         return $this->renderResponse('DemocracyOSNetIdAdminBundle:Blocks:block_identity_validation.html.twig', array(
             'block'     => $block,

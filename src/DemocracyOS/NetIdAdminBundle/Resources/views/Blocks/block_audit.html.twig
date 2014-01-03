@@ -1,4 +1,4 @@
-{% if is_granted('ROLE_AUDIT') or is_granted('ROLE_SUPER_ADMIN') %}
+{% if admin.isGranted('AUDIT') %}
     <table class="table table-bordered table-striped sonata-ba-list">
         <thead>
             <tr>

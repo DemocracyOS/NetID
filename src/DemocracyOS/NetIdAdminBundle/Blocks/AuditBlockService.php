@@ -40,7 +40,7 @@ class AuditBlockService extends BaseBlockService
             'block'     => $block,
             'settings'  => $settings,
             'md5'       => $md5,
-            'admin'     => $this->container->get('admin.sonata.audit')
+            'admin'     => $this->container->get('sonata.admin.identity')
             ), $response);
     }
 
