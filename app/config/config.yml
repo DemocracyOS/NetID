@@ -117,8 +117,7 @@ monolog:
     channels: ["audit"]
     handlers:
         audit:
-            type: stream
-            path: "%netid_log_path%"
+            type: console
             channels: [audit]
             formatter: json_formatter
 
