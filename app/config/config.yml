@@ -57,7 +57,6 @@ doctrine_mongodb:
     connections:
         default:
             server: %mongo_dbhost%
-            options: {}
     default_database: %mongo_dbname%
     document_managers:
         default:
@@ -77,7 +76,6 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts:   [admin]
         sonata.block.identity.validation: ~
-        sonata.block.audit: ~
 
 sonata_admin:
     title:      Net Id Admin
@@ -95,7 +93,6 @@ sonata_admin:
         blocks:
             - { position: left, type: sonata.admin.block.admin_list }
             - { position: left, type: sonata.block.identity.validation }
-            - { position: left, type: sonata.block.audit }
     security:
         handler: sonata.admin.security.handler.role
 
@@ -130,6 +127,3 @@ monolog:
             type: console
             channels: [audit]
             formatter: json_formatter
-
-parameters:
-    netid_log_path: "%kernel.root_dir%/logs/netid.log"
