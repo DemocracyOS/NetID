@@ -30,6 +30,8 @@ class AppKernel extends Kernel
             new DemocracyOS\NetIdAdminBundle\DemocracyOSNetIdAdminBundle(),
             new DemocracyOS\NetIdApiBundle\DemocracyOSNetIdApiBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
+            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
+            new Sonata\DoctrineMongoDBAdminBundle\SonataDoctrineMongoDBAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
