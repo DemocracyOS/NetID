@@ -15,7 +15,6 @@ class AuditAdmin extends Admin
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('downloadLog', 'download-log', array(), array('_method' => 'get'));
     }
 
     protected function configureFormFields(FormMapper $formMapper)
