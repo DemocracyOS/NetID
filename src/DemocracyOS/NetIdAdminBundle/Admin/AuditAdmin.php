@@ -12,6 +12,10 @@ class AuditAdmin extends Admin
 {
     protected $baseRoutePattern = 'audit';
     protected $baseRouteName = 'audit';
+    protected $datagridValues = array(
+        '_sort_order' => 'DESC',
+        '_sort_by' => 'datetime'
+    );
 
     protected function configureRoutes(RouteCollection $collection)
     {
