@@ -17,6 +17,7 @@ class AuditAdmin extends Admin
     {
         $collection
             ->remove('batch')
+            ->remove('create')
         ;
     }
 

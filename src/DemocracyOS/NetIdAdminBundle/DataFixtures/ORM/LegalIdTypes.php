@@ -13,7 +13,12 @@ class LegalIdTypes implements FixtureInterface
         $dni = new LegalIdType();
         $dni->setName('DNI');
 
-        $manager->persist($dni);
+        $repo = $manager->getRepository('DemocracyOSNetIdAdminBundle:LegalIdType');
+        $existing = $repo->findOneByName($dni->getName());
+        if (!$existing)
+        {
+	        $manager->persist($dni);
+        }
         $manager->flush();
     }
 }
