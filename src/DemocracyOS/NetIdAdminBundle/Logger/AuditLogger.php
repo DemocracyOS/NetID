@@ -70,14 +70,14 @@ class AuditLogger
 		
 		$server = $this->request->server;
 		$browserData = $server->get('HTTP_USER_AGENT');
-		$ip = $server->get('REMOTE_ADDR');
+		$ip = $this->request->getClientIp();
 
 		$logRecord = new LogRecord();
 		$logRecord->setIp($ip);
 		$logRecord->setBrowserData($browserData);
 		$logRecord->setRoles($subject->getRoles());
 		$logRecord->setAction($action);
-		$logRecord->setUsername($subject->getUsername());
+		$logRecord->setUsername((string) $subject);
 		$logRecord->setObject((string) $object);
 
 		$this->em->persist($logRecord);
