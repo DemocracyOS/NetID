@@ -17,24 +17,6 @@ class IdentityController extends CRUDController
     protected $id;
     protected $identity;
 
-    public function downloadLogAction()
-    {
-        $path = $this->container->getParameter('netid_log_path');
-        $content = file_get_contents($path);
-
-        $filename = 'log.json';
-        
-        $response = new Response();
-
-        $response->headers->set('Content-Type', 'json');
-        $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
-
-        $response->setContent($content);
-        $auditLogger = $this->container->get('audit_logger');
-        $auditLogger->log('exported log');
-        return $response;
-    }
-
     public function suspiciousAction($id)
     {
         $this->id = $id;
@@ -174,6 +156,8 @@ class IdentityController extends CRUDController
         $this->persistIdentity();
 
         $this->addFlash('sonata_flash_success', 'Identity successfully invalidated');
+        $auditLogger = $this->container->get('audit_logger');
+        $auditLogger->invalidate($this->identity);
         return $this->redirect($this->admin->generateUrl('identityValidateSearch'));
     }
 

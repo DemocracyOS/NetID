@@ -77,7 +77,7 @@ class IdentityAdmin extends Admin
             ->add('firstname')
             ->add('lastname')
             ->add('emails')
-            ->add('birthday')
+            ->add('birthday', 'datetime', array('format' => 'd/m/Y'))
             ->remove('batch')
             ->add('_action', 'actions', array(
                     'actions' => array(

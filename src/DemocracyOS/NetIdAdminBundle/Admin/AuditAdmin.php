@@ -15,6 +15,9 @@ class AuditAdmin extends Admin
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        $collection
+            ->remove('batch')
+        ;
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -27,5 +30,31 @@ class AuditAdmin extends Admin
 
     protected function configureListFields(ListMapper $listMapper)
     {
+        $listMapper
+            ->add('datetime', null, array('format' => 'd/m/y H:i:s'))
+            ->add('ip')
+            ->add('browserData')
+            ->add('username')
+            ->add('rolesList', 'text')
+            ->add('action')
+            ->add('object')
+            ->remove('batch')
+        ;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExportFields()
+    {
+        return array(
+            'datetime',
+            'ip',
+            'browserData',
+            'username',
+            'rolesList',
+            'action',
+            'object'
+        );
     }
 }

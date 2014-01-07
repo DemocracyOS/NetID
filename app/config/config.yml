@@ -113,7 +113,7 @@ services:
         class: Monolog\Formatter\JsonFormatter
     audit_logger:
         class: DemocracyOS\NetIdAdminBundle\Logger\AuditLogger
-        arguments: ["@monolog.logger.audit", "@security.context", "@service_container"]
+        arguments: ["@security.context", "@service_container"]
     login_listener:
         class: DemocracyOS\NetIdAdminBundle\Listener\LoginListener
         arguments: ["@audit_logger"]

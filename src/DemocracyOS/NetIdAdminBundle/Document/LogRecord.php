@@ -19,14 +19,22 @@ class LogRecord
 	/** @MongoDB\Hash */
 	protected $roles;
 
-	#	/** @ReferenceOne(targetDocument="User", inversedBy="posts") */
-	#protected $user;
+	/** @MongoDB\String */
+	protected $username;
 
-	#protected $action;
+    /** @MongoDB\String */
+	protected $action;
 
-	#protected $object;
+    /** @MongoDB\String */
+	protected $object;
 
-	#protected $datetime;
+    /** @MongoDB\Date */
+	protected $datetime;
+
+    public function __construct()
+    {
+        $this->datetime = new \DateTime();
+    }
 
     /**
      * Get id
@@ -102,5 +110,103 @@ class LogRecord
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    /**
+     * Set datetime
+     *
+     * @param date $datetime
+     * @return self
+     */
+    public function setDatetime($datetime)
+    {
+        $this->datetime = $datetime;
+        return $this;
+    }
+
+    /**
+     * Get datetime
+     *
+     * @return date $datetime
+     */
+    public function getDatetime()
+    {
+        return $this->datetime;
+    }
+
+    /**
+     * Set action
+     *
+     * @param string $action
+     * @return self
+     */
+    public function setAction($action)
+    {
+        $this->action = $action;
+        return $this;
+    }
+
+    /**
+     * Get action
+     *
+     * @return string $action
+     */
+    public function getAction()
+    {
+        return $this->action;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return self
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string $username
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Get roles list
+     *
+     * @return string $rolesList
+     */
+    public function getRolesList()
+    {
+        return implode(", ", $this->roles);
+    }
+
+    /**
+     * Set object
+     *
+     * @param string $object
+     * @return self
+     */
+    public function setObject($object)
+    {
+        $this->object = $object;
+        return $this;
+    }
+
+    /**
+     * Get object
+     *
+     * @return string $object
+     */
+    public function getObject()
+    {
+        return $this->object;
     }
 }

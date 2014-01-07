@@ -2,16 +2,18 @@
 
 namespace DemocracyOS\NetIdAdminBundle\Logger;
 
+use DemocracyOS\NetIdAdminBundle\Document\LogRecord;
+
 class AuditLogger
 {
-	protected $auditLogger;
 	protected $securityContext;
 	protected $request;
+	protected $em;
 
-	public function __construct($auditLogger, $securityContext, $container)
+	public function __construct($securityContext, $container)
 	{
-		$this->auditLogger = $auditLogger;
 		$this->securityContext = $securityContext;
+		$this->em = $container->get('doctrine_mongodb')->getManager();
 		if ($container->isScopeActive('request')) {
 			$this->request = $container->get('request');
 		}
@@ -64,31 +66,28 @@ class AuditLogger
 
 	public function log($action, $object = null)
 	{
-		if (!isset($subject))
-		{
-			$subject = $this->securityContext->getToken()->getUser();
-		}
+		$subject = $this->securityContext->getToken()->getUser();
 		
-		if (!isset($context))
-		{
-			$server = $this->request->server;
-			$userAgent = $server->get('HTTP_USER_AGENT');
-			$ip = $server->get('REMOTE_ADDR');
-			$context = array($userAgent, $ip);
-		}
+		$server = $this->request->server;
+		$browserData = $server->get('HTTP_USER_AGENT');
+		$ip = $server->get('REMOTE_ADDR');
 
-		$message = sprintf('%s %s', $subject, $action);
+		$logRecord = new LogRecord();
+		$logRecord->setIp($ip);
+		$logRecord->setBrowserData($browserData);
+		$logRecord->setRoles($subject->getRoles());
+		$logRecord->setAction($action);
+		$logRecord->setUsername($subject->getUsername());
+		$logRecord->setObject((string) $object);
+
+		$this->em->persist($logRecord);
+		$this->em->flush();
 
 		if (isset($object))
 		{
-			$message .= sprintf(' %s %s', $this->parse_classname(get_class($object)), $object);
+
 		}
 
-		$this->auditLogger->info($message, $context);
-	}
-
-	protected function parse_classname($name)
-	{
-	  return join('', array_slice(explode('\\', $name), -1));
+		#$this->auditLogger->info($message, $context);
 	}
 }
