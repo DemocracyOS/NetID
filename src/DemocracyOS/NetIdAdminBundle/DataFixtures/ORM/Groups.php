@@ -10,22 +10,29 @@ class Groups implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $superAdmin = new Group('Super admin');
+        $repo = $manager->getRepository('ApplicationSonataUserBundle:Group');
+        
+        $superAdmin = $repo->findOneByName('Super admin');
+        $superAdmin = $superAdmin ? $superAdmin : new Group('Super admin');
         $rolesSuperAdmin = array();
         $rolesSuperAdmin[] = 'ROLE_SUPER_ADMIN';
         $superAdmin->setRoles($rolesSuperAdmin);
 
-        $roleOperator = new Group('Operador');
+        $roleOperator = $repo->findOneByName('Operator');
+        $roleOperator = $roleOperator ? $roleOperator : new Group('Operator');
         $rolesOperator = array();
         $rolesOperator[] = 'ROLE_SONATA_ADMIN_IDENTITY_VALIDATE';
         $roleOperator->setRoles($rolesOperator);
 
-        $roleAuditor = new Group('Auditor');
+        $roleAuditor = $repo->findOneByName('Auditor');
+        $roleAuditor = $roleAuditor ? $roleAuditor : new Group('Auditor');
         $rolesAuditor = array();
-        $rolesAuditor[] = 'ROLE_SONATA_ADMIN_IDENTITY_AUDIT';
+        $rolesAuditor[] = 'ROLE_SONATA_ADMIN_AUDIT_LIST';
+        $rolesAuditor[] = 'ROLE_SONATA_ADMIN_AUDIT_EXPORT';
         $roleAuditor->setRoles($rolesAuditor);
 
-        $roleAdmin = new Group('Admin');
+        $roleAdmin = $repo->findOneByName('Admin');
+        $roleAdmin = $roleAdmin ? $roleAdmin : new Group('Admin');
         $rolesAdmin = array();
         $rolesAdmin[] = 'ROLE_SONATA_ADMIN_IDENTITY_CREATE';
         $rolesAdmin[] = 'ROLE_SONATA_ADMIN_IDENTITY_VIEW';
@@ -51,9 +58,9 @@ class Groups implements FixtureInterface
         $roleAdmin->setRoles($rolesAdmin);
 
         $manager->persist($superAdmin);
-        $manager->persist($roleAdmin);
         $manager->persist($roleOperator);
         $manager->persist($roleAuditor);
+        $manager->persist($roleAdmin);
         $manager->flush();
     }
 }

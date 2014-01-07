@@ -53,6 +53,15 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
 
+doctrine_mongodb:
+    connections:
+        default:
+            server: %mongo_dbhost%
+    default_database: %mongo_dbname%
+    document_managers:
+        default:
+            auto_mapping: true
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -67,7 +76,6 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts:   [admin]
         sonata.block.identity.validation: ~
-        sonata.block.audit: ~
 
 sonata_admin:
     title:      Net Id Admin
@@ -85,7 +93,6 @@ sonata_admin:
         blocks:
             - { position: left, type: sonata.admin.block.admin_list }
             - { position: left, type: sonata.block.identity.validation }
-            - { position: left, type: sonata.block.audit }
     security:
         handler: sonata.admin.security.handler.role
 
@@ -106,7 +113,7 @@ services:
         class: Monolog\Formatter\JsonFormatter
     audit_logger:
         class: DemocracyOS\NetIdAdminBundle\Logger\AuditLogger
-        arguments: ["@monolog.logger.audit", "@security.context", "@service_container"]
+        arguments: ["@security.context", "@service_container"]
     login_listener:
         class: DemocracyOS\NetIdAdminBundle\Listener\LoginListener
         arguments: ["@audit_logger"]
@@ -120,6 +127,3 @@ monolog:
             type: console
             channels: [audit]
             formatter: json_formatter
-
-parameters:
-    netid_log_path: "%kernel.root_dir%/logs/netid.log"

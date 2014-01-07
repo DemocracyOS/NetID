@@ -19,3 +19,6 @@ parameters:
     root_username: %root.username%
     root_password: %root.password%
     root_email: %root.email%
+
+    mongo_dbhost: mongodb://localhost:27017
+    mongo_dbname: netid_log

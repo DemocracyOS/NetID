@@ -41,10 +41,11 @@ services:
             - [ setContainer, [@service_container] ]
         tags:
             - { name: sonata.block, position: left, type: sonata.block.identity.validation }
-    sonata.block.audit:
-        class: DemocracyOS\NetIdAdminBundle\Blocks\AuditBlockService
-        arguments: [ "sonata.block.audit", @templating ]
-        calls:
-            - [ setContainer, [@service_container] ]
+    sonata.admin.audit:
+        class: DemocracyOS\NetIdAdminBundle\Admin\AuditAdmin
         tags:
-            - { name: sonata.block, position: left, type: sonata.block.audit }
+            - { name: sonata.admin, manager_type: doctrine_mongodb, group: "Content", label: "Audit" }
+        arguments:
+            - ~
+            - DemocracyOS\NetIdAdminBundle\Document\LogRecord
+            - ~
