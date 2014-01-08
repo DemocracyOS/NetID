@@ -34,6 +34,7 @@ Or set the `BUILDPACK_URL` config var on an existing app:
     
 Dependencies on `./composer.json` will be installed when pushed to heroku server.
 Procfile runs install.sh file which does the following tasks:
+
 1. Clears the production cache.
 2. Install bundles' assets.
 3. Dumps compiled assets to /web public folder
