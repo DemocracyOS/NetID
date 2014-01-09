@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 class IdentityAdmin extends Admin
@@ -35,6 +36,19 @@ class IdentityAdmin extends Admin
             ->add('unsuspicious', $this->getRouterIdParameter().'/unsuspicious')
             ->add('mark_unsuspicious', $this->getRouterIdParameter().'/mark_unsuspicious')
             ->add('downloadLog', 'download-log', array(), array('_method' => 'get'));
+        ;
+    }
+
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        $showMapper
+            ->add('fullname')
+            ->add('emails', 'sonata_type_collection', array(), array())
+            ->add('birthday', 'date', array('format' => 'd/M/Y'))
+            ->add('legalIdType')
+            ->add('legalId')
+            ->add('district')
+            ->add('applications')
         ;
     }
 
@@ -74,8 +88,7 @@ class IdentityAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('firstname')
-            ->add('lastname')
+            ->add('fullname')
             ->add('emails')
             ->add('birthday', 'datetime', array('format' => 'd/m/Y'))
             ->remove('batch')
