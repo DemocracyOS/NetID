@@ -80,9 +80,9 @@ class IdentityController extends CRUDController
         $auditLogger = $this->container->get('audit_logger');
         if ($isSuspicious)
         {
-            $auditLogger->markSuspicious($this->identity);
+            $auditLogger->markSuspicious($object);
         } else {
-            $auditLogger->unmarkSuspicious($this->identity);
+            $auditLogger->unmarkSuspicious($object);
         }
         return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
     }
