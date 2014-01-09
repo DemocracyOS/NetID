@@ -1,0 +1,40 @@
+Identity: Identidad
+Application: Aplicación
+Audit: Auditoría
+Identity Validation: Validación de Identidad
+Validate Identity: Validar identidad
+Action: Acción
+Search: Buscar
+Clear: Borrar
+
+# Identity
+Identity List: Identidades
+Fullname: Nombre completo
+Firstname: Nombre
+Lastname: Apellido
+Birthday: Fecha de nacimiento
+Suspicious identity: Identidad sospechosa
+Validated: Confirmado
+Legal Id Type: Tipo de documento
+Legal Id: Número de documento
+District: Localidad
+Applications: Aplicaciones
+
+# Application
+Application List: Aplicaciones
+Name: Nombre
+Description: Descripción
+Public Id: Id Público
+Secret: Clave secreta
+
+# Audit
+Log Record List: Auditoría
+Datetime: Fecha
+Ip: Dirección IP
+Browser Data: Datos del navegador
+Username: Nombre de usuario
+Roles List: Roles
+Object: Objeto
+
+# Validation
+Identity Validate: Validación de identidad

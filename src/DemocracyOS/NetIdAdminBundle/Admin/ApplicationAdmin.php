@@ -11,6 +11,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 class ApplicationAdmin extends Admin
 {
     protected $baseRoutePattern = 'application';
+    
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('batch');
@@ -43,6 +44,7 @@ class ApplicationAdmin extends Admin
         $listMapper
             ->addIdentifier('name')
             ->add('description')
+            ->remove('batch')
         ;
     }
 
