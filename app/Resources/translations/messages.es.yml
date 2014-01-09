@@ -4,6 +4,8 @@ Audit: Auditoría
 Identity Validation: Validación de Identidad
 Validate Identity: Validar identidad
 Action: Acción
+Search: Buscar
+Clear: Borrar
 
 # Identity
 Identity List: Identidades
@@ -33,3 +35,6 @@ Browser Data: Datos del navegador
 Username: Nombre de usuario
 Roles List: Roles
 Object: Objeto
+
+# Validation
+Identity Validate: Validación de identidad
