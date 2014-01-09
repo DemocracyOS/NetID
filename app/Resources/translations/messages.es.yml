@@ -17,3 +17,10 @@ Legal Id Type: Tipo de documento
 Legal Id: Número de documento
 District: Localidad
 Applications: Aplicaciones
+
+# Application
+Application List: Aplicaciones
+Name: Nombre
+Description: Descripción
+Public Id: Id Público
+Secret: Clave secreta
