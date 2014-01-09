@@ -76,6 +76,8 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts:   [admin]
         sonata.block.identity.validation: ~
+        sonata.admin.block.search_result:
+            contexts:   [admin]
 
 sonata_admin:
     title:      Net Id Admin
