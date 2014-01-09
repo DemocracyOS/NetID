@@ -24,3 +24,12 @@ Name: Nombre
 Description: Descripción
 Public Id: Id Público
 Secret: Clave secreta
+
+# Audit
+Log Record List: Auditoría
+Datetime: Fecha
+Ip: Dirección IP
+Browser Data: Datos del navegador
+Username: Nombre de usuario
+Roles List: Roles
+Object: Objeto
