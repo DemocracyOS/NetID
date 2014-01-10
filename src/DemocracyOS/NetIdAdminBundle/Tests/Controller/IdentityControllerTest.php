@@ -38,6 +38,10 @@ class IdentityControllerTest extends WebTestCase
         $this->client->request('GET', '/admin/identity/create');
 
         $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
+
+        $this->client->request('GET', '/admin/identity/list');
+
+        $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
     }
 
     protected function login($roles = array())
