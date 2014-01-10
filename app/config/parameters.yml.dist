@@ -22,3 +22,10 @@ parameters:
 
     mongo_dbhost: %mongo.dbhost%
     mongo_dbname: %mongo.dbname%
+
+    database_test_driver: %database.test.driver%
+    database_test_host: %database.test.host%
+    database_test_port: %database.test.port%
+    database_test_name: %database.test.name%
+    database_test_user: %database.test.user%
+    database_test_password: %database.test.password%
