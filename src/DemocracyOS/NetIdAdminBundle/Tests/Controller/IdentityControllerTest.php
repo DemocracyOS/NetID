@@ -29,7 +29,7 @@ class IdentityControllerTest extends WebTestCase
         ;
     }
 
-    public function testAuditorCantAccessToIdentityCreation()
+    public function testAuditorCantAccessToIdentityAdmin()
     {
         $auditor = $this->em->getRepository('ApplicationSonataUserBundle:Group')->findOneByName('Auditor');
 
@@ -40,6 +40,52 @@ class IdentityControllerTest extends WebTestCase
         $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
 
         $this->client->request('GET', '/admin/identity/list');
+
+        $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
+    }
+
+    public function testAuditorCantAccessToApplicationAdmin()
+    {
+        $auditor = $this->em->getRepository('ApplicationSonataUserBundle:Group')->findOneByName('Auditor');
+
+        $this->login($auditor->getRoles());
+
+        $this->client->request('GET', '/admin/application/create');
+
+        $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
+
+        $this->client->request('GET', '/admin/application/list');
+
+        $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
+    }
+
+    public function testAuditorCantAccessToUserAdmin()
+    {
+        $auditor = $this->em->getRepository('ApplicationSonataUserBundle:Group')->findOneByName('Auditor');
+
+        $this->login($auditor->getRoles());
+
+        $this->client->request('GET', '/admin/sonata/user/user/create');
+
+        $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
+
+        $this->client->request('GET', '/admin/sonata/user/user/list');
+
+        $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
+    }
+
+
+    public function testAuditorCantAccessToGroupAdmin()
+    {
+        $auditor = $this->em->getRepository('ApplicationSonataUserBundle:Group')->findOneByName('Auditor');
+
+        $this->login($auditor->getRoles());
+
+        $this->client->request('GET', '/admin/sonata/user/user/create');
+
+        $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
+
+        $this->client->request('GET', '/admin/sonata/user/user/list');
 
         $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
     }
