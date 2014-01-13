@@ -98,6 +98,11 @@ sonata_admin:
     security:
         handler: sonata.admin.security.handler.role
 
+sonata_user:
+    admin:
+        user:
+            class: Application\Sonata\UserBundle\Admin\Model\UserAdmin
+
 fos_user:
     db_driver: orm
     firewall_name: main
