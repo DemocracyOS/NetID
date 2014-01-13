@@ -31,71 +31,50 @@ class IdentityControllerTest extends WebTestCase
 
     public function testAuditorCantAccessToIdentityAdmin()
     {
-        $auditor = $this->em->getRepository('ApplicationSonataUserBundle:Group')->findOneByName('Auditor');
-
-		$this->login($auditor->getRoles());
-
-        $this->client->request('GET', '/admin/identity/create');
-
-        $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
-
-        $this->client->request('GET', '/admin/identity/list');
-
-        $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
+        $this->login('Auditor');
+        
+        $this->cantAccess('/admin/identity/create');
+        $this->cantAccess('/admin/identity/list');
     }
 
     public function testAuditorCantAccessToApplicationAdmin()
     {
-        $auditor = $this->em->getRepository('ApplicationSonataUserBundle:Group')->findOneByName('Auditor');
-
-        $this->login($auditor->getRoles());
-
-        $this->client->request('GET', '/admin/application/create');
-
-        $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
-
-        $this->client->request('GET', '/admin/application/list');
-
-        $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
+        $this->login('Auditor');
+        
+        $this->cantAccess('/admin/application/create');
+        $this->cantAccess('/admin/application/list');
     }
 
     public function testAuditorCantAccessToUserAdmin()
     {
-        $auditor = $this->em->getRepository('ApplicationSonataUserBundle:Group')->findOneByName('Auditor');
+        $this->login('Auditor');
 
-        $this->login($auditor->getRoles());
-
-        $this->client->request('GET', '/admin/sonata/user/user/create');
-
-        $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
-
-        $this->client->request('GET', '/admin/sonata/user/user/list');
-
-        $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
+        $this->cantAccess('/admin/user/create');
+        $this->cantAccess('/admin/user/list');
     }
-
 
     public function testAuditorCantAccessToGroupAdmin()
     {
-        $auditor = $this->em->getRepository('ApplicationSonataUserBundle:Group')->findOneByName('Auditor');
+        $this->login('Auditor');
 
-        $this->login($auditor->getRoles());
+        $this->cantAccess('/admin/group/list');
+        $this->cantAccess('/admin/group/create');
+    }
 
-        $this->client->request('GET', '/admin/sonata/user/user/create');
-
-        $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
-
-        $this->client->request('GET', '/admin/sonata/user/user/list');
-
+    protected function cantAccess($route)
+    {
+        $this->client->request('GET', $route);
         $this->assertTrue(403 === $this->client->getResponse()->getStatusCode());
     }
 
-    protected function login($roles = array())
+    protected function login($groupname)
     {
+        $group = $this->em->getRepository('ApplicationSonataUserBundle:Group')->findOneByName($groupname);
+
     	$session = $this->client->getContainer()->get('session');
 
         $firewall = 'admin';
-        $token = new UsernamePasswordToken('admin', null, $firewall, $roles);
+        $token = new UsernamePasswordToken('admin', null, $firewall, $group->getRoles());
         $session->set('_security_'.$firewall, serialize($token));
         $session->save();
 
