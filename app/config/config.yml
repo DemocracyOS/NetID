@@ -102,6 +102,8 @@ sonata_user:
     admin:
         user:
             class: Application\Sonata\UserBundle\Admin\Model\UserAdmin
+        group:
+            class: Application\Sonata\UserBundle\Admin\Model\GroupAdmin
 
 fos_user:
     db_driver: orm

@@ -37,4 +37,9 @@ class Group extends BaseGroup
     {
         return $this->id;
     }
+
+    public function getRolesList()
+    {
+        return implode(', ', $this->getRoles());
+    }
 }

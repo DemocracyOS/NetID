@@ -4,10 +4,18 @@ namespace Application\Sonata\UserBundle\Admin\Model;
 
 use Sonata\UserBundle\Admin\Model\UserAdmin as Admin;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class UserAdmin extends Admin
 {
     protected $baseRoutePattern = 'user';
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->remove('batch');
+    }
 
     /**
      * {@inheritdoc}
@@ -47,5 +55,16 @@ class UserAdmin extends Admin
                 ->end()
             ;
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function configureListFields(ListMapper $listMapper)
+    {
+        parent::configureListFields($listMapper);
+        $listMapper
+            ->remove('batch')
+        ;
     }
 }
