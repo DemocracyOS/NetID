@@ -42,4 +42,10 @@ class User extends BaseUser
     {
         return sprintf('#%s - %s', $this->id, $this->username);
     }
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->enabled = true;
+    }
 }
