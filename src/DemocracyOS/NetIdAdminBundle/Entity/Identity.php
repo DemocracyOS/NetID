@@ -28,6 +28,7 @@ class Identity
     public function __construct()
     {
         $this->applications = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getFullname()

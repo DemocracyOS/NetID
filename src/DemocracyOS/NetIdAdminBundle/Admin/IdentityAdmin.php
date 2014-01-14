@@ -57,19 +57,19 @@ class IdentityAdmin extends Admin
         $formMapper
             ->add('firstname')
             ->add('lastname')
-            ->add('emails', 'sonata_type_collection', array(), array(
+            ->add('emails', 'sonata_type_collection', array('required' => false), array(
                 'edit' => 'inline',
                 'inline' => 'table',
                 'sortable' => 'position',
             ))
-            ->add('birthday', 'birthday', array('format' => 'ddMMMMyyyy'))
+            ->add('birthday', 'birthday', array('format' => 'ddMMMMyyyy', 'required' => false))
             ->add('legalIdType')
             ->add('legalId')
             ->setHelps(array(
                'legalId' => 'Example: 33333333'
             ))
             ->add('district')
-            ->add('applications', 'sonata_type_collection', array(), array(
+            ->add('applications', 'sonata_type_collection', array('required' => false), array(
                 'edit' => 'inline',
                 'inline' => 'table',
                 'sortable' => 'position',
