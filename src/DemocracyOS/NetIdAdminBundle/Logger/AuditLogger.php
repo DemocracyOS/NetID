@@ -82,12 +82,5 @@ class AuditLogger
 
 		$this->em->persist($logRecord);
 		$this->em->flush();
-
-		if (isset($object))
-		{
-
-		}
-
-		#$this->auditLogger->info($message, $context);
 	}
 }

@@ -14,3 +14,24 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+doctrine:
+    dbal:
+        driver:   "%database_test_driver%"
+        host:     "%database_test_host%"
+        port:     "%database_test_port%"
+        dbname:   "%database_test_name%"
+        user:     "%database_test_user%"
+        password: "%database_test_password%"
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_mapping: true
+
+doctrine_mongodb:
+    connections:
+        default:
+            server: %mongo_dbhost_test%
+    default_database: %mongo_dbname_test%
+    document_managers:
+        default:
+            auto_mapping: true
