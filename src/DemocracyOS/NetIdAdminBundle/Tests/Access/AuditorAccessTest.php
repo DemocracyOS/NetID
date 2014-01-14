@@ -10,7 +10,7 @@ class AuditorAccessTest extends GenericAccessTest
 {
     public function testAuditorCantAccessToIdentityAdmin()
     {
-        $this->login('Auditor');
+        $this->login('auditor', 'auditor');
         
         $this->cantAccess('/admin/identity/create');
         $this->cantAccess('/admin/identity/list');
@@ -18,7 +18,7 @@ class AuditorAccessTest extends GenericAccessTest
 
     public function testAuditorCantAccessToApplicationAdmin()
     {
-        $this->login('Auditor');
+        $this->login('auditor', 'auditor');
         
         $this->cantAccess('/admin/application/create');
         $this->cantAccess('/admin/application/list');
@@ -26,7 +26,7 @@ class AuditorAccessTest extends GenericAccessTest
 
     public function testAuditorCantAccessToUserAdmin()
     {
-        $this->login('Auditor');
+        $this->login('auditor', 'auditor');
 
         $this->cantAccess('/admin/user/create');
         $this->cantAccess('/admin/user/list');
@@ -34,7 +34,7 @@ class AuditorAccessTest extends GenericAccessTest
 
     public function testAuditorCantAccessToGroupAdmin()
     {
-        $this->login('Auditor');
+        $this->login('auditor', 'auditor');
 
         $this->cantAccess('/admin/group/list');
         $this->cantAccess('/admin/group/create');
