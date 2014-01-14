@@ -25,13 +25,13 @@ class IdentityLogTest extends GenericAccessTest
 
     public function testIdentityCreationGeneratesLogRecord()
     {
-        $crawler = $this->client->request('GET', '/admin/login');
+        $this->login('admin', 'admin');
 
-        $form = $crawler->selectButton('_submit')->form();
-        $this->client->submit($form, array('_username' => 'auditor', '_password' => 'auditor'));
+        $crawler = $this->client->request('GET', '/admin/identity/create');
+        $form = $crawler->selectButton('btn_create_and_edit')->form();
+        var_dump($form);exit;
+        $this->client->submit($form, array('_username' => $username, '_password' => $password));
 
-        $crawler = $this->client->request('GET', '/admin/audit/list');
-
-        $this->assertTrue(200 === $this->client->getResponse()->getStatusCode());
+        var_dump($this->client->getResponse()->getStatusCode());exit;
     }
 }
