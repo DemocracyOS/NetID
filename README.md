@@ -1,5 +1,6 @@
 NetID
 =====
+[![Build Status](https://travis-ci.org/DemocracyOS/NetID.png?branch=master)](https://travis-ci.org/DemocracyOS/NetID)
 
 Administrative tool for validated identities used in DemocracyOS/app
 
