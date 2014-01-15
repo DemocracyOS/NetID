@@ -7,11 +7,11 @@ services:
   - mongodb
 
 before_script: 
-  - phpenv config-add travis_config.ini
-  - mongo netid_log_test
-  - composer install -n
-  - mysql -e 'create database myapp_test;'
   - cp app/config/parameters.yml.travis app/config/parameters.yml
+  - phpenv config-add travis_config.ini
+  - composer install -n
+  - mysql -e 'create database netid_test;'
+  - mongo netid_log_test
   - php app/console cache:clear --env=prod
   - php app/console assets:install --env=prod
   - php app/console assetic:dump --env=prod

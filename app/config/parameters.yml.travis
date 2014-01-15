@@ -23,7 +23,7 @@ parameters:
     database_test_driver: pdo_mysql
     database_test_host: 127.0.0.1
     database_test_port: ~
-    database_test_name: myapp_test
+    database_test_name: netid_test
     database_test_user: travis
     database_test_password: ~
 
