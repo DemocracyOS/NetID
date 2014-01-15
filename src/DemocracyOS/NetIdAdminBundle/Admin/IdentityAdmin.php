@@ -136,7 +136,7 @@ class IdentityAdmin extends Admin
 
     public function preRemove($identity)
     {
-        $this->auditLogger->delete($identity);   
+        $this->auditLogger->delete($identity);
     }
 
     /**
