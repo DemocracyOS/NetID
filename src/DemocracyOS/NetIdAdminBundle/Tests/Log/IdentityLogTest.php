@@ -49,6 +49,20 @@ class IdentityLogTest extends GenericAccessTest
         $this->assertEquals($logsCount + 1, $newCount);
     }
 
+    public function testIdentityDeleteGeneratesLogRecord()
+    {
+        $this->login('superAdmin', 'superAdmin');
+        
+        $this->persistTestIdentity();
+        
+        $logsCount = $this->getLogsCount();
+
+        $this->deleteTestIdentity();
+
+        $newCount = $this->getLogsCount();
+        $this->assertEquals($logsCount + 1, $newCount);
+    }
+
     protected function persistTestIdentity()
     {
         $crawler = $this->client->request('GET', '/admin/identity/create');
@@ -82,6 +96,16 @@ class IdentityLogTest extends GenericAccessTest
             }
         }
         $this->client->submit($form, array($firstname => 'Jane'));
+    }
+
+    protected function deleteTestIdentity()
+    {
+        $identityRepository = $this->em->getRepository('DemocracyOSNetIdAdminBundle:Identity');
+        $identities = $identityRepository->findAll();
+        $identity = $identities[0];
+        $crawler = $this->client->request('POST', sprintf('/admin/identity/%d/delete', $identity->getId()));
+        $form = $crawler->selectButton('delete')->form();
+        $this->client->submit($form);
     }
 
     protected function getLogsCount()
