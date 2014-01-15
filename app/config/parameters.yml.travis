@@ -1,0 +1,31 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: ~
+    database_host: ~
+    database_port: ~
+    database_name: ~
+    database_user: ~
+    database_password: ~
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+    locale: en
+    secret: ~
+    identity.validation.search.limit: 4
+    root_username: ~
+    root_password: ~
+    root_email: ~
+
+    mongo_dbhost: ~
+    mongo_dbname: ~
+
+    database_test_driver: pdo_mysql
+    database_test_host: 127.0.0.1
+    database_test_port: ~
+    database_test_name: myapp_test
+    database_test_user: travis
+    database_test_password: ~
+
+    mongo_dbhost_test: mongodb://localhost:27017
+    mongo_dbname_test: netid_log_test

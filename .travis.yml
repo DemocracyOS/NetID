@@ -8,15 +8,13 @@ services:
 
 before_script: 
   - phpenv config-add travis_config.ini
+  - mongo netid_log_test
   - composer install -n
   - mysql -e 'create database myapp_test;'
-  - cp app/config/parameters.yml.dist app/config/parameters.yml
+  - cp app/config/parameters.yml.travis app/config/parameters.yml
   - php app/console cache:clear --env=prod
   - php app/console assets:install --env=prod
   - php app/console assetic:dump --env=prod
   - php app/console doctrine:schema:update --force
 
 script: phpunit -c app
-
-env:
-  - SYMFONY__DATABASE__TEST__DRIVER=pdo_mysql SYMFONY__DATABASE__TEST__HOST=127.0.0.1 SYMFONY__DATABASE__TEST__PORT=null SYMFONY__DATABASE__TEST__NAME=myapp_test SYMFONY__DATABASE__TEST__USER=travis SYMFONY__DATABASE__TEST__PASSWORD=null SYMFONY__MONGO__DBHOST__TEST=127.0.0.1 SYMFONY__MONGO__DBNAME__TEST=netid_log_test
