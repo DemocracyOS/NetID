@@ -7,7 +7,8 @@ services:
   - mongodb
 
 before_script: 
-  - composer update
+  - phpenv config-add myconfig.ini
+  - composer install -n
   - mysql -e 'create database myapp_test;'
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - php app/console cache:clear --env=prod
