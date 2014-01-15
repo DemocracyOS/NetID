@@ -3,10 +3,13 @@ language: php
 php:
   - 5.4
 
+services: 
+  - mongodb
+
 before_script: 
+  - mysql -e 'create database myapp_test;'
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - composer self-update
-  - php app/console doctrin
   - php app/console cache:clear --env=prod
   - php app/console assets:install --env=prod
   - php app/console assetic:dump --env=prod
@@ -14,15 +17,11 @@ before_script:
 
 script: phpunit -c app
 
-services: 
-  - mongodb
-  - mysql
-
 env:
   - SYMFONY__DATABASE__TEST__DRIVER=pdo_mysql
   - SYMFONY__DATABASE__TEST__HOST=127.0.0.1
   - SYMFONY__DATABASE__TEST__PORT=null
-  - SYMFONY__DATABASE__TEST__NAME=netid_test
+  - SYMFONY__DATABASE__TEST__NAME=myapp_test
   - SYMFONY__DATABASE__TEST__USER=travis
   - SYMFONY__DATABASE__TEST__PASSWORD=null
   - SYMFONY__MONGO__DBHOST__TEST=127.0.0.1
