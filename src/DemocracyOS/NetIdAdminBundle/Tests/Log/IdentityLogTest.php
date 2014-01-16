@@ -23,6 +23,16 @@ class IdentityLogTest extends GenericAccessTest
         $this->mongoEm = static::$kernel->getContainer()->get('doctrine_mongodb')->getManager();
     }
 
+    public function testUserLoginGeneratesLogRecord()
+    {
+        $logsCount = $this->getLogsCount();
+
+        $this->login('admin', 'admin');
+        
+        $newCount = $this->getLogsCount();
+        $this->assertEquals($logsCount + 1, $newCount);
+    }
+
     public function testIdentityCreationGeneratesLogRecord()
     {
         $this->login('admin', 'admin');
