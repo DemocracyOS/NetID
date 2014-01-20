@@ -5,6 +5,7 @@ namespace DemocracyOS\NetIdAdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication;
+use DemocracyOS\NetIdAdminBundle\Entity\Email;
 
 /**
  * Identity
@@ -25,10 +26,14 @@ class Identity
         }
     }
 
-    public function __construct()
+    public function __construct($email = null)
     {
         $this->applications = new \Doctrine\Common\Collections\ArrayCollection();
         $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
+        if ($email)
+        {
+            $this->addEmail(new Email($email));
+        }
     }
 
     public function getFullname()

@@ -128,6 +128,8 @@ services:
         arguments: ["@audit_logger"]
         tags:
             - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+    request_headers_parser:
+        class: DemocracyOS\NetIdApiBundle\Entity\RequestHeadersParser
 
 monolog:
     channels: ["audit"]

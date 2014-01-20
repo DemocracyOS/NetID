@@ -8,7 +8,7 @@ use DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="DemocracyOS\NetIdAdminBundle\Repository\ApplicationRepository")
  * @ORM\Table(name="application")
  */
 class Application extends BaseClient
@@ -34,6 +34,11 @@ class Application extends BaseClient
      * @ORM\OneToMany(targetEntity="\DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication", mappedBy="applications")
      */
     protected $identities;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AccessToken", mappedBy="client")
+     */
+    protected $accessTokens;
     
 
     /**
@@ -146,5 +151,15 @@ class Application extends BaseClient
     public function getIdentities()
     {
         return $this->identities;
+    }
+
+    /**
+     * Get accessTokens
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAccessTokens()
+    {
+        return $this->accessTokens;
     }
 }

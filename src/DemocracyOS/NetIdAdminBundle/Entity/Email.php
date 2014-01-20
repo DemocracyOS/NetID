@@ -20,6 +20,12 @@ class Email
         return $this->email;
     }
 
+    public function __construct($email = null, $validated = false)
+    {
+        $this->email = $email;
+        $this->validated = $validated;
+    }
+
 	/**
      * @var integer
      *

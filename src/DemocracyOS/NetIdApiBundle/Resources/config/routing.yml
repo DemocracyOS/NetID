@@ -2,3 +2,8 @@ verify:
     path:     /api/verify
     defaults: { _controller: DemocracyOSNetIdApiBundle:Identity:verify }
     methods: [POST]
+
+create:
+    path:     /api/create
+    defaults: { _controller: DemocracyOSNetIdApiBundle:Identity:create }
+    methods: [POST]

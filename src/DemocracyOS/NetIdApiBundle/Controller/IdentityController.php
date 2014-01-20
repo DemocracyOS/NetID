@@ -6,14 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use DemocracyOS\NetIdApiBundle\Entity\Identity;
+use DemocracyOS\NetIdAdminBundle\Entity\Identity;
 
 class IdentityController extends Controller
 {
-    public function verifyAction()
+    public function verifyAction(Request $request)
     {
-        $email = $this->get('request')->request->get('email');
-        $identityRepository = $this->getDoctrine()->getManager()->getRepository('DeRNetIdBundle:Identity');
+        $email = $request->get('email');
+        $identityRepository = $this->getDoctrine()->getManager()->getRepository('DemocracyOSNetIdAdminBundle:Identity');
         $identity = $identityRepository->findOneByEmail($email);
         $response = new JsonResponse();
         if (!$identity->isValidated())
@@ -26,5 +26,28 @@ class IdentityController extends Controller
             $response->headers->set('Content-Type', 'text/html');
         }
         return $response;
+    }
+
+    public function createAction(Request $request)
+    {
+        $parser = $this->get('request_headers_parser');
+        $token = $parser->getAccessToken();
+        $em = $this->getDoctrine()->getManager();
+        $applicationRepository = $em->getRepository('DemocracyOSNetIdApiBundle:Application');
+        $application = $applicationRepository->findOneByAccessToken($token);
+        
+        $email = $request->get('email');
+        $firstname = $request->get('firstname');
+        $lastname = $request->get('lastname');
+
+        $identity = new Identity($email);
+        $identity->setFirstname($firstname);
+        $identity->setLastname($lastname);
+        $em->persist($identity);
+        $em->flush();
+        $response = new JsonResponse();
+        $response->setData(array('id' => $identity->getId()));
+        $response->setStatusCode(200);
+        $response->headers->set('Content-Type', 'text/html');
     }
 }
