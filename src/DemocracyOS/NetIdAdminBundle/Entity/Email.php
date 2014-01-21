@@ -9,9 +9,8 @@ use DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication;
 /**
  * Email
  *
- * @ORM\Entity
  * @ORM\Table(name="email")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="DemocracyOS\NetIdAdminBundle\Repository\EmailRepository")
  */
 class Email
 {
@@ -95,7 +94,7 @@ class Email
      * @param boolean $validated
      * @return Email
      */
-    public function setValidated($validated)
+    public function setValidated($validated = true)
     {
         $this->validated = $validated;
 

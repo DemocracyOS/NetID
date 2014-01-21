@@ -7,3 +7,8 @@ create:
     path:     /api/create
     defaults: { _controller: DemocracyOSNetIdApiBundle:Identity:create }
     methods: [POST]
+
+verify_email:
+    path:     /api/verify-email
+    defaults: { _controller: DemocracyOSNetIdApiBundle:Identity:verifyEmail }
+    methods: [POST]

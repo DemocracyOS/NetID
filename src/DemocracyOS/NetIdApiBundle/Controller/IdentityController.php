@@ -52,9 +52,31 @@ class IdentityController extends Controller
         $identity->addApplication($identityApplication);
         $em->persist($identity);
         $em->flush();
+
         $response = new JsonResponse();
         $response->setData(array('id' => $identity->getId()));
         $response->setStatusCode(200);
         $response->headers->set('Content-Type', 'text/html');
+        return $response;
+    }
+
+    public function verifyEmailAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $emailRepository = $em->getRepository('DemocracyOSNetIdAdminBundle:Email');
+        
+        $email = $request->get('email');
+        $foreignId = $request->get('foreignId');
+
+        $email = $emailRepository->findByForeignIdAndEmail($foreignId, $email);
+        $email->setValidated();
+        $em->persist($email);
+        $em->flush();
+        
+        $response = new JsonResponse();
+        $response->setData(array('email' => $email->getEmail(), 'validated' => $email->getValidated()));
+        $response->setStatusCode(200);
+        $response->headers->set('Content-Type', 'text/html');
+        return $response;
     }
 }

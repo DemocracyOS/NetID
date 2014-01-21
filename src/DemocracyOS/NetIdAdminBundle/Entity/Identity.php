@@ -10,7 +10,6 @@ use DemocracyOS\NetIdAdminBundle\Entity\Email;
 /**
  * Identity
  *
- * @ORM\Entity
  * @ORM\Table(name="identity")
  * @ORM\Entity(repositoryClass="DemocracyOS\NetIdAdminBundle\Repository\IdentityRepository")
  */
