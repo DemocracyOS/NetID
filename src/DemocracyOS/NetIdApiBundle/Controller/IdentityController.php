@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use DemocracyOS\NetIdAdminBundle\Entity\Identity;
+use DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication;
 
 class IdentityController extends Controller
 {
@@ -39,10 +40,16 @@ class IdentityController extends Controller
         $email = $request->get('email');
         $firstname = $request->get('firstname');
         $lastname = $request->get('lastname');
+        $foreignId = $request->get('foreignId');
 
         $identity = new Identity($email);
         $identity->setFirstname($firstname);
         $identity->setLastname($lastname);
+        $identityApplication = new IdentityApplication();
+        $identityApplication->setApplication($application);
+        $identityApplication->setIdentity($identity);
+        $identityApplication->setForeignId($foreignId);
+        $identity->addApplication($identityApplication);
         $em->persist($identity);
         $em->flush();
         $response = new JsonResponse();

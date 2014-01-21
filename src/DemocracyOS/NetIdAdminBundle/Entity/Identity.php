@@ -98,7 +98,7 @@ class Identity
     protected $district;
 
     /**
-     * @ORM\OneToMany(targetEntity="IdentityApplication", mappedBy="identity", cascade={"persist", "merge"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="IdentityApplication", mappedBy="identity", cascade={"all"}, orphanRemoval=true)
      */
     private $applications;
 
