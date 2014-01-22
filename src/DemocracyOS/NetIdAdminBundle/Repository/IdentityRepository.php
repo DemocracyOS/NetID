@@ -24,4 +24,20 @@ class IdentityRepository extends EntityRepository
             ->setParameter('lastname', $identitySearch->getLastname())
             ->getResult();
     }
+
+    public function findOneByEmail($email)
+    {
+        try {
+            return $this->getEntityManager()
+                ->createQuery(
+                    "SELECT i FROM DemocracyOSNetIdAdminBundle:Identity i 
+                    LEFT JOIN i.emails e
+                    WHERE   (:email is null or e.email = :email)"
+                )
+                ->setParameter('email', $email)
+                ->getSingleResult();
+        } catch (\Doctrine\Orm\NoResultException $e) {
+            return null;
+        }
+    }
 }
