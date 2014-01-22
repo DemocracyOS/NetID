@@ -38,3 +38,4 @@ Object: Objeto
 
 # Validation
 Identity Validate: Validación de identidad
+not.verified.identity: La identidad no se encuentra validada

@@ -17,7 +17,7 @@ class IdentityController extends Controller
         $identityRepository = $this->getDoctrine()->getManager()->getRepository('DemocracyOSNetIdAdminBundle:Identity');
         $identity = $identityRepository->findOneByEmail($email);
         $response = new JsonResponse();
-        if (!$identity->isValidated())
+        if ($identity->isValidated())
         {
             $response->setStatusCode(200);
         } else {
