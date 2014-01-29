@@ -39,3 +39,12 @@ Object: Objeto
 # Validation
 Identity Validate: Validación de identidad
 not.verified.identity: La identidad no se encuentra validada
+Validate: Validar
+Invalidate: Invalidar
+validate: validar
+invalidate: invalidar
+Identity validation: Validación de identidad
+Are you sure you want to %action% this identity?: ¿Está seguro que desea %action% esta identidad?
+This action will be logged for future reference: Esta acción será registrada para guardar un registro
+I understand, %action%!: Entiendo, ¡%action%!
+Cancel: Cancelar
