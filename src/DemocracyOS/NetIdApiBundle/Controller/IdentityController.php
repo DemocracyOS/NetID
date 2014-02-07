@@ -11,12 +11,21 @@ use DemocracyOS\NetIdAdminBundle\Entity\IdentityApplication;
 
 class IdentityController extends Controller
 {
+    protected $response;
+
+    public function __construct()
+    {
+        $this->response = new JsonResponse();
+        $this->response->headers->set('Content-Type', 'application/json');
+    }
+
     public function verifyAction(Request $request)
     {
         $email = $request->get('email');
         $identityRepository = $this->getDoctrine()->getManager()->getRepository('DemocracyOSNetIdAdminBundle:Identity');
         $identity = $identityRepository->findOneByEmail($email);
-        $response = new JsonResponse();
+        $response = $this->response;
+
         if ($identity->isValidated())
         {
             $response->setStatusCode(200);
@@ -24,7 +33,6 @@ class IdentityController extends Controller
             $errorMessage = $this->get('translator')->trans('not.verified.identity');
             $response->setData(array('error' => $errorMessage));
             $response->setStatusCode(403);
-            $response->headers->set('Content-Type', 'text/html');
         }
         return $response;
     }
@@ -35,28 +43,43 @@ class IdentityController extends Controller
         $token = $parser->getAccessToken();
         $em = $this->getDoctrine()->getManager();
         $applicationRepository = $em->getRepository('DemocracyOSNetIdApiBundle:Application');
+        $identityRepository = $em->getRepository('DemocracyOSNetIdAdminBundle:Identity');
         $application = $applicationRepository->findOneByAccessToken($token);
         
         $email = $request->get('email');
         $firstname = $request->get('firstname');
         $lastname = $request->get('lastname');
         $foreignId = $request->get('foreignId');
+        $emailValidated = $request->get('emailValidated');
 
-        $identity = new Identity($email);
+        $response = $this->response;
+
+        $identity = $identityRepository->findOneByEmail($email);
+        $exists = isset($identity);
+        
+        if (!isset($identity)) {
+            $identity = new Identity($email, $emailValidated);
+            $identityApplication = new IdentityApplication();
+            $identityApplication->setApplication($application);
+            $identityApplication->setIdentity($identity);
+            $identityApplication->setForeignId($foreignId);
+            $identity->addApplication($identityApplication);
+        }
+        
         $identity->setFirstname($firstname);
         $identity->setLastname($lastname);
-        $identityApplication = new IdentityApplication();
-        $identityApplication->setApplication($application);
-        $identityApplication->setIdentity($identity);
-        $identityApplication->setForeignId($foreignId);
-        $identity->addApplication($identityApplication);
+        
         $em->persist($identity);
         $em->flush();
 
-        $response = new JsonResponse();
-        $response->setData(array('id' => $identity->getId()));
-        $response->setStatusCode(200);
-        $response->headers->set('Content-Type', 'text/html');
+        if ($exists)
+        {
+            $response->setData(array('error' => 'Email already exists', 'id' => $identity->getId()));
+            $response->setStatusCode(409);
+        } else {
+            $response->setData(array('id' => $identity->getId()));
+            $response->setStatusCode(200);   
+        }
         return $response;
     }
 
@@ -73,10 +96,9 @@ class IdentityController extends Controller
         $em->persist($email);
         $em->flush();
         
-        $response = new JsonResponse();
+        $response = $this->response;
         $response->setData(array('email' => $email->getEmail(), 'validated' => $email->getValidated()));
         $response->setStatusCode(200);
-        $response->headers->set('Content-Type', 'text/html');
         return $response;
     }
 }

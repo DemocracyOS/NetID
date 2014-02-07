@@ -25,14 +25,11 @@ class Identity
         }
     }
 
-    public function __construct($email = null)
+    public function __construct($email = null, $validated = false)
     {
         $this->applications = new \Doctrine\Common\Collections\ArrayCollection();
         $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
-        if ($email)
-        {
-            $this->addEmail(new Email($email));
-        }
+        $this->addEmail(new Email($email, $validated));
     }
 
     public function getFullname()
@@ -413,8 +410,11 @@ class Identity
      */
     public function addEmail(\DemocracyOS\NetIdAdminBundle\Entity\Email $email)
     {
-        $this->emails[] = $email;
-        $email->setIdentity($this);
+        if (!in_array($email, $this->emails->toArray()))
+        {
+            $this->emails[] = $email;
+            $email->setIdentity($this);
+        }
 
         return $this;
     }
