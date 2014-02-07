@@ -30,5 +30,5 @@ parameters:
     database_test_user: %database.test.user%
     database_test_password: %database.test.password%
 
-    mongo_dbhost_test: %mongo_dbhost_test%
-    mongo_dbname_test: %mongo_dbname_test%
+    mongo_dbhost_test: %mongo.dbhost.test%
+    mongo_dbname_test: %mongo.dbname.test%
