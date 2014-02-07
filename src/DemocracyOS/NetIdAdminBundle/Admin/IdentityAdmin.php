@@ -61,6 +61,7 @@ class IdentityAdmin extends Admin
                 'edit' => 'inline',
                 'inline' => 'table',
                 'sortable' => 'position',
+                'empty_data' => null
             ))
             ->add('birthday', 'birthday', array('format' => 'ddMMMMyyyy', 'required' => false))
             ->add('legalIdType')
