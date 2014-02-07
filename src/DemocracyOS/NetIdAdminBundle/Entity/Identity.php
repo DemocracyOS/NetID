@@ -29,7 +29,10 @@ class Identity
     {
         $this->applications = new \Doctrine\Common\Collections\ArrayCollection();
         $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->addEmail(new Email($email, $validated));
+        if ($email)
+        {
+            $this->addEmail(new Email($email, $validated));
+        }
     }
 
     public function getFullname()
