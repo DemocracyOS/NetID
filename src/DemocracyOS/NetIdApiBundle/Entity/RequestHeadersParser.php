@@ -8,8 +8,8 @@ class RequestHeadersParser
 
     public function __construct()
     {
-        if (!function_exists('apache_request_headers')) { 
-            function apache_request_headers() { 
+        if (!function_exists('getallheaders')) { 
+            function getallheaders() { 
                 foreach($_SERVER as $key=>$value) { 
                     if (substr($key,0,5)=="HTTP_") { 
                         $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5))))); 
