@@ -22,7 +22,7 @@ class Email
     public function __construct($email = null, $validated = false)
     {
         $this->email = $email;
-        $this->validated = $validated;
+        $this->validated = isset($validated) && $validated;
     }
 
 	/**
