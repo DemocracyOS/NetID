@@ -64,7 +64,7 @@ class IdentityController extends Controller
             #$identityApplication->setApplication($application);
             #$identityApplication->setIdentity($identity);
             #$identityApplication->setForeignId($foreignId);
-            $identity->addApplication($identityApplication);
+            #$identity->addApplication($identityApplication);
         }
         
         $identity->setFirstname($firstname . $token);
