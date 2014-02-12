@@ -2,42 +2,46 @@
 
 namespace DemocracyOS\NetIdApiBundle\Entity;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class RequestHeadersParser
 {
     protected $headers;
+    protected $request;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
-        if (!function_exists('getallheaders')) 
-        { 
-            function getallheaders() 
-            { 
-                $headers = array(); 
-                foreach ($_SERVER as $name => $value) 
-                { 
-                    if (substr($name, 0, 5) == 'HTTP_') 
-                    { 
-                        $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value; 
-                    } 
-                } 
-                return $headers; 
-            }
-        }
-        fwrite(STDOUT, sprintf("existe la funcion getallheaders? %s", function_exists('getallheaders')));
-        fwrite(STDOUT, sprintf("devuelve %j", getallheaders()));
-        $this->headers = getallheaders();
-    }
-
-    public function get($header)
-    {
-        return $this->headers[$header];
+        $this->request = $request;
     }
 
     public function getAccessToken()
     {
-        $authorization = $this->get('Authorization');
-        $token = explode(' ', $authorization);
-        $token = isset($token[1]) ? $token[1] : null;
+        $header = null;
+        if (!$this->request->headers->has('AUTHORIZATION')) {
+          if (function_exists('apache_request_headers')) {
+            $headers = apache_request_headers();
+
+            $headers = array_combine(array_map('ucwords', array_keys($headers)), array_values($headers));
+
+            if (isset($headers['Authorization'])) {
+              $header = $headers['Authorization'];
+            }
+          }
+        } else {
+          $header = $this->request->headers->get('AUTHORIZATION');
+        }
+
+        if (!$header) {
+            return NULL;
+        }
+
+
+        if (!preg_match('/'.preg_quote('Bearer', '/').'\s(\S+)/', $header, $matches)) {
+          return NULL;
+        }
+
+        $token = $matches[1];
+
         return $token;
     }
 }
