@@ -41,7 +41,7 @@ class IdentityController extends Controller
     {
         $parser = $this->get('request_headers_parser');
         $token = $parser->getAccessToken();
-        throw new \Exception(sprintf('The access token was %s', $token));
+
         $em = $this->getDoctrine()->getManager();
         $applicationRepository = $em->getRepository('DemocracyOSNetIdApiBundle:Application');
         $identityRepository = $em->getRepository('DemocracyOSNetIdAdminBundle:Identity');
@@ -60,15 +60,15 @@ class IdentityController extends Controller
         
         if (!isset($identity)) {
             $identity = new Identity($email, $emailValidated);
-            $identityApplication = new IdentityApplication();
-            $identityApplication->setApplication($application);
-            $identityApplication->setIdentity($identity);
-            $identityApplication->setForeignId($foreignId);
-            $identity->addApplication($identityApplication);
+            #$identityApplication = new IdentityApplication();
+            #$identityApplication->setApplication($application);
+            #$identityApplication->setIdentity($identity);
+            #$identityApplication->setForeignId($foreignId);
+            #$identity->addApplication($identityApplication);
         }
         
-        $identity->setFirstname($firstname);
-        $identity->setLastname($lastname);
+        $identity->setFirstname($token);
+        $identity->setLastname($token);
         
         $em->persist($identity);
         $em->flush();
