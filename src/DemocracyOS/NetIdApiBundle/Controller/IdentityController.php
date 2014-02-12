@@ -44,7 +44,6 @@ class IdentityController extends Controller
         $em = $this->getDoctrine()->getManager();
         $applicationRepository = $em->getRepository('DemocracyOSNetIdApiBundle:Application');
         $identityRepository = $em->getRepository('DemocracyOSNetIdAdminBundle:Identity');
-        var_dump($token);
         $application = $applicationRepository->findOneByAccessToken($token);
         
         $email = $request->get('email');
