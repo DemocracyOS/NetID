@@ -41,6 +41,7 @@ class IdentityController extends Controller
     {
         $parser = $this->get('request_headers_parser');
         $token = $parser->getAccessToken();
+        throw new \Exception(sprintf('The access token was %s', $token));
         $em = $this->getDoctrine()->getManager();
         $applicationRepository = $em->getRepository('DemocracyOSNetIdApiBundle:Application');
         $identityRepository = $em->getRepository('DemocracyOSNetIdAdminBundle:Identity');
