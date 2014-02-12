@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RequestHeadersParser
 {
-    protected $headers;
     protected $request;
 
     public function __construct(Request $request)

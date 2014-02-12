@@ -64,11 +64,11 @@ class IdentityController extends Controller
             #$identityApplication->setApplication($application);
             #$identityApplication->setIdentity($identity);
             #$identityApplication->setForeignId($foreignId);
-            #$identity->addApplication($identityApplication);
+            $identity->addApplication($identityApplication);
         }
         
-        $identity->setFirstname($token);
-        $identity->setLastname($token);
+        $identity->setFirstname($firstname . $token);
+        $identity->setLastname($lastname . $token);
         
         $em->persist($identity);
         $em->flush();
