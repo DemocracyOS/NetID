@@ -60,15 +60,15 @@ class IdentityController extends Controller
         
         if (!isset($identity)) {
             $identity = new Identity($email, $emailValidated);
-            #$identityApplication = new IdentityApplication();
-            #$identityApplication->setApplication($application);
-            #$identityApplication->setIdentity($identity);
-            #$identityApplication->setForeignId($foreignId);
-            #$identity->addApplication($identityApplication);
+            $identityApplication = new IdentityApplication();
+            $identityApplication->setApplication($application);
+            $identityApplication->setIdentity($identity);
+            $identityApplication->setForeignId($foreignId);
+            $identity->addApplication($identityApplication);
         }
         
-        $identity->setFirstname($firstname . $token);
-        $identity->setLastname($lastname . $token);
+        $identity->setFirstname($firstname);
+        $identity->setLastname($lastname);
         
         $em->persist($identity);
         $em->flush();
