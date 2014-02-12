@@ -23,6 +23,8 @@ class RequestHeadersParser
                 return $headers; 
             }
         }
+        fwrite(STDOUT, sprintf("existe la funcion getallheaders? %s", function_exists('getallheaders')));
+        fwrite(STDOUT, sprintf("devuelve %j", getallheaders()));
         $this->headers = getallheaders();
     }
 
