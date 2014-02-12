@@ -17,15 +17,26 @@ class RequestHeadersParser
     {
         $header = null;
         if (!$this->request->headers->has('AUTHORIZATION')) {
-          if (function_exists('apache_request_headers')) {
+            if (!function_exists('apache_request_headers')) {
+                function apache_request_headers() { 
+                    foreach($_SERVER as $key=>$value) { 
+                        if (substr($key,0,5)=="HTTP_") { 
+                            $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5))))); 
+                            $out[$key]=$value; 
+                        } else { 
+                            $out[$key]=$value; 
+                        } 
+                    } 
+                    return $out; 
+                } 
+            }
             $headers = apache_request_headers();
 
             $headers = array_combine(array_map('ucwords', array_keys($headers)), array_values($headers));
 
             if (isset($headers['Authorization'])) {
-              $header = $headers['Authorization'];
+                $header = $headers['Authorization'];
             }
-          }
         } else {
           $header = $this->request->headers->get('AUTHORIZATION');
         }
