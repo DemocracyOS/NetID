@@ -8,17 +8,19 @@ class RequestHeadersParser
 
     public function __construct()
     {
-        if (!function_exists('getallheaders')) { 
-            function getallheaders() { 
-                foreach($_SERVER as $key=>$value) { 
-                    if (substr($key,0,5)=="HTTP_") { 
-                        $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5))))); 
-                        $out[$key]=$value; 
-                    }else{ 
-                        $out[$key]=$value; 
+        if (!function_exists('getallheaders')) 
+        { 
+            function getallheaders() 
+            { 
+                $headers = array(); 
+                foreach ($_SERVER as $name => $value) 
+                { 
+                    if (substr($name, 0, 5) == 'HTTP_') 
+                    { 
+                        $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value; 
                     } 
                 } 
-                return $out; 
+                return $headers; 
             }
         }
         $this->headers = getallheaders();
