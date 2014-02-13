@@ -13,7 +13,12 @@ class Districts implements FixtureInterface
         $buenosAiresCity = new District();
         $buenosAiresCity->setName('Ciudad Autónoma de Buenos Aires');
 
-        $manager->persist($buenosAiresCity);
-        $manager->flush();
+        $repo = $manager->getRepository('DemocracyOSNetIdAdminBundle:District');
+        $existing = $repo->findOneByName($buenosAiresCity->getName());
+        if (!$existing)
+        {
+	        $manager->persist($buenosAiresCity);
+	        $manager->flush();
+        }
     }
 }
