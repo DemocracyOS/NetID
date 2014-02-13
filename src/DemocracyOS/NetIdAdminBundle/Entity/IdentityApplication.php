@@ -4,6 +4,7 @@ namespace DemocracyOS\NetIdAdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use DemocracyOS\NetIdApiBundle\Entity\Application;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * IdentityApplication
@@ -14,12 +15,11 @@ use DemocracyOS\NetIdApiBundle\Entity\Application;
 class IdentityApplication
 {
     /**
-     * Constructor
+     * toString
      */
-    public function __construct()
+    public function __toString()
     {
-        $this->identities = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->applications = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->application;
     }
 
 	/**
@@ -43,6 +43,7 @@ class IdentityApplication
 
 	/**
      * @ORM\Column(name="foreign_id", nullable=false)
+     * @Assert\NotBlank(message = "The foreign id should not be blank")
      */
     protected $foreignId;
 

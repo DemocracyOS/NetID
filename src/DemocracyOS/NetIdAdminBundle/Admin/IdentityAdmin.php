@@ -15,6 +15,9 @@ class IdentityAdmin extends Admin
     protected $container;
     protected $auditLogger;
     protected $baseRouteName = 'identity';
+    protected $formOptions = array(
+        'cascade_validation' => true        
+     );
 
     public function setContainer($container)
     {
