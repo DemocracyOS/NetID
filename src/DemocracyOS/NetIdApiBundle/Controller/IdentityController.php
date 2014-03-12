@@ -51,21 +51,17 @@ class IdentityController extends Controller
         $firstname = $request->get('firstname');
         $lastname = $request->get('lastname');
         $foreignId = $request->get('foreignId');
-        $emailValidated = $request->get('emailValidated');
 
         $response = $this->response;
 
         $identity = $identityRepository->findOneByEmail($email);
         $exists = isset($identity);
         
-        if (!isset($identity)) {
-            $identity = new Identity($email, $emailValidated);
-            $identityApplication = new IdentityApplication();
-            $identityApplication->setApplication($application);
-            $identityApplication->setIdentity($identity);
-            $identityApplication->setForeignId($foreignId);
-            $identity->addApplication($identityApplication);
-        }
+        if (!$exists)
+        {
+            $identity = new Identity($email, true);  
+        } 
+        $identity->setAppliationAndForeignId($application, $foreignId);
         
         $identity->setFirstname($firstname);
         $identity->setLastname($lastname);

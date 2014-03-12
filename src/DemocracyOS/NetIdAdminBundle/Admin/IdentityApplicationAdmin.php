@@ -16,7 +16,7 @@ class IdentityApplicationAdmin extends Admin
     {
         $formMapper
             ->add('application', 'sonata_type_model', array('btn_add' => false))
-            ->add('foreignId')
+            ->add('foreignId', 'text', array('read_only' => true))
         ;
     }
 

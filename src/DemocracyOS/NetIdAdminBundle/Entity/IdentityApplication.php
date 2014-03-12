@@ -42,8 +42,7 @@ class IdentityApplication
     protected $application;
 
 	/**
-     * @ORM\Column(name="foreign_id", nullable=false)
-     * @Assert\NotBlank(message = "The foreign id should not be blank")
+     * @ORM\Column(name="foreign_id", nullable=true)
      */
     protected $foreignId;
 

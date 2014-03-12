@@ -296,6 +296,22 @@ class Identity
         return $this->applications;
     }
 
+    public function setAppliationAndForeignId($application, $foreignId)
+    {
+        foreach ($this->applications as $app) {
+            if ($app->getApplication()->getId() == $application->getId())
+            {
+                $app->setForeignId($foreignId);
+                return;
+            }
+        }
+        $identityApplication = new IdentityApplication();
+        $identityApplication->setApplication($application);
+        $identityApplication->setIdentity($this);
+        $identityApplication->setForeignId($foreignId);
+        $this->addApplication($identityApplication);
+    }
+
     /**
      * Is validated
      *
