@@ -29,3 +29,4 @@ parameters:
 
     mongo_dbhost_test: mongodb://localhost:27017
     mongo_dbname_test: netid_log_test
+    access_token_lifetime: 3600
