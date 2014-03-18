@@ -116,6 +116,10 @@ fos_oauth_server:
     access_token_class:  DemocracyOS\NetIdApiBundle\Entity\AccessToken
     refresh_token_class: DemocracyOS\NetIdApiBundle\Entity\RefreshToken
     auth_code_class:     DemocracyOS\NetIdApiBundle\Entity\AuthCode
+    service:
+        user_provider: fos_user.user_manager
+        options:
+            access_token_lifetime: %netid.access_token_lifetime%
 
 services:
     json_formatter:
