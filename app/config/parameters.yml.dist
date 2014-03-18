@@ -33,4 +33,4 @@ parameters:
     mongo_dbhost_test: %mongo.dbhost.test%
     mongo_dbname_test: %mongo.dbname.test%
 
-    netid.access_token_lifetime: %access tokenlifetime in seconds%
+    netid_access_token_lifetime: %access.tokenlifetime.in.seconds%

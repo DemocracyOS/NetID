@@ -119,7 +119,7 @@ fos_oauth_server:
     service:
         user_provider: fos_user.user_manager
         options:
-            access_token_lifetime: %netid.access_token_lifetime%
+            access_token_lifetime: %access.tokenlifetime.in.seconds%
 
 services:
     json_formatter:
