@@ -1,0 +1,13 @@
+{% if admin.isGranted('VALIDATE') %}
+	{% if not object.validated %}
+		<a href="{{ admin.generateObjectUrl('validateIdentity', object) }}" class="btn delete_link btn-small" title="{{ "Validate identity" | trans }}">
+		    <i class="icon-user"></i>
+		    {{ "Validate identity" | trans }}
+		</a>
+	{% else %}
+		<a href="{{ admin.generateObjectUrl('invalidateIdentity', object) }}" class="btn delete_link btn-small" title="{{ "Invalidate identity" | trans }}">
+		    <i class="icon-fast-backward"></i>
+		    {{ "Invalidate identity" | trans }}
+		</a>
+	{% endif %}
+{% endif %}
