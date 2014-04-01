@@ -101,7 +101,8 @@ class IdentityAdmin extends Admin
                         'show' => array(),
                         'edit' => array(),
                         'delete' => array(),
-                        'suspicious' => array('template' => 'DemocracyOSNetIdAdminBundle:Identity:suspiciousButton.html.twig'),
+                        'validate' => array('template' => 'DemocracyOSNetIdAdminBundle:Identity:validateButton.html.twig'),
+                        'suspicious' => array('template' => 'DemocracyOSNetIdAdminBundle:Identity:suspiciousButton.html.twig')
                     )
                 )
             )
